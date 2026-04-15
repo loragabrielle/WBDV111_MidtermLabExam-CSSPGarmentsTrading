@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CSSP Garments Trading – Maritime Uniforms</title>
+  
+  <!-- fontawesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" /> 
+  <link rel="stylesheet" href="Style.css" />
+</head>
+<body>
+ 
+  <!-- PRE-HEADER TICKER -->
+  <!-- infinite scrolling -->
+  <div class="pre-header">
+    <div class="ticker-track" id="tickerTrack">
+      <span><i class="fa-solid fa-ship"></i> National Delivery: 3 Days</span>
+      <span><i class="fa-solid fa-map-location-dot"></i> Provincial Delivery: 5 Days</span>
+      <span><i class="fa-solid fa-globe"></i> International Shipping: 1 Week</span>
+      <span><i class="fa-solid fa-headset"></i> Customer Service: 7AM – 7PM</span>
+      <span><i class="fa-solid fa-shield-halved"></i> 100% Secure Checkout</span>
+      <span><i class="fa-solid fa-box-open"></i> Welcome Offer: Free Shipping</span>
+    </div>
+  </div>
+ 
+  <!-- HEADER / NAVIGATION -->
+  <header class="site-header" id="siteHeader">
+    <div class="header-inner">
+ 
+      <!-- logo -->
+      <a href="Index.html" class="logo-wrap">
+        <div class="logo-icon">
+          <img src="logo-light-text.png" class="logo-img light-logo" alt="Logo">
+          <img src="logo-dark-text.png" class="logo-img dark-logo" alt="Logo">
+        </div>
+          <div class="logo-text">CSSP<span>Garments&nbsp;Trading</span></div>
+        </a>
+
+          <nav class="main-nav" id="mainNav">
+            <ul class="nav-list">
+            <li class="nav-item has-mega">
+              <a href="./Products.html" class="nav-link">Products <i class="fa-solid fa-chevron-down nav-caret"></i></a>
+                <div class="mega-menu">
+                  <div class="mega-inner">
+                    <div class="mega-col">
+                      <p class="mega-label">Uniforms</p>
+                        <div class="mega-feature-card">
+                        <img src="https://placehold.co/200x140/f4d03f/1a3a5c?text=Maritime+%26+Culinary+Uniforms" alt="Maritime & Culinary Uniforms" />
+                        <p>Maritime & Culinary Uniforms</p>
+                        <a href="#" class="btn-sm">Gear Up</a>
+                      </div>
+                    </div> 
+                  <div class="mega-col">
+                    <p class="mega-label">Safety Footwear</p>
+                      <div class="mega-feature-card">
+                      <img src="https://placehold.co/200x140/f4d03f/1a3a5c?text=Steel-toe+Safety+Shoe" alt="Steel-toe Safety Shoe" />
+                      <p>Steel-toe Safety Shoe</p>
+                      <a href="#" class="btn-sm">Secure Step</a>
+                  </div>
+                    </div> 
+                      </div> 
+                        </div>  
+                          </li>   
+
+          <!-- about us mega menu -->
+          <li class="nav-item has-mega">
+            <a href="./AboutUs.html" class="nav-link">About Us <i class="fa-solid fa-chevron-down nav-caret"></i></a>
+            <div class="mega-menu">
+              <div class="mega-inner">
+                <div class="mega-col">
+                  <p class="mega-label">Company</p>
+                  <a href="./AboutUs.html" class="mega-item text-only"><i class="fa-solid fa-anchor"></i> Our Story</a>
+                  <a href="./AboutUs.html" class="mega-item text-only"><i class="fa-solid fa-users"></i> Our Team</a>
+                  <a href="./AboutUs.html" class="mega-item text-only"><i class="fa-solid fa-house"></i> Location</a>
+                </div>
+                <div class="mega-col">
+                  <p class="mega-label">Support</p>
+                  <a href="#faq" class="mega-item text-only"><i class="fa-solid fa-circle-question"></i> FAQ</a>
+                  <a href="./Contact.html" class="mega-item text-only"><i class="fa-solid fa-envelope"></i> Contact Us</a>
+                  <a href="./Policies.html" class="mega-item text-only"><i class="fa-solid fa-file-contract"></i> Policies</a>
+                </div>
+                  </div>
+                    </div>
+                      </li>
+                        </nav>
+ 
+          <!--  upper-right-side icon group -->
+            <div class="header-actions">
+ 
+            <!-- currency switcher -->
+              <div class="currency-switcher" id="currencySwitcher">
+                <button class="currency-btn" id="currencyBtn">
+                  <i class="fa-solid fa-coins"></i>
+                  <span id="activeCurrency">PHP</span>
+                  <i class="fa-solid fa-chevron-down"></i>
+                </button>
+                  <ul class="currency-dropdown" id="currencyDropdown">
+                    <li data-currency="PHP" data-symbol="₱">🇵🇭 PHP</li>
+                    <li data-currency="USD" data-symbol="$">🇺🇸 USD</li>
+                    <li data-currency="EUR" data-symbol="€">🇪🇺 EUR</li>
+                  </ul>
+                    </div>
+ 
+           <!-- cart icon -->
+            <button class="icon-btn" title="Cart">
+              <i class="fa-solid fa-cart-shopping"></i>
+                <span class="badge" id="cartBadge">0</span>
+            </button>
+ 
+          <!-- search icon -->
+            <button class="icon-btn" id="searchToggle" title="Search">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+ 
+          <!-- light/dark mode toggle -->
+            <button class="theme-toggle" id="themeToggle" title="Toggle Theme">
+              <i class="fa-solid fa-sun" id="themeIcon"></i>
+            </button>
+ 
+          <!-- Hamburger (mobile only) -->
+            <button class="hamburger" id="hamburger" aria-label="Open menu">
+              <span></span><span></span><span></span>
+            </button>
+              </div>
+                </div>
+ 
+          <!-- search bar (hidden until toggled) -->
+            <div class="search-bar" id="searchBar">
+              <input type="text" placeholder="Search uniforms, PPE, shoes..." id="searchInput" />
+                <button>
+                  <i class="fa-solid fa-magnifying-glass"></i></button>
+                </div>
+                  </header>
+ 
+        <!-- hero section ===== -->
+          <section class="hero" id="home">
+            <div class="hero-inner">
+              <div class="hero-text">
+                <p class="hero-sub"><i class="fa-solid fa-water"></i> Maritime Grade Equipment</p>
+                  <h1 class="hero-title">Dressed for<br><span>The Deep.</span></h1>
+                    <p class="hero-desc">Premium coveralls, kitchen uniforms, PPE, and safety shoes built for sailors, cooks, and crew members who demand quality above sea level.</p>
+                      <div class="hero-btns">
+                      <a href="./Products.html" class="btn-primary">View Products <i class="fa-solid fa-arrow-right"></i></a>
+                      <a href="./AboutUs.html" class="btn-ghost">Our Story <i class="fa-solid fa-compass"></i></a>
+                      </div>
+                      
+          <div class="hero-stats">
+            <div class="stat"><strong>500+</strong><span>Marine Clients</span></div>
+              <div class="stat"><strong>1K+</strong><span>Units Delivered</span></div>
+                <div class="stat"><strong>100%</strong><span>PPE Certified</span></div>
+                  </div>
+                  </div>
+      
+          <div class="hero-image-wrap">
+              <div class="hero-image-frame">
+                <img src="./hero-area image.JPG" alt="Maritime Uniforms" class="hero-img" />
+                <div class="hero-badge"><i class="fa-solid fa-anchor"></i><span>Est. 2024</span></div>
+                </div>
+              </div>
+            </div>
+
+          <!-- decorative wave bottom -->
+            <div class="hero-wave">
+              <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg"><path d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" /></svg>
+            </div>
+          </section>
+
+          <!-- INFINITE TICKER 1 -->
+            <div class="section-ticker">
+              <div class="ticker2-track">
+                <span><i class="fa-solid fa-helmet-safety""></i> Safety-first construction</span>
+                <span><i class="fa-solid fa-cloud-showers-heavy"></i> All-weather resilience</span>
+                <span><i class="fa-solid fa-shield-halved"></i> PPE Standards</span>
+                <span><i class="fa-solid fa-water"></i> Built for the Sea</span>
+                <span><i class="fa-solid fa-ship"></i> Trusted by Crews</span>
+                <span><i class="fa-solid fa-link"></i> Triple-needle stitching</span>
+                <span><i class="fa-solid fa-hand-sparkles"></i> Easy-care maintenance</span>
+                <span><i class="fa-solid fa-anchor"></i> Maritime Grade</span>
+                <span><i class="fa-solid fa-shield-halved"></i> PPE Standards</span>
+                <span><i class="fa-solid fa-water"></i> Built for the Sea</span>
+                <span><i class="fa-solid fa-infinity"></i> Extended wear-life</span>
+                <span><i class="fa-solid fa-lock"></i> Secure-fit fasteners</span>
+              </div>
+            </div>
+ 
+          <!-- EXPLORE COLLECTION -->
+          <section class="products" id="products">
+            <div class="section-header">
+              <p class="section-sub">What We Offer</p>
+                <h2 class="section-title">Explore The Collection</h2>
+            </div>
+ 
+          <!-- carousel wrapper -->
+          <div class="carousel-wrap">
+            <button class="carousel-btn prev" id="prevBtn"><i class="fa-solid fa-chevron-left"></i></button>
+              <div class="product-grid" id="productGrid">
+ 
+              <!-- product card – hover swaps image -->
+                <div class="product-card">
+                  <div class="card-image-wrap">
+                    <img class="img-front" src="https://placehold.co/320x380/1a3a5c/f4d03f?text=Coverall+Front" alt="Coverall Front" />
+                    <img class="img-back" src="https://placehold.co/320x380/f4d03f/1a3a5c?text=Coverall+Back" alt="Coverall Back" />
+                      <div class="card-badges"><span class="badge-tag">Bestseller</span></div>
+                      <button class="quick-add" data-price="1200"><i class="fa-solid fa-cart-plus"></i> Quick Add</button>
+                        </div>
+                        <div class="card-info">
+                          <p class="card-category">Uniforms</p>
+                            <h3 class="card-name">Marine Coverall Pro</h3>
+                              <p class="card-price" data-base="1200">₱1,200</p>
+                        </div>
+                      </div>
+ 
+                <div class="product-card">
+                  <div class="card-image-wrap">
+                    <img class="img-front" src="https://placehold.co/320x380/e63946/ffffff?text=Kitchen+Front" alt="Kitchen Front" />
+                    <img class="img-back" src="https://placehold.co/320x380/ffffff/e63946?text=Kitchen+Back" alt="Kitchen Back" />
+                      <div class="card-badges"><span class="badge-tag new">New</span></div>
+                      <button class="quick-add" data-price="950"><i class="fa-solid fa-cart-plus"></i> Quick Add</button>
+                        </div>
+                        <div class="card-info">
+                          <p class="card-category">Kitchen</p>
+                            <h3 class="card-name">Chef's Galley Uniform</h3>
+                              <p class="card-price" data-base="950">₱950</p>
+                        </div>
+                      </div>
+ 
+                <div class="product-card">
+                  <div class="card-image-wrap">
+                    <img class="img-front" src="https://placehold.co/320x380/2d6a4f/ffffff?text=Safety+Shoe+F" alt="Safety Shoe Front" />
+                    <img class="img-back" src="https://placehold.co/320x380/ffffff/2d6a4f?text=Safety+Shoe+B" alt="Safety Shoe Back" />
+                      <div class="card-badges"><span class="badge-tag sale">Sale</span></div>
+                      <button class="quick-add" data-price="1800"><i class="fa-solid fa-cart-plus"></i> Quick Add</button>
+                        </div>
+                        <div class="card-info">
+                          <p class="card-category">Footwear</p>
+                            <h3 class="card-name">Deck Safety Boot</h3>
+                              <p class="card-price" data-base="1800">₱1,800</p>
+                        </div>
+                      </div>
+ 
+                <div class="product-card">
+                  <div class="card-image-wrap">
+                    <img class="img-front" src="https://placehold.co/320x380/f4d03f/1a3a5c?text=Jacket+Front" alt="Jacket Front" />
+                    <img class="img-back" src="https://placehold.co/320x380/1a3a5c/f4d03f?text=Jacket+Back" alt="Jacket Back" />
+                      <div class="card-badges"><span class="badge-tag">Bestseller</span></div>
+                      <button class="quick-add" data-price="2500"><i class="fa-solid fa-cart-plus"></i> Quick Add</button>
+                        </div>
+                        <div class="card-info">
+                          <p class="card-category">Outerwear</p>
+                            <h3 class="card-name">Storm Crew Jacket</h3>
+                              <p class="card-price" data-base="2500">₱2,500</p>
+                        </div>
+                      </div>
+ 
+                <div class="product-card">
+                  <div class="card-image-wrap">
+                    <img class="img-front" src="https://placehold.co/320x380/e63946/f4d03f?text=PPE+Front" alt="PPE Front" />
+                    <img class="img-back" src="https://placehold.co/320x380/f4d03f/e63946?text=PPE+Back" alt="PPE Back" />
+                      <div class="card-badges"><span class="badge-tag">Certified</span></div>
+                      <button class="quick-add" data-price="3200"><i class="fa-solid fa-cart-plus"></i> Quick Add</button>
+                        </div>
+                        <div class="card-info">
+                          <p class="card-category">PPE</p>
+                            <h3 class="card-name">Full PPE Kit Set</h3>
+                              <p class="card-price" data-base="3200">₱3,200</p>
+                        </div>
+                      </div>
+
+                <div class="product-card">
+                  <div class="card-image-wrap">
+                    <img class="img-front" src="https://placehold.co/320x380/e63946/f4d03f?text=PPE+Front" alt="PPE Front" />
+                    <img class="img-back" src="https://placehold.co/320x380/f4d03f/e63946?text=PPE+Back" alt="PPE Back" />
+                      <div class="card-badges"><span class="badge-tag">Certified</span></div>
+                      <button class="quick-add" data-price="3200"><i class="fa-solid fa-cart-plus"></i> Quick Add</button>
+                        </div>
+                        <div class="card-info">
+                          <p class="card-category">PPE</p>
+                            <h3 class="card-name">Full PPE Kit Set</h3>
+                              <p class="card-price" data-base="3200">₱3,200</p>
+                        </div>
+                      </div>
+
+                <div class="product-card">
+                  <div class="card-image-wrap">
+                    <img class="img-front" src="https://placehold.co/320x380/e63946/f4d03f?text=PPE+Front" alt="PPE Front" />
+                    <img class="img-back" src="https://placehold.co/320x380/f4d03f/e63946?text=PPE+Back" alt="PPE Back" />
+                      <div class="card-badges"><span class="badge-tag">Certified</span></div>
+                      <button class="quick-add" data-price="3200"><i class="fa-solid fa-cart-plus"></i> Quick Add</button>
+                      </div>
+                          <button class="carousel-btn next" id="nextBtn"><i class="fa-solid fa-chevron-right"></i></button>
+                      </div>
+ 
+                      <div class="carousel-dots" id="carouselDots"></div>
+            </section>
+ 
+          <!-- INFINITE TICKER 2 -->
+            <div class="section-ticker reverse">
+              <div class="ticker2-track reverse">
+                <span><i class="fa-solid fa-circle-check"></i> Made to Last</span>
+                <span><i class="fa-solid fa-scissors"></i> Precision Stitching</span>
+                <span><i class="fa-solid fa-truck"></i> Fast Nationwide Delivery</span>
+                <span><i class="fa-solid fa-compass"></i> Navigate Your Style</span>
+                <span><i class="fa-solid fa-layer-group"></i> High-Grade Materials</span>
+                <span><i class="fa-solid fa-eye"></i> Attention to Every Detail</span>
+                <span><i class="fa-solid fa-thumbs-up"></i> Designed for Comfort</span>
+                <span><i class="fa-solid fa-shield-heart"></i> Reliable Durability</span>
+                <span><i class="fa-solid fa-truck"></i> Fast Nationwide Delivery</span>
+                <span><i class="fa-solid fa-diamond"></i> Built to Last a Lifetime</span>
+                <span><i class="fa-solid fa-wind"></i> Weatherproof Designs</span>
+                <span><i class="fa-solid fa-award"></i> Unmatched Premium Quality</span>
+              </div>
+            </div>
+ 
+          <!-- ABOUT SECTION -->
+            <section class="about" id="about">
+              <div class="about-inner">
+                <div class="about-image">
+                  <img src="./about image.JPG" alt="About CSSP" />
+                    <div class="about-float-card">
+                      <i class="fa-solid fa-ship"></i>
+                        <p>Supplying the Seas<br>Since <strong>2024</strong></p>
+                </div>
+              </div>
+              <div class="about-text">
+                <p class="section-sub">Who We Are</p>
+                  <h2 class="section-title">Built Tough.<br>Made for the Maritime World.</h2>
+                    <p>CSSP Garments Trading has been the go-to supplier for maritime and commercial vessel uniforms since 2024. From the engine room to the galley, we outfit every crew member with durable, certified, and professional-grade gear.</p>
+                      <ul class="about-list">
+                        <li><i class="fa-solid fa-check-circle"></i> Crafted with a focus on longevity</li>
+                        <li><i class="fa-solid fa-check-circle"></i> Professional fit for every crew member</li>
+                        <li><i class="fa-solid fa-check-circle"></i> Full uniform sets for kitchen and deck staff</li>
+                        <li><i class="fa-solid fa-check-circle"></i> Custom bulk orders for shipping companies</li>
+                      </ul>
+                        <a href="#products" class="btn-primary">Browse Products <i class="fa-solid fa-arrow-right"></i></a>
+                  </div>
+                </div>
+              </section>
+ 
+          <!-- PRODUCT REVIEWS -->
+            <section class="reviews" id="reviews">
+              <div class="section-header">
+                <p class="section-sub">What Clients Say</p>
+                <h2 class="section-title">Crew Reviews</h2>
+              </div>
+ 
+          <!-- review slider -->
+            <div class="review-slider-wrap">
+              <div class="review-slider" id="reviewSlider">
+              
+                <div class="review-card active">
+                  <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"The coveralls held up for 6 months straight at sea without a single tear. The stitching is just incredible. CSSP is the only supplier we'll ever use."</p>
+                      <div class="reviewer">
+                        <img src="https://placehold.co/48x48/1a3a5c/f4d03f?text=JR" alt="Juan R." />
+                          <div><strong>Juan Reyes</strong><span>Chief Officer, MV Sampaguita</span></div>
+                      </div>
+                          </div>
+ 
+                <div class="review-card">
+                  <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"We ordered 200 kitchen uniforms for our cruise vessel. The quality was top-notch and delivery was right on schedule. Very professional team!"</p>
+                      <div class="reviewer">
+                        <img src="https://placehold.co/48x48/2d6a4f/ffffff?text=ML" alt="Maria L." />
+                          <div><strong>Maria Lim</strong><span>Fleet Manager, Oceanic Lines</span></div>
+                      </div>
+                          </div>
+ 
+                <div class="review-card">
+                  <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"The PPE kits are certified and the boots are super comfortable even after 12-hour shifts. My entire deck crew is now wearing CSSP gear."</p>
+                      <div class="reviewer">
+                        <img src="https://placehold.co/48x48/e63946/ffffff?text=RC" alt="Roberto C." />
+                          <div><strong>Roberto Cruz</strong><span>Safety Officer, Harbour Express</span></div>
+                      </div>
+                          </div>
+ 
+                <div class="review-card">
+                  <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"Fast delivery and great customer support. Ordered from Cebu, arrived in 3 days. The jackets are perfect for cold-room operations on our vessel."</p>
+                      <div class="reviewer">
+                        <img src="https://placehold.co/48x48/f4d03f/1a3a5c?text=AT" alt="Ana T." />
+                          <div><strong>Ana Torres</strong><span>Procurement Head, SeaRoute Corp</span></div>
+                      </div>
+                        </div>
+                </div>
+
+                <div class="slider-controls">
+                  <button class="slider-dot active" data-index="0"></button>
+                  <button class="slider-dot" data-index="1"></button>
+                  <button class="slider-dot" data-index="2"></button>
+                  <button class="slider-dot" data-index="3"></button>
+                </div>
+            </div>
+ 
+          <!-- review form -->
+          <div class="review-form-wrap">
+            <h3>Leave Your Review</h3>
+              <div class="star-picker" id="starPicker">
+                <span data-val="1">★</span><span data-val="2">★</span><span data-val="3">★</span><span data-val="4">★</span><span data-val="5">★</span>
+              </div>
+                <input type="text" id="reviewName" placeholder="Your name & company" />
+                <textarea id="reviewText" placeholder="Tell us about your experience..."></textarea>
+                <button class="btn-primary" id="submitReview">Submit Review <i class="fa-solid fa-paper-plane"></i></button>
+                <p class="review-success" id="reviewSuccess" style="display:none;"><i class="fa-solid fa-circle-check"></i> Thank you! Your review has been submitted.</p>
+              </div>
+        </section>
+ 
+            <!-- INFINITE TICKER 3 -->
+              <div class="section-ticker">
+                <div class="ticker2-track">
+                  <span><i class="fa-solid fa-anchor"></i> Anchored in Quality</span>
+                  <span><i class="fa-solid fa-wave-square"></i> Ride Every Wave</span>
+                  <span><i class="fa-solid fa-person-walking-luggage"></i> Outfitted for Adventure</span>
+                  <span><i class="fa-solid fa-life-ring"></i> Safety First Always</span>
+                  <span><i class="fa-solid fa-binoculars"></i> See the Horizon Clearly</span>
+                  <span><i class="fa-solid fa-flag"></i> Proud Maritime Brand</span>
+                  <span><i class="fa-solid fa-anchor"></i> Anchored in Quality</span>
+                  <span><i class="fa-solid fa-wave-square"></i> Ride Every Wave</span>
+                  <span><i class="fa-solid fa-person-walking-luggage"></i> Outfitted for Adventure</span>
+                  <span><i class="fa-solid fa-life-ring"></i> Safety First Always</span>
+                  <span><i class="fa-solid fa-binoculars"></i> See the Horizon Clearly</span>
+                  <span><i class="fa-solid fa-flag"></i> Proud Maritime Brand</span>
+                </div>
+              </div>
+ 
+            <!-- FAQ SECTION -->
+              <section class="faq" id="faq">
+                <div class="section-header">
+                  <p class="section-sub">Got Questions?</p>
+                  <h2 class="section-title">Frequently Asked</h2>
+                </div>
+                  <div class="faq-list">
+ 
+                    <div class="faq-item">
+                      <button class="faq-q">What is the minimum order for bulk purchases? <i class="fa-solid fa-plus faq-icon"></i></button>
+                        <div class="faq-a"><p>For bulk orders, the minimum quantity is 10 pieces per item. Special pricing starts at 50+ units. Contact us via our form or email for a quotation.</p></div>
+                    </div>
+ 
+                    <div class="faq-item">
+                      <button class="faq-q">Do you offer custom logo/branding on uniforms? <i class="fa-solid fa-plus faq-icon"></i></button>
+                        <div class="faq-a"><p>Yes! We offer embroidery and screen printing for company logos on all uniform types. Lead time for custom orders is 5–10 business days depending on quantity.</p></div>
+                    </div>
+ 
+                    <div class="faq-item">
+                      <button class="faq-q">Are your PPE kits internationally certified? <i class="fa-solid fa-plus faq-icon"></i></button>
+                        <div class="faq-a"><p>All PPE products carry ISO and DOLE certifications. We also supply gear compliant with SOLAS (Safety of Life at Sea) maritime regulations.</p></div>
+                    </div>
+ 
+                    <div class="faq-item">
+                      <button class="faq-q">What are your delivery timelines? <i class="fa-solid fa-plus faq-icon"></i></button>
+                        <div class="faq-a"><p>National (Metro Manila & nearby): 3 days. Provincial: 5 days. International shipping: approximately 1 week. Rush orders available upon request with surcharge.</p></div>
+                    </div>
+ 
+                    <div class="faq-item">
+                      <button class="faq-q">How do I place an order or request a quote? <i class="fa-solid fa-plus faq-icon"></i></button>
+                        <div class="faq-a"><p>You can use the Contact form below, email us at <strong>orders@csspgarments.com</strong>, or call us at <strong>+63 912 345 6789</strong> between 7AM – 7PM daily.</p></div>
+                    </div>
+ 
+                  </div>
+              </section>
+ 
+            <!-- FOOTER -->
+              <footer class="site-footer" id="footer">
+                <div class="footer-wave">
+                  <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg"><path d="M0,40 C360,0 1080,80 1440,40 L1440,0 L0,0 Z" /></svg>
+                </div>
+                  <div class="footer-inner">
+ 
+                  <!-- brand col -->
+                  <div class="footer-col brand-col">
+                    <div class="footer-logo">
+                      <i class="fa-solid fa-ship"></i>
+                      <span>CSSP Garments Trading</span>
+                    </div>
+                      <p>Your trusted maritime uniform supplier since 2024. Quality gear for every sailor, cook, and crew member.</p>
+                      <div class="social-icons">
+                        <a href="#" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
+                        <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+                        <a href="#" title="Viber"><i class="fa-brands fa-viber"></i></a>
+                      </div>
+                    </div>
+ 
+            <!-- quick links -->
+              <div class="footer-col">
+                <h4>Quick Links</h4>
+                  <ul>
+                    <li><a href="#home"><i class="fa-solid fa-chevron-right"></i> Home</a></li>
+                    <li><a href="#products"><i class="fa-solid fa-chevron-right"></i> Products</a></li>
+                    <li><a href="#about"><i class="fa-solid fa-chevron-right"></i> About Us</a></li>
+                    <li><a href="#reviews"><i class="fa-solid fa-chevron-right"></i> Reviews</a></li>
+                    <li><a href="#faq"><i class="fa-solid fa-chevron-right"></i> FAQ</a></li>
+                  </ul>
+              </div>
+ 
+              <div class="footer-bottom">
+                <p>&copy; 2024 CSSP Garments Trading. All rights reserved.<br> Designed by Logmunch!</p>
+                  <div class="legal-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms & Conditions</a>
+                    <a href="#">Shipping Policy</a>
+                  </div>
+              </div>
+            </footer>
+ 
+            <!-- back to top button -->
+              <button class="back-to-top" id="backToTop" title="Back to Top">
+                <i class="fa-solid fa-anchor"></i>
+              </button>
+ 
+            <script src="Script.js"></script>
+    </body>
+</html>
