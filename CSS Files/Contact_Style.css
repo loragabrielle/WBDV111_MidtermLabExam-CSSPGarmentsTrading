@@ -1,0 +1,152 @@
+/* =============================================
+   CONTACT PAGE STYLES
+============================================= */
+
+/* PAGE BACKGROUND */
+#contact-page,
+#shipping-page,
+#privacy-page,
+#terms-page {
+  background: var(--bg);
+  padding: 100px 5%;
+}
+
+/* HEADER */
+.page-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.page-subtitle {
+  display: inline-block;
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--red);
+  margin-bottom: 10px;
+}
+
+.page-title {
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-family: 'Bebas Neue', sans-serif;
+  color: var(--text);
+}
+
+/* GRID LAYOUT (CENTERED FIX) */
+.page-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 320px));
+  justify-content: center;   /* IMPORTANT: centers all boxes */
+  gap: 24px;
+}
+
+/* INFO CARDS */
+.info-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow);
+  transition: transform var(--transition), box-shadow var(--transition);
+  text-align: left;
+}
+
+.info-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* TEXT */
+.card-title {
+  font-size: 1.2rem;
+  font-family: 'Bebas Neue', sans-serif;
+  color: var(--navy);
+  margin-bottom: 12px;
+}
+
+[data-theme="dark"] .card-title {
+  color: var(--yellow);
+}
+
+.card-text {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* CONTACT FORM */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--bg-alt);
+  color: var(--text);
+  font-family: inherit;
+  outline: none;
+  transition: var(--transition);
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: var(--navy);
+}
+
+/* SOCIAL ICONS */
+.social-links {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.social-links a {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: var(--bg-alt);
+  color: var(--navy);
+  transition: var(--transition);
+}
+
+.social-links a:hover {
+  background: var(--navy);
+  color: var(--yellow);
+}
+
+/* RESPONSIVE ONLY */
+
+@media (max-width: 768px) {
+  .page-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .page-title {
+    font-size: 2rem;
+  }
+
+  .info-card {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  #contact-page,
+  #shipping-page,
+  #privacy-page,
+  #terms-page {
+    padding: 60px 4%;
+  }
+
+  .info-card {
+    padding: 16px;
+  }
+}
