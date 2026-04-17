@@ -1,19 +1,14 @@
-// Shorthand for document.getElementById
+// helper functions for easier element selection
 const $ = id => document.getElementById(id);
-const $$ = selector => document.querySelectorAll(selector);
+const $$ = sel => document.querySelectorAll(sel);
 
-// =============================================
-//  PRE-HEADER TICKER (Infinite scroll)
-// =============================================
 const tickerTrack = $('tickerTrack');
 if (tickerTrack) {
   const clone = tickerTrack.innerHTML;
-  tickerTrack.innerHTML += clone;
+  tickerTrack.innerHTML += clone; // duplicate content
 }
 
-// =============================================
-//  STICKY HEADER – adds shadow on scroll
-// =============================================
+//  adds shadow to header after scrolling down 50px
 const header = $('siteHeader');
 window.addEventListener('scroll', () => {
   if (window.scrollY > 50) {
@@ -23,9 +18,7 @@ window.addEventListener('scroll', () => {
   }
 });
 
-// =============================================
-//  HAMBURGER MENU (Mobile nav toggle) - FIXED
-// =============================================
+/// toggles mobile nav and mega menu
 const hamburger = $('hamburger');
 const mainNav   = $('mainNav');
 
@@ -45,38 +38,110 @@ $$('.nav-item.has-mega .nav-link').forEach(link => {
   });
 });
 
+// toggles search bar and focuses input
+const searchToggle = $('searchToggle');
+const searchBar    = $('searchBar');
+const searchInput  = $('searchInput');
 
-// =============================================
-//   LIGHT / DARK MODE TOGGLE
-// =============================================
-const themeToggle = $('themeToggle');
-const themeIcon = $('themeIcon');
-const htmlEl = document.documentElement;
+searchToggle.addEventListener('click', () => {
+  searchBar.classList.toggle('open');
+  if (searchBar.classList.contains('open')) {
+    searchInput.focus(); 
+  }
+});
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    searchBar.classList.remove('open');
+    mainNav.classList.remove('open');
+    hamburger.classList.remove('open');
+  }
+});
+
+// toggles light/dark mode and saves preference in localStorage
+const themeToggle = document.getElementById('themeToggle');
+const themeIcon   = document.getElementById('themeIcon');
+const htmlEl      = document.documentElement;
 
 const savedTheme = localStorage.getItem('cssp-theme') || 'light';
 htmlEl.setAttribute('data-theme', savedTheme);
-updateThemeIcon(savedTheme);
+updateThemeUI(savedTheme);
 
 themeToggle.addEventListener('click', () => {
   const current = htmlEl.getAttribute('data-theme');
-  const next = current === 'light' ? 'dark' : 'light';
+  const next    = current === 'light' ? 'dark' : 'light';
+  
   htmlEl.setAttribute('data-theme', next);
   localStorage.setItem('cssp-theme', next);
-  updateThemeIcon(next);
+  updateThemeUI(next);
 });
 
-function updateThemeIcon(theme) {
+// updates the theme toggle icon based on current theme
+function updateThemeUI(theme) {
   if (theme === 'dark') {
     themeIcon.className = 'fa-solid fa-moon';
-   
   } else {
     themeIcon.className = 'fa-solid fa-sun';
   }
 }
 
-// =============================================
-//  HISTORY SECTION SLIDER - RESPONSIVE FIXED
-// =============================================
+// exchange rates relative to PHP (base currency)
+const rates = {
+  PHP: { symbol: '₱', rate: 1 },
+  USD: { symbol: '$', rate: 0.018 },
+  EUR: { symbol: '€', rate: 0.016 }
+};
+
+let currentCurrency = 'PHP';
+
+// toggle dropdown visibility
+$('currencyBtn').addEventListener('click', () => {
+  $('currencyDropdown').classList.toggle('open');
+});
+
+// close dropdown when clicking outside
+document.addEventListener('click', e => {
+  const switcher = $('currencySwitcher');
+  if (!switcher.contains(e.target)) {
+    $('currencyDropdown').classList.remove('open');
+  }
+});
+
+// when user picks a currency, update everything
+$$('#currencyDropdown li').forEach(item => {
+  item.addEventListener('click', () => {
+    const chosen = item.getAttribute('data-currency');
+    currentCurrency = chosen;
+    $('activeCurrency').textContent = chosen;
+    $('currencyDropdown').classList.remove('open');
+
+    // update all product price elements
+    $$('.card-price').forEach(el => {
+      const basePHP = parseFloat(el.getAttribute('data-base'));
+      const { symbol, rate } = rates[chosen];
+      const converted = (basePHP * rate).toFixed(2);
+      el.textContent = symbol + converted;
+    });
+  });
+});
+
+//  add item to cart and add the badge count
+let cartCount = 0;
+
+$$('.quick-add').forEach(btn => {
+  btn.addEventListener('click', () => {
+    cartCount++;
+    $('cartBadge').textContent = cartCount;
+
+    // brief bounce animation on the badge
+    $('cartBadge').style.transform = 'scale(1.4)';
+    setTimeout(() => {
+      $('cartBadge').style.transform = 'scale(1)';
+    }, 200);
+  });
+});
+
+// history section slider
 const yearStrips = $('yearStrips');
 const yearLabels = $$('.year-label');
 const descItems = $$('.growth-desc');
@@ -156,9 +221,7 @@ window.addEventListener('resize', () => {
   updateHistory(currentYear);
 });
 
-// =============================================
-//  PHOTO CARDS HOVER EFFECT
-// =============================================
+// photo card hover effect
 $$('.tailor-photo-card').forEach(card => {
   card.addEventListener('mouseenter', function() {
     this.style.transform = 'translateY(-8px)';
@@ -168,9 +231,7 @@ $$('.tailor-photo-card').forEach(card => {
   });
 });
 
-// =============================================
-//  PEOPLE GRID ITEMS REVEAL
-// =============================================
+// photo grid items reveal
 $$('.people-grid-item').forEach(item => {
   item.addEventListener('mouseenter', function() {
     this.style.transform = 'translateY(-4px)';
@@ -180,9 +241,7 @@ $$('.people-grid-item').forEach(item => {
   });
 });
 
-// =============================================
-//  BACK TO TOP BUTTON
-// =============================================
+// back to top button
 const backBtn = $('backToTop');
 
 window.addEventListener('scroll', () => {
@@ -197,9 +256,7 @@ backBtn.addEventListener('click', () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
-// =============================================
-// SMOOTH REVEAL ON SCROLL 
-// =============================================
+// smooth reveal on scroll
 const style = document.createElement('style');
 style.textContent = `
   .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.6s ease, transform 0.6s ease; }
