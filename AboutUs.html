@@ -95,6 +95,31 @@
 
       <!-- Right-side icon group -->
       <div class="header-actions">
+        <!-- Currency switcher --> 
+        <div class="currency-switcher" id="currencySwitcher">  
+          <button class="currency-btn" id="currencyBtn">
+            <i class="fa-solid fa-coins"></i>
+            <span id="activeCurrency">PHP</span> 
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+                        
+          <ul class="currency-dropdown" id="currencyDropdown">              
+            <li data-currency="PHP" data-symbol="₱">🇵🇭 PHP</li>              
+            <li data-currency="USD" data-symbol="$">🇺🇸 USD</li>               
+            <li data-currency="EUR" data-symbol="€">🇪🇺 EUR</li>           
+          </ul>        
+        </div>
+
+        <!-- Cart icon -->
+        <button class="icon-btn" title="Cart">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span class="badge" id="cartBadge">0</span>       
+        </button>
+                
+        <!-- Search icon -->    
+        <button class="icon-btn" id="searchToggle" title="Search">          
+          <i class="fa-solid fa-magnifying-glass"></i>      
+        </button>
 
         <!-- Light/Dark mode toggle -->
         <button class="theme-toggle" id="themeToggle" title="Toggle Theme">
@@ -106,6 +131,12 @@
           <span></span><span></span><span></span>
         </button>
       </div>
+    </div>
+    
+    <!-- Search bar (hidden until toggled) -->
+    <div class="search-bar" id="searchBar">      
+      <input type="text" placeholder="Search uniforms, PPE, shoes..." id="searchInput" />      
+      <button><i class="fa-solid fa-magnifying-glass"></i></button>  
     </div>
   </header>
   
