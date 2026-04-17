@@ -3,21 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="images/CSSP_LOGO.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-    <link rel="stylesheet" href="styleAbout.css">
-    <script src="https://kit.fontawesome.com/493ae0299a.js" crossorigin="anonymous"></script>
-    <script src="scriptAbout.js"></script>
     <title>About Us – CSSP Garments Trading</title>
+    <link rel="icon" href="Assets/CSSP-Logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styleAbout.css">
+
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+    <script src="https://kit.fontawesome.com/493ae0299a.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
   <!-- ===== PRE-HEADER ===== -->
+  <!-- Infinite scrolling -->
   <div class="pre-header">
     <div class="ticker-track" id="tickerTrack">
+      <!-- Items are cloned by JS for infinite loop -->
       <span><i class="fa-solid fa-ship"></i> National Delivery: 3 Days</span>
       <span><i class="fa-solid fa-map-location-dot"></i> Provincial Delivery: 5 Days</span>
       <span><i class="fa-solid fa-globe"></i> International Shipping: 1 Week</span>
@@ -27,70 +28,49 @@
     </div>
   </div>
 
-
+  <!-- ===== HEADER / NAVIGATION ===== -->
   <header class="site-header" id="siteHeader">
     <div class="header-inner">
+
       <!-- Logo -->
-      <a href="Home.html" class="logo-wrap">
+      <a href="Index.html" class="logo-wrap">
         <div class="logo-icon">
-          <img src="images/logo-light-text.png" class="logo-img light-logo" alt="Logo">
-          <img src="images/logo-dark-text.png" class="logo-img dark-logo" alt="Logo">
+          <img src="Assets/logo-light-text.png" class="logo-img light-logo" alt="Logo">
+          <img src="Assets/logo-dark-text.png" class="logo-img dark-logo" alt="Logo">
         </div>
-        <div class="logo-text">CSSP<span>Garments</span></div>
+        <div class="logo-text">CSSP<span>Garments&nbsp;Trading</span></div>
       </a>
- 
-      <!-- Main nav -->
+
       <nav class="main-nav" id="mainNav">
         <ul class="nav-list">
- 
+
           <!-- Products mega menu -->
           <li class="nav-item has-mega">
-            <a href="#products" class="nav-link">Products <i class="fa-solid fa-chevron-down nav-caret"></i></a>
+            <a href="#Products" class="nav-link">Products <i class="fa-solid fa-chevron-down nav-caret"></i></a>
             <div class="mega-menu">
               <div class="mega-inner">
                 <div class="mega-col">
                   <p class="mega-label">Uniforms</p>
-                  <a href="#" class="mega-item">
-                    <img src="https://placehold.co/60x60/1a3a5c/ffffff?text=CV" alt="Coveralls" />
-                    <span>Coveralls</span>
-                  </a>
-                  <a href="#" class="mega-item">
-                    <img src="https://placehold.co/60x60/1a3a5c/ffffff?text=KU" alt="Kitchen Uniforms" />
-                    <span>Kitchen Uniforms</span>
-                  </a>
-                  <a href="#" class="mega-item">
-                    <img src="https://placehold.co/60x60/1a3a5c/ffffff?text=JK" alt="Jackets" />
-                    <span>Jackets</span>
-                  </a>
-                </div>
-                <div class="mega-col">
-                  <p class="mega-label">Safety</p>
-                  <a href="#" class="mega-item">
-                    <img src="https://placehold.co/60x60/e63946/ffffff?text=PP" alt="PPE" />
-                    <span>PPE Equipment</span>
-                  </a>
-                  <a href="#" class="mega-item">
-                    <img src="https://placehold.co/60x60/e63946/ffffff?text=SH" alt="Safety Shoes" />
-                    <span>Safety Shoes</span>
-                  </a>
-                  <a href="#" class="mega-item">
-                    <img src="https://placehold.co/60x60/e63946/ffffff?text=GL" alt="Gloves" />
-                    <span>Work Gloves</span>
-                  </a>
-                </div>
-                <div class="mega-col mega-featured">
-                  <p class="mega-label">Featured</p>
                   <div class="mega-feature-card">
                     <img src="https://placehold.co/200x140/f4d03f/1a3a5c?text=New+Arrivals" alt="New Arrivals" />
-                    <p>New Season Arrivals</p>
-                    <a href="#" class="btn-sm">Shop Now</a>
+                    <p>Maritime & Culinary Uniforms</p>
+                    <a href="#" class="btn-sm">Gear Up</a>
+                  </div>
+                </div>
+
+                <div class="mega-col">
+                  <p class="mega-label">Safety Footwear</p>
+                  <div class="mega-feature-card">
+                    <img src="https://placehold.co/200x140/f4d03f/1a3a5c?text=New+Arrivals" alt="New Arrivals" />
+                    <p>Steel-toe Safety Shoe</p>
+                    <a href="#" class="btn-sm">Secure Step</a>
                   </div>
                 </div>
               </div>
             </div>
           </li>
- 
-          <!-- About Us mega menu -->
+
+          <!-- About Us Mega Menu -->
           <li class="nav-item has-mega">
             <a href="#about" class="nav-link">About Us <i class="fa-solid fa-chevron-down nav-caret"></i></a>
             <div class="mega-menu">
@@ -99,21 +79,21 @@
                   <p class="mega-label">Company</p>
                   <a href="#history" class="mega-item text-only"><i class="fa-solid fa-anchor"></i> Our Story</a>
                   <a href="#people" class="mega-item text-only"><i class="fa-solid fa-users"></i> Our Team</a>
-                  <a href="#factory" class="mega-item text-only"><i class="fa-brands fa-foursquare"></i></i> Our Factory</a>
+                  <a href="#tailor" class="mega-item text-only"><i class="fa-solid fa-house"></i> Location</a>
                 </div>
+
                 <div class="mega-col">
                   <p class="mega-label">Support</p>
                   <a href="#faq" class="mega-item text-only"><i class="fa-solid fa-circle-question"></i> FAQ</a>
                   <a href="#footer" class="mega-item text-only"><i class="fa-solid fa-envelope"></i> Contact Us</a>
-                  <a href="#" class="mega-item text-only"><i class="fa-solid fa-file-contract"></i> Bulk Orders</a>
+                  <a href="#" class="mega-item text-only"><i class="fa-solid fa-file-contract"></i> Policies</a>
                 </div>
               </div>
             </div>
           </li>
- 
         </ul>
       </nav>
- 
+
       <!-- Right-side icon group -->
       <div class="header-actions">
 
@@ -121,7 +101,7 @@
         <button class="theme-toggle" id="themeToggle" title="Toggle Theme">
           <i class="fa-solid fa-sun" id="themeIcon"></i>
         </button>
- 
+
         <!-- Hamburger (mobile only) -->
         <button class="hamburger" id="hamburger" aria-label="Open menu">
           <span></span><span></span><span></span>
@@ -129,7 +109,8 @@
       </div>
     </div>
   </header>
-
+  
+  <!-- ===== HERO SECTION ===== -->
   <section class="hero-about">
     <span class="hero-subtitle">MARITIME GRADE EQUIPMENT</span>
     <h1>
@@ -138,172 +119,8 @@
     </h1>
     <p>We've been in the business for 3 years. We specialized in tailoring premium quality of seaman clothing in the Philippines. Since 2024, we have continuously improved our craft to ensure every piece we create provides comfort, reliability, and well-made garments trusted by the seafarers.</p>
   </section>
- 
-  <!--HISTORY SECTION -->
-  <section id="history" class="history-wrapper history-section">
-    <div class="history-content">
-      <span class="history-subtitle">ECHOES OF THE WAVES</span>
-      <h2 class="section-title history-title">CHAPTERS OF CRAFT</h2>
-      <p>With 3 years of manufacturing experience, CSSP has been active since 2024, delivering good quality of clothing all over the world.</p>
-  
-      <div class="year-viewport">
-        <div class="year-list" id="yearList">
-         <h1 class="big-year">2024</h1>
-         <h1 class="big-year">2025</h1>
-         <h1 class="big-year">2026</h1>
-        </div>
-      </div>
 
-      <div class="desc-container">
-        <p class="growth-desc desc1">Founded in 2024 in Antipolo, Rizal, we began as a small tailoring business dedicating to crafting quality seaman clothing.</p>
-        <p class="growth-desc desc2">By 2025, we steadily grew, earning trust of seafearers through commitment to high-quality and well-crafted garments.</p>
-        <p class="growth-desc desc3">In 2026, we continue to refine our craft, building on our experience to deliver reliable seaman clothing with excellence.</p>
-      </div>
-
-      <div class="timeline-nav">
-        <button class="arrow arr-left" data-slide="prev">←</button>
-        <div class="year-wrapper">
-          <button class="small-year" data-year="0">2024</button>
-          <button class="small-year" data-year="1">2025</button>
-          <button class="small-year" data-year="2">2026</button>
-        </div>
-        <button class="arrow arr-right" data-slide="next">→</button>
-      </div>
-    </div>
-
-    <div class="history-pictures">
-      <img src="images/IMG_1382.JPG" class="img-slide img1" alt="2024">
-      <img src="images/IMG_1377.JPG" class="img-slide img2" alt="2025">
-      <img src="images/IMG_1405.JPG" class="img-slide img3" alt="2026">
-      
-      <div class="pagination-dots">
-        <button class="dot dot1" data-slide="0"></button>
-        <button class="dot dot2" data-slide="1"></button>
-        <button class="dot dot3" data-slide="2"></button>
-      </div>
-    </div>
-  </section>
-
-  <!--TAILOR SHOP SECTION -->
-  <section id="tailor" class="tailor-wrapper tailor-section">
-    <div class="tailor-container">
-      <div class="tailor-intro">
-        <span class="tailor-subtitle">STITCHED FOR THE SURGE</span>
-        <h2 class="section-title tailor-title">OUR FACTORY</h2>
-        <p>Our place is meticulously organized, clean, and equipped with high-quality materials, allowing our skilled tailors to craft seaman clothing with precision. Every step, from handling fabrics to finishing touches, reflects our commitment to quality.</p>
-      </div>
-
-      <div class="photo-grid">
-        <div class="photo-card">
-          <img src="images/location.jpeg" alt="Location">
-          <div class="photo-info">
-            <h4>LOCATION</h4>
-            <p>We are located in Antipolo, Rizal, Philippines, providing well-organized and accesible space that supports efficient production and smooth operations.</p>
-          </div>
-        </div>
-
-        <div class="photo-card">
-          <img src="images/quality.JPG" alt="Quality">
-          <div class="photo-info">
-            <h4>QUALITY OF PRODUCTION</h4>
-            <p>We implement a hands-on inspection for every product, checking everything from material durability to the final finish to ensure it meets our high standards.</p>
-          </div>
-        </div>
-
-        <div class="photo-card">
-          <img src="images/owner.jpeg" alt="Owner">
-          <div class="photo-info">
-            <h4>OWNER</h4>
-            <p>The Pacleb Family leads the business with dedication and expertise, overseeing operations to ensure that quality, craftmanship, and the needs of the seafearers are always a priority.</p>
-          </div>
-        </div>
-
-        <div class="photo-card">
-          <img src="images/process.JPG" alt="Process">
-          <div class="photo-info">
-            <h4>PROCESS</h4>
-            <p>From selecting the finest fabrics to cutting, sewing, and finishing, every step of our production is carefully managed. Our skilled team ensures that each piece meets our standards of quality and craftmanship.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- PEOPLE SECTION -->
-  <section id="people" class="people-wrapper people-section">
-    <div class="people-container">
-      <div class="people-intro">
-        <span class="people-subtitle">TAILORS OF THE TIDE</span>
-        <h2 class="section-title people-title">MEET THE MAKERS</h2><br>
-        <p>Rooted in the Philippines since 2024, our team of twenty-four skilled tailors share the same obsession: the ocean. With precision, care, and dedication, they bring each garment to life, creating seaman clothing that seafearers can rely on throughout their journeys.</p>
-      </div>
-
-      <div class="picture-grid">
-        <div class="grid-item item-lg">
-          <div class="inner">
-            <div class="img-box">
-              <img src="images/IMG_1175.JPG" alt="Premium Materials">
-            </div>
-          </div>
-        </div>
-      
-        <div class="grid-item item-sm">
-          <div class="inner content-box">
-            <h4>01. THE MASTER CUTTER</h4>
-            <p>These are the experts who start the process. They have the strength and skill to use heavy cutting machines with total control. It takes a sharp eye and years of practice to cut thick fabrics perfectly. Because of their hard work, every piece of clothing starts with the right shape and size.</p>
-          </div>
-        </div>
-
-        <div class="grid-item item-md">
-          <div class="inner content-box">
-            <h4>02. TEAMWORK</h4>
-            <p>Our workshop is filled with people who have made sewing their life’s work. This team works together to make sure every garment is made correctly. They don’t just run machines; they use their shared experience to solve problems and help one another. The quality of our products comes from the strong teamwork of these makers.</p>
-          </div>
-        </div>
-
-        <div class="grid-item item-wide">
-          <div class="inner">
-            <div class="img-box">
-              <img src="images/(Staff_1) IMG_1152.JPG" alt="Hand Finished">
-            </div>
-          </div>
-        </div>
-
-        <div class="grid-item item-wide">
-          <div class="inner">
-            <div class="img-box">
-              <img src="images/IMG_1230.JPG" alt="Breathability">
-            </div>
-          </div>
-        </div>
-
-        <div class="grid-item item-md">
-          <div class="inner content-box">
-            <h4>03. DEDICATION</h4>
-            <p>These makers are defined by their intense focus and patience. You can see their dedication in the way they handle small, intricate tasks and difficult sewing patterns. They have the visual accuracy needed to spot errors and the steady hands required to reinforce every seam for the person wearing it.</p>
-          </div>
-        </div>
-
-        <div class="grid-item item-sm">
-          <div class="inner content-box">
-            <h4>04. PASSION</h4>
-            <p>They are the type of people who treat their work as a craft rather than just a job. By using their eyes and hands to guide every machine, they provide a level of quality that automation cannot match. Their skill and professional pride are what make our clothing reliable for the most demanding environments.</p>
-          </div>
-        </div>
-
-        <div class="grid-item item-lg">
-          <div class="inner">
-            <div class="img-box">
-              <img src="images/IMG_1250.JPG" alt="Ergonomic Fit">
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== INFINITE TICKER 1 ===== -->
+  <!-- ===== INFINITE TICKER 2 ===== -->
   <div class="section-ticker">
     <div class="ticker2-track">
       <span><i class="fa-solid fa-star"></i> ISO Certified Quality</span>
@@ -321,6 +138,189 @@
     </div>
   </div>
 
+ 
+  <!-- ===== HISTORY SECTION ===== -->
+  <section id="history" class="history-wrapper history-section">
+    <div class="history-content">
+      <span class="history-subtitle">ECHOES OF THE WAVES</span>
+      <h2>CHAPTERS OF CRAFT</h2>
+      <p>With 3 years of manufacturing experience, CSSP has been active since 2024, delivering good quality of clothing all over the world.</p>
+  
+      <div class="year-viewport">
+        <div class="year-strips" id="yearStrips">
+         <h1 class="big-year">2024</h1>
+         <h1 class="big-year">2025</h1>
+         <h1 class="big-year">2026</h1>
+        </div>
+      </div>
+
+      <div class="desc-container">
+        <p class="growth-desc desc1">Founded in 2024 in Antipolo, Rizal, we began as a small tailoring business dedicating to crafting quality seaman clothing.</p>
+        <p class="growth-desc desc2">By 2025, we steadily grew, earning trust of seafearers through commitment to high-quality and well-crafted garments.</p>
+        <p class="growth-desc desc3">In 2026, we continue to refine our craft, building on our experience to deliver reliable seaman clothing with excellence.</p>
+      </div>
+
+      <div class="timeline-nav">
+        <button class="arrow arr-left" data-slide="prev">←</button>
+        <div class="year-wrapper">
+          <button class="year-label" data-year="0">2024</button>
+          <button class="year-label" data-year="1">2025</button>
+          <button class="year-label" data-year="2">2026</button>
+        </div>
+        <button class="arrow arr-right" data-slide="next">→</button>
+      </div>
+    </div>
+
+    <div class="history-pictures">
+      <img src="Assets/About-Us/HISTORY-2024.JPG" class="img-slide img1" alt="2024">
+      <img src="Assets/About-Us/HISTORY-2025.JPG" class="img-slide img2" alt="2025">
+      <img src="Assets/About-Us/HISTORY-2026.JPG" class="img-slide img3" alt="2026">
+      
+      <div class="pagination-dots">
+        <button class="dot dot1" data-slide="0"></button>
+        <button class="dot dot2" data-slide="1"></button>
+        <button class="dot dot3" data-slide="2"></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TAILOR SHOP SECTION ===== -->
+  <section id="tailor" class="tailor-wrapper tailor-section">
+    <div class="tailor-container">
+      <div class="tailor-intro">
+        <span class="tailor-subtitle">STITCHED FOR THE SURGE</span>
+        <h2>THE TAILOR SHOP</h2>
+        <p>Our place is meticulously organized, clean, and equipped with high-quality materials, allowing our skilled tailors to craft seaman clothing with precision. Every step, from handling fabrics to finishing touches, reflects our commitment to quality.</p>
+      </div>
+
+      <div class="tailor-photo-grid">
+        <div class="tailor-photo-card">
+          <img src="" alt="Location">
+          <div class="tailor-photo-info">
+            <h4>LOCATION</h4>
+            <p>We are located in Antipolo, Rizal, Philippines, providing well-organized and accesible space that supports efficient production and smooth operations.</p>
+          </div>
+        </div>
+
+        <div class="tailor-photo-card">
+          <img src="" alt="Owner">
+          <div class="tailor-photo-info">
+            <h4>OWNER</h4>
+            <p>The Pacleb Family leads the business with dedication and expertise, overseeing operations to ensure that quality, craftmanship, and the needs of the seafearers are always a priority.</p>
+          </div>
+        </div>
+
+        <div class="tailor-photo-card">
+          <img src="Assets/About-Us/TAILOR-PRECISION.JPG" alt="Precision">
+          <div class="tailor-photo-info">
+            <h4>PRECISION</h4>
+            <p>We make sure that every stitch is clean and strong so the clothes do not easily tear. Our tailors focus on the right fit and style to keep seafarers comfortable while they work. We pay close attention to every detail to ensure your uniforms look professional and neat.</p>
+          </div>
+        </div>
+
+        <div class="tailor-photo-card">
+          <img src="Assets/About-Us/TAILOR-CAPACITY.JPG" alt="Capacity">
+          <div class="tailor-photo-info">
+            <h4>CAPACITY</h4>
+            <p>With a dedicated team of skilled tailors, we are built to manage large-scale bulk orders. Our operations are scalable to meet the strict timelines of the maritime industry without compromising quality.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== PEOPLE SECTION ===== -->
+  <section id="people" class="people-wrapper people-section">
+    <div class="people-container">
+      <div class="people-intro">
+        <span class="people-subtitle">TAILORS OF THE TIDE</span>
+        <h2>MEET THE MAKERS</h2><br>
+        <p>High-performance gear is the result of high-level craftsmanship. In the heart of the Philippines, skilled makers bring years of expertise to the maritime industry, creating garments that balance daily comfort with survival-grade strength. We take pride in our process, our people, and the professional standards we’ve set since 2024. This is the team behind the gear.</p>
+      </div>
+
+      <div class="people-photo-grid">
+        <div class="people-grid-item item-lg">
+          <div class="people-inner">
+            <div class="people-img-box">
+              <img src="Assets/About-Us/PEOPLE-HARDWORK.JPG" alt="Hardwork">
+            </div>
+          </div>
+        </div>
+      
+        <div class="people-grid-item item-sm">
+          <div class="people-inner people-content-box">
+            <h4>01. HARDWORK</h4>
+            <p>Our team brings a tireless energy to the workshop, mastering heavy, industrial fabrics with strength and precision. This grit is the foundation of our process, ensuring every garment is built to handle the physical demands of life at sea.</p>
+          </div>
+        </div>
+
+        <div class="people-grid-item item-md">
+          <div class="people-inner people-content-box">
+            <h4>02. TEAMWORK</h4>
+            <p>Everything we build is a group effort. Our makers work as a single crew, combining their talents to solve problems and maintain a steady flow. This teamwork ensures that every garment we produce meets the high standards our customers expect.</p>
+          </div>
+        </div>
+
+        <div class="people-grid-item item-wide">
+          <div class="people-inner">
+            <div class="people-img-box">
+              <img src="Assets/About-Us/PEOPLE-TEAMWORK.JPG" alt="Teamwork">
+            </div>
+          </div>
+        </div>
+
+        <div class="people-grid-item item-wide">
+          <div class="people-inner">
+            <div class="people-img-box">
+              <img src="Assets/About-Us/PEOPLE-DEDICATION.JPG" alt="Dedication">
+            </div>
+          </div>
+        </div>
+
+        <div class="people-grid-item item-md">
+          <div class="people-inner people-content-box">
+            <h4>03. DEDICATION</h4>
+            <p>These people are defined by their intense focus and patience. You can see their dedication in the way they handle small, intricate tasks and difficult sewing patterns. They have the visual accuracy needed to spot errors and the steady hands required to reinforce every seam for the person wearing it.</p>
+          </div>
+        </div>
+
+        <div class="people-grid-item item-sm">
+          <div class="people-inner people-content-box">
+            <h4>04. PASSION</h4>
+            <p>The pride of our makers is visible in every seam. This isn't just a job; it's a passion for excellence that ensures every seafarer wears a garment crafted with genuine care and professional dignity.</p>
+          </div>
+        </div>
+
+        <div class="people-grid-item item-lg">
+          <div class="people-inner">
+            <div class="people-img-box">
+              <img src="Assets/About-Us/PEOPLE-PASSION.JPG" alt="Passion">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== INFINITE TICKER 2 ===== -->
+  <div class="section-ticker">
+    <div class="ticker2-track">
+      <span><i class="fa-solid fa-anchor"></i> Anchored in Quality</span>
+      <span><i class="fa-solid fa-wave-square"></i> Ride Every Wave</span>
+      <span><i class="fa-solid fa-person-walking-luggage"></i> Outfitted for Adventure</span>
+      <span><i class="fa-solid fa-life-ring"></i> Safety First Always</span>
+      <span><i class="fa-solid fa-binoculars"></i> See the Horizon Clearly</span>
+      <span><i class="fa-solid fa-flag"></i> Proud Maritime Brand</span>
+      <span><i class="fa-solid fa-anchor"></i> Anchored in Quality</span>
+      <span><i class="fa-solid fa-wave-square"></i> Ride Every Wave</span>
+      <span><i class="fa-solid fa-person-walking-luggage"></i> Outfitted for Adventure</span>
+      <span><i class="fa-solid fa-life-ring"></i> Safety First Always</span>
+      <span><i class="fa-solid fa-binoculars"></i> See the Horizon Clearly</span>
+      <span><i class="fa-solid fa-flag"></i> Proud Maritime Brand</span>
+    </div>
+  </div>
+
 
   <!-- ===== FOOTER ===== -->
   <footer class="site-footer" id="footer">
@@ -330,7 +330,7 @@
             
     <div class="footer-inner">
         
-    <!-- Brand col -->
+      <!-- Brand col -->
       <div class="footer-col brand-col">
         <div class="footer-logo">
           <i class="fa-solid fa-ship"></i>
@@ -365,12 +365,15 @@
           <a href="#">Shipping Policy</a>
         </div>
       </div>
+    </div>
   </footer>
     
   <!-- Back to top button -->
   <button class="back-to-top" id="backToTop" title="Back to Top">
     <i class="fa-solid fa-anchor"></i>
   </button>
+
+  <script src="scriptAbout.js"></script>
   
 </body>
 </html>
