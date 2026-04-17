@@ -200,13 +200,13 @@ stars.forEach(star => {
 });
 
 
-// review form submissionm
+// review form submission
 $('submitReview').addEventListener('click', () => {
   const name = $('reviewName').value.trim();
   const text = $('reviewText').value.trim();
 
   if (!name || !text || selectedStars === 0) {
-    // Basic validation – shake the button
+    // basic validation – shake the button
     $('submitReview').style.transform = 'translateX(-4px)';
     setTimeout(() => {
       $('submitReview').style.transform = 'translateX(4px)';

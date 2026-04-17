@@ -1,42 +1,14 @@
-// javascript tutorial 101 
-
-/* 1st part is called "helper", shortcut for grabbing isang specific element 
-const - short for "constant", means never nagbabago, once na ma-set shortcut, it's okay na alw
-$ - nickname 
-id/sel - sel short for "selector"; more on "target" like anong element
-=> - arrow function!! ipo-point out ano gagawing action after
-document - the whole website element
-getElementById/querySelectorAll - para makuha yung target na u want
-*/
+// helper functions for easier element selection
 const $ = id => document.getElementById(id);
 const $$ = sel => document.querySelectorAll(sel);
 
-/* 2nd part - "preheader infinite ticker"
-1st line - ginamit yung helper para short lang yung pagkuha sa variable 
-2nd line (if statement) - to make sure if meron ba talagang ticker 
-3rd line -
-     clone - duplicate or copy 
-     .innerHTML - yung content ng tickerTrack sa html like yung list 
-4th line - 
-     += - after ma-end yung list, ipapakita ulit yung nasa unahan kaagad para it looks infinite
-*/
 const tickerTrack = $('tickerTrack');
 if (tickerTrack) {
   const clone = tickerTrack.innerHTML;
   tickerTrack.innerHTML += clone; // duplicate content
 }
 
-
-/* 3rd part - "sticky header" if user is mag-scroll magkaka-shadow then maga-appear alw yung navbar!
-1st line - helper 
-2nd line - 
-     window - browser window (maglo-locate saang part na yung user sa webpage)
-     addEventListener - maga-assign ano action ang need gawin para ma-trigger
-     scroll - if mag-scroll ang user then
-3rd line - 
-     if statement - if na-cross ng user ang 50px na scroll magpapakita yung shadow na nakalagay sa css
-     else statement - if bumalik na yung user around 50 px, mare-remove na yung shadow 
-*/
+//  adds shadow to header after scrolling down 50px
 const header = $('siteHeader');
 window.addEventListener('scroll', () => {
   if (window.scrollY > 50) {
@@ -47,17 +19,7 @@ window.addEventListener('scroll', () => {
 });
 
 
-/* 4th part - haembeogeo (mobile nav)
-1st and 2nd line - helper
-3rd line - 
-     addEventListener - ipapakita ulit next ano need na action para ma-trigger
-     click - if mag-click yung user may mangyayari na
-4th line - "toggle - switch", isang button lang para ma-open and ma-close yung navbar
-next part 
-     window.innerWidth <= 768 - check if yung device is smaller screen
-     e.preventDefault(); - para hindi kaagad mag-open ng ibang webpage before mag-expand yung mega menunu
-     parent.classList... - hahanapin yung parent para ma-apply yung open style (idkk) 
-*/
+// toggles mobile nav and mega menu
 const hamburger = $('hamburger');
 const mainNav   = $('mainNav');
 
@@ -77,14 +39,7 @@ $$('.nav-item.has-mega .nav-link').forEach(link => {
   });
 });
 
-
-/* 5th part - search bar 
-lam mo na yan 
-1st to 3rd line - helper 
-7th line - 
-     focus - after ma-open, automatic mag-blink yung cursor yey
-... line - user can pindot esc sa keyboard then magdi-disappear na 
-*/
+// toggles search bar and focuses input
 const searchToggle = $('searchToggle');
 const searchBar    = $('searchBar');
 const searchInput  = $('searchInput');
@@ -104,16 +59,7 @@ document.addEventListener('keydown', e => {
   }
 });
 
-/* 6th part - logo dim and light mode 
-1st paragraph - helper
-2nd paragraph -
-      1st line - 
-      localStorage - file handling sa c
-      'light' - default na choice 
-      2nd line - 
-      setAttribute - if pindutin ang data-them
-    
-*/
+// toggles light/dark mode and saves preference in localStorage
 const themeToggle = document.getElementById('themeToggle');
 const themeIcon   = document.getElementById('themeIcon');
 const htmlEl      = document.documentElement;
@@ -131,9 +77,8 @@ themeToggle.addEventListener('click', () => {
   updateThemeUI(next);
 });
 
+// updates the theme toggle icon based on current theme
 function updateThemeUI(theme) {
-  // We only need to toggle the icon here; 
-  // CSS handles the logo images automatically via the [data-theme] attribute
   if (theme === 'dark') {
     themeIcon.className = 'fa-solid fa-moon';
   } else {
@@ -141,12 +86,7 @@ function updateThemeUI(theme) {
   }
 }
 
-// =============================================
-//  7. CURRENCY SWITCHER
-//  Changes all displayed prices on the page
-// =============================================
-
-// Exchange rates relative to PHP (base currency)
+// exchange rates relative to PHP (base currency)
 const rates = {
   PHP: { symbol: '₱', rate: 1 },
   USD: { symbol: '$', rate: 0.018 },
@@ -155,12 +95,12 @@ const rates = {
 
 let currentCurrency = 'PHP';
 
-// Toggle dropdown visibility
+// toggle dropdown visibility
 $('currencyBtn').addEventListener('click', () => {
   $('currencyDropdown').classList.toggle('open');
 });
 
-// Close dropdown when clicking outside
+// close dropdown when clicking outside
 document.addEventListener('click', e => {
   const switcher = $('currencySwitcher');
   if (!switcher.contains(e.target)) {
@@ -168,7 +108,7 @@ document.addEventListener('click', e => {
   }
 });
 
-// When user picks a currency, update everything
+// when user picks a currency, update everything
 $$('#currencyDropdown li').forEach(item => {
   item.addEventListener('click', () => {
     const chosen = item.getAttribute('data-currency');
@@ -176,7 +116,7 @@ $$('#currencyDropdown li').forEach(item => {
     $('activeCurrency').textContent = chosen;
     $('currencyDropdown').classList.remove('open');
 
-    // Update all product price elements
+    // update all product price elements
     $$('.card-price').forEach(el => {
       const basePHP = parseFloat(el.getAttribute('data-base'));
       const { symbol, rate } = rates[chosen];
@@ -186,58 +126,7 @@ $$('#currencyDropdown li').forEach(item => {
   });
 });
 
-
-// =============================================
-//  8. PRODUCT CAROUSEL (scrolling + dots)
-// =============================================
-const productGrid  = $('productGrid');
-const prevBtn      = $('prevBtn');
-const nextBtn      = $('nextBtn');
-const dotsWrap     = $('carouselDots');
-const cards        = $$('.product-card');
-const cardWidth    = 280 + 24; // card width + gap
-
-// Build dots based on number of cards
-cards.forEach((_, i) => {
-  const dot = document.createElement('button');
-  dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
-  dot.dataset.index = i;
-  dotsWrap.appendChild(dot);
-  dot.addEventListener('click', () => scrollToCard(i));
-});
-
-// Scroll forward
-nextBtn.addEventListener('click', () => {
-  productGrid.scrollBy({ left: cardWidth, behavior: 'smooth' });
-});
-
-// Scroll backward
-prevBtn.addEventListener('click', () => {
-  productGrid.scrollBy({ left: -cardWidth, behavior: 'smooth' });
-});
-
-// Update active dot as user scrolls
-productGrid.addEventListener('scroll', () => {
-  const index = Math.round(productGrid.scrollLeft / cardWidth);
-  updateDots(index);
-});
-
-function scrollToCard(index) {
-  productGrid.scrollTo({ left: cardWidth * index, behavior: 'smooth' });
-  updateDots(index);
-}
-
-function updateDots(index) {
-  $$('.carousel-dot').forEach((dot, i) => {
-    dot.classList.toggle('active', i === index);
-  });
-}
-
-
-// =============================================
-//  9. QUICK ADD TO CART
-//  Adds item to cart and bumps the badge count
-// =============================================
+//  add item to cart and add the badge count
 let cartCount = 0;
 
 $$('.quick-add').forEach(btn => {
@@ -245,7 +134,7 @@ $$('.quick-add').forEach(btn => {
     cartCount++;
     $('cartBadge').textContent = cartCount;
 
-    // Brief bounce animation on the badge
+    // brief bounce animation on the badge
     $('cartBadge').style.transform = 'scale(1.4)';
     setTimeout(() => {
       $('cartBadge').style.transform = 'scale(1)';
@@ -254,10 +143,7 @@ $$('.quick-add').forEach(btn => {
 });
 
 
-// =============================================
-//  10. REVIEW SLIDER
-//  Auto-plays and can be clicked via dots
-// =============================================
+//  auto-plays and can be clicked via dots
 const reviewCards = $$('.review-card');
 const sliderDots  = $$('.slider-dot');
 let currentSlide  = 0;
@@ -271,7 +157,7 @@ function goToSlide(n) {
   sliderDots[currentSlide].classList.add('active');
 }
 
-// Dot click navigation
+// dot click navigation
 sliderDots.forEach(dot => {
   dot.addEventListener('click', () => {
     clearInterval(autoSlide);
@@ -280,7 +166,7 @@ sliderDots.forEach(dot => {
   });
 });
 
-// Auto advance every 5 seconds
+// auto advance every 5 seconds
 function startAutoSlide() {
   autoSlide = setInterval(() => {
     goToSlide(currentSlide + 1);
@@ -289,15 +175,11 @@ function startAutoSlide() {
 startAutoSlide();
 
 
-// =============================================
-//  11. STAR PICKER (Review form)
-//  Lets users pick 1-5 stars interactively
-// =============================================
+//  let users pick 1-5 stars interactively
 const stars    = $$('#starPicker span');
 let selectedStars = 0;
 
 stars.forEach(star => {
-  // Highlight stars up to hovered one
   star.addEventListener('mouseover', () => {
     const val = parseInt(star.dataset.val);
     stars.forEach((s, i) => {
@@ -305,7 +187,6 @@ stars.forEach(star => {
     });
   });
 
-  // Lock in the rating on click
   star.addEventListener('click', () => {
     selectedStars = parseInt(star.dataset.val);
     stars.forEach((s, i) => {
@@ -313,7 +194,6 @@ stars.forEach(star => {
     });
   });
 
-  // Reset hover highlight if not selected
   star.addEventListener('mouseout', () => {
     stars.forEach((s, i) => {
       s.classList.toggle('selected', i < selectedStars);
@@ -321,17 +201,13 @@ stars.forEach(star => {
   });
 });
 
-
-// =============================================
-//  12. REVIEW FORM SUBMISSION
-//  Validates and shows a success message
-// =============================================
+// review form submission
 $('submitReview').addEventListener('click', () => {
   const name = $('reviewName').value.trim();
   const text = $('reviewText').value.trim();
 
   if (!name || !text || selectedStars === 0) {
-    // Basic validation – shake the button
+    // basic validation – shake the button
     $('submitReview').style.transform = 'translateX(-4px)';
     setTimeout(() => {
       $('submitReview').style.transform = 'translateX(4px)';
@@ -342,7 +218,7 @@ $('submitReview').addEventListener('click', () => {
     return;
   }
 
-  // Show success message and reset form
+  // show success message and reset form
   $('reviewSuccess').style.display = 'flex';
   $('reviewName').value = '';
   $('reviewText').value = '';
@@ -354,61 +230,23 @@ $('submitReview').addEventListener('click', () => {
   }, 4000);
 });
 
-
-// =============================================
-//  13. FAQ ACCORDION
-//  Opens/closes FAQ answers on click
-// =============================================
+// faq interactive toggle
 $$('.faq-q').forEach(btn => {
   btn.addEventListener('click', () => {
     const item = btn.closest('.faq-item');
     const isOpen = item.classList.contains('open');
 
-    // Close any currently open FAQ first
     $$('.faq-item.open').forEach(openItem => {
       openItem.classList.remove('open');
     });
 
-    // Then open the clicked one (if it wasn't already open)
     if (!isOpen) {
       item.classList.add('open');
     }
   });
 });
 
-/*
-// =============================================
-//  14. FOOTER CONTACT FORM
-//  Simple submission with a confirmation alert
-// =============================================
-$('footerSend').addEventListener('click', () => {
-  const name    = $('footerName').value.trim();
-  const email   = $('footerEmail').value.trim();
-  const message = $('footerMessage').value.trim();
-
-  if (!name || !email || !message) {
-    alert('Please fill in all fields before sending.');
-    return;
-  }
-
-  // Simulate a successful send
-  $('footerSend').textContent = 'Message Sent! ✓';
-  $('footerSend').style.background = '#2d6a4f';
-  $('footerName').value = '';
-  $('footerEmail').value = '';
-  $('footerMessage').value = '';
-
-  setTimeout(() => {
-    $('footerSend').innerHTML = 'Send Message <i class="fa-solid fa-paper-plane"></i>';
-    $('footerSend').style.background = '';
-  }, 3000);
-});
-*/
-
-// =============================================
-//  15. BACK TO TOP BUTTON
-//  Appears after scrolling down 300px
-// =============================================
+// back-to-top button
 const backBtn = $('backToTop');
 
 window.addEventListener('scroll', () => {
@@ -424,12 +262,7 @@ backBtn.addEventListener('click', () => {
 });
 
 
-// =============================================
-//  16. SMOOTH REVEAL ON SCROLL (Intersection Observer)
-//  Fades in sections as they enter the viewport
-// =============================================
-
-// We add a CSS class to trigger opacity animation
+// to trigger opacity animation
 const style = document.createElement('style');
 style.textContent = `
   .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.6s ease, transform 0.6s ease; }
@@ -437,12 +270,10 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
-// Add reveal class to main section children
 $$('section').forEach(sec => {
   sec.classList.add('reveal');
 });
 
-// Watch for elements entering the viewport
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -458,20 +289,14 @@ $$('.reveal').forEach(el => observer.observe(el));
         function addToCart() {
             const cartBadge = document.getElementById('cartBadge');
 
-            // safety check in case element is missing
             if (!cartBadge) return;
 
-            // get current count safely
             let currentCount = parseInt(cartBadge.innerText) || 0;
 
-            // update badge
             cartBadge.innerText = currentCount + 1;
 
-            // optional feedback
             alert('Added to Cart Successfuly!');
         }
-
-        // attach click event properly
             const html = document.documentElement;
 
         document.getElementById('themeToggle').addEventListener('click', () => {
