@@ -112,14 +112,15 @@
   align-items: center;
   justify-content: center;
   border-radius: 8px;
-  background: var(--bg-alt);
-  color: var(--navy);
+  background: rgba(255,255,255,0.08);
+  color: var(--yellow);
   transition: var(--transition);
 }
 
 .social-links a:hover {
-  background: var(--navy);
-  color: var(--yellow);
+  background: var(--yellow);
+  color: var(--navy);
+  transform: translateY(-3px);
 }
 
 /* RESPONSIVE ONLY */
