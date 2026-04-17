@@ -1052,6 +1052,24 @@ section {
    color: var(--yellow); 
 }
 
+.size-select {
+    width: 100%;
+    margin-top: 10px;
+    padding: 5px;
+    border-radius: 8px;
+    background-color: var(--navy);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: 200;
+    letter-spacing: 1px;
+    color: white;
+    border: none;
+}
+
+[data-theme="dark"] .size-select {
+    background-color: var(--yellow);
+    color: black;
+}
+
 /* about section */
 .about { 
   background: var(--bg); 
