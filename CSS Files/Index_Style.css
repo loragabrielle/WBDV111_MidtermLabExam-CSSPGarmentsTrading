@@ -1608,7 +1608,7 @@ section {
   z-index: 500;
 }
 
-.back-to-top.visible {
+.back-to-top {
   opacity: 1;
   pointer-events: all;
   transform: translateY(0);
