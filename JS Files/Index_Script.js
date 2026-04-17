@@ -1,4 +1,8 @@
 // helper functions for easier element selection
+const $ = id => document.getElementById(id);
+const $$ = sel => document.querySelectorAll(sel);
+
+
 const tickerTrack = $('tickerTrack');
 if (tickerTrack) {
   const clone = tickerTrack.innerHTML;
