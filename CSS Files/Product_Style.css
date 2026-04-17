@@ -1000,6 +1000,21 @@ section {
   color: var(--yellow); 
 }
 
+.size-select {
+    width: 100%;
+    margin-top: 10px;
+    padding: 5px;
+    border-radius: 8px;
+    background-color: var(--navy);
+    color: white;
+    border: none;
+}
+
+[data-theme="dark"] .size-select {
+    background-color: var(--yellow);
+    color: black;
+}
+
 /* other needs sa products page*/
 .section-header-product { 
   text-align: center; 
