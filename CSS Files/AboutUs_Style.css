@@ -712,7 +712,7 @@ section {
     margin-bottom: 25px;
     font-family: 'Bebas Neue', sans-serif;
     letter-spacing: 4px;
-    color: #102A43;
+    color: #102a43;
 }
 
 [data-theme="dark"] .hero-about h1 {
@@ -720,7 +720,7 @@ section {
 }
 
 .hero-about h1 .ph {
-    font-family: 'Zilap'; 
+    font-family: 'Zilap';
     font-size: 100px;
     color: #996515;
     white-space: nowrap; 
@@ -835,7 +835,7 @@ section {
 }
  
 [data-theme="dark"] .history-subtitle {
-    color: #C5A059;
+    color: #c5a059;
 }
 
 .history-content h2 {
@@ -1255,10 +1255,6 @@ section {
 }
 
 .people-grid-item:hover .people-inner {
-    background-color: #3f7856;
-}
-
-[data-theme="dark"] .people-grid-item:hover .people-inner {
     background-color: #3f7856;
 }
 
