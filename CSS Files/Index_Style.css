@@ -56,8 +56,6 @@
   font-style: normal;
 }
 
-
-
 *, *::before, *::after { 
   box-sizing: border-box; 
   margin: 0; 
@@ -103,6 +101,7 @@ h1, h2, h3, h4 {
   letter-spacing: 0.02em; 
   line-height: 1.1; 
 }
+
 
 /* common button styles */
 .btn-primary {
@@ -167,7 +166,6 @@ h1, h2, h3, h4 {
   font-weight: 600;
   transition: var(--transition);
 }
-
 .btn-sm:hover { 
   background: var(--yellow); 
   color: var(--navy); 
@@ -224,10 +222,6 @@ section {
 
 .ticker-track span i { 
   margin-right: 6px; 
-}
-
-.ticker-track:hover {
-    animation-play-state: paused;
 }
 
 @keyframes ticker {
@@ -387,7 +381,7 @@ section {
   transform: rotate(180deg); 
 }
 
-/* Mega Menu */
+/* mega menu */
 .mega-menu {
   position: absolute;
   top: calc(100% + 12px);
@@ -396,12 +390,13 @@ section {
   background: var(--surface);
   border-radius: var(--radius);
   box-shadow: var(--shadow-lg);
-  border: 1px solid var(--border);
-  padding: 28px;
-  min-width: 560px;
+  border: 1px solid var(--border);  
   opacity: 0;
   pointer-events: none;
   transition: opacity var(--transition), transform var(--transition);
+  min-width: auto;
+  width: max-content;
+  padding: 28px;
 }
 
 .nav-item:hover .mega-menu {
@@ -413,9 +408,13 @@ section {
 .mega-inner { 
   display: flex; 
   gap: 32px; 
+  justify-content: center;
 }
 
-.mega-col { flex: 1; }
+.mega-col { 
+  flex: 0 1 auto; 
+}
+
 .mega-label {
   font-size: 0.7rem;
   font-weight: 700;
@@ -424,6 +423,7 @@ section {
   color: var(--red);
   margin-bottom: 12px;
 }
+
 .mega-item {
   display: flex;
   align-items: center;
@@ -436,17 +436,55 @@ section {
   transition: var(--transition);
   margin-bottom: 4px;
 }
-.mega-item:hover { background: var(--bg); color: var(--navy); }
-[data-theme="dark"] .mega-item:hover { background: var(--bg-alt); color: var(--yellow); }
-.mega-item img { width: 42px; height: 42px; border-radius: var(--radius-sm); object-fit: cover; flex-shrink: 0; }
-.mega-item.text-only i { width: 20px; text-align: center; color: var(--navy); }
-[data-theme="dark"] .mega-item.text-only i { color: var(--yellow); }
 
-.mega-featured { min-width: 200px; }
-.mega-feature-card { text-align: center; }
-.mega-feature-card img { border-radius: var(--radius-sm); margin-bottom: 10px; height: 120px; object-fit: cover; }
-.mega-feature-card p { font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; }
+.mega-item:hover { 
+  background: var(--bg); 
+  color: var(--navy); 
+}
 
+[data-theme="dark"] .mega-item:hover { 
+  background: var(--bg-alt); 
+  color: var(--yellow); 
+}
+
+.mega-item img { 
+  width: 42px; 
+  height: 42px; 
+  border-radius: var(--radius-sm); 
+  object-fit: cover; 
+  flex-shrink: 0; 
+}
+
+.mega-item.text-only i { 
+  width: 20px; 
+  text-align: center; 
+  color: var(--navy); 
+}
+
+[data-theme="dark"] .mega-item.text-only i { 
+  color: var(--yellow); 
+}
+
+.mega-featured { 
+  min-width: 200px; 
+}
+
+.mega-feature-card { 
+  text-align: center; 
+}
+
+.mega-feature-card img { 
+  border-radius: var(--radius-sm); 
+  margin-bottom: 10px; 
+  height: 120px; 
+  object-fit: cover; 
+}
+
+.mega-feature-card p { 
+  font-size: 0.85rem; 
+  font-weight: 600; 
+  margin-bottom: 8px; 
+}
 
 /* header upper-right icons */
 .header-actions { 
@@ -558,8 +596,7 @@ section {
 
 /* theme toggle button */
 .theme-toggle {
-  width: 40px; 
-  height: 40px;
+  width: 40px; height: 40px;
   display: flex; 
   align-items: center; 
   justify-content: center;
@@ -810,7 +847,6 @@ section {
   fill: var(--bg-alt); 
 }
 
-
 /* section ticker */
 .section-ticker {
   background: var(--navy);
@@ -842,7 +878,7 @@ section {
   flex-shrink: 0;
 }
 
-.section-ticker.reverse .ticker2-track span { 
+.section-ticker.reverse, .ticker2-track span { 
   color: var(--white); 
 }
 
@@ -850,79 +886,57 @@ section {
   margin-right: 8px; 
 }
 
-/* products/explore collection */
-.products { 
-  background: var(--bg-alt); 
-  position: relative; 
+/* product area */
+.product-grid-product {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    /* spacing between your "table cells" */
+    gap: 30px 20px; /* 30px vertical (row gap), 20px horizontal (column gap) */
+    padding: 40px 5%;
+    width: 100%;
+    margin: 0 auto;
 }
 
-/* carousel wrapper */
-.carousel-wrap {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  max-width: 1300px;
-  margin: 0 auto;
-  position: relative;
+/* ensure cards stay uniform in the "table" */
+.product-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%; 
+    background: var(--card-bg);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
 }
 
-.carousel-btn {
-  width: 46px; height: 46px;
-  background: var(--navy);
-  color: var(--yellow);
-  border-radius: 50%;
-  font-size: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  transition: var(--transition);
-  box-shadow: var(--shadow);
+@media (max-width: 1200px) {
+    .product-grid-product {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
 }
 
-.carousel-btn:hover { 
-  background: var(--yellow); 
-  color: var(--navy); 
-  transform: scale(1.08); 
+@media (max-width: 768px) {
+    .product-grid-product {
+        grid-template-columns: repeat(2, 1fr) !important; 
+        gap: 20px;
+    }
 }
 
-/* scrollable product grid */
-.product-grid {
-  display: flex;
-  gap: 24px;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  padding: 12px 4px;
-  flex: 1;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+@media (max-width: 480px) {
+  .product-grid-product {
+    grid-template-columns: repeat(1, 1fr) !important;
+  }
 }
 
-.product-grid::-webkit-scrollbar { 
-  display: none; 
+.rating {
+    color: #f4d03f;
+    margin-top: 5px;
+    font-size: 14px; 
 }
 
-/* carousel dots */
-.carousel-dots {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 28px;
-}
-
-.carousel-dot {
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  background: var(--border);
-  transition: var(--transition);
-  cursor: pointer;
-  border: none;
-}
-
-.carousel-dot.active { 
-  background: var(--navy); 
-  width: 24px; 
-  border-radius: 4px; 
+/* number in parentheses next to the stars */
+.rating span {
+    color: #555; 
+    margin-left: 4px; 
 }
 
 /* product card */
@@ -934,7 +948,6 @@ section {
   box-shadow: var(--shadow);
   transition: transform var(--transition), box-shadow var(--transition);
 }
-
 .product-card:hover {
   transform: translateY(-6px);
   box-shadow: var(--shadow-lg);
@@ -946,7 +959,6 @@ section {
   height: 320px;
   overflow: hidden;
 }
-
 .img-front, .img-back {
   position: absolute;
   inset: 0;
@@ -973,7 +985,6 @@ section {
   display: flex; gap: 6px;
   z-index: 1;
 }
-
 .badge-tag {
   padding: 4px 10px;
   background: var(--navy);
@@ -1044,14 +1055,35 @@ section {
 }
 
 .card-price {
-  font-family: 'Bebas Neue Custom', sans-serif;
+  font-family: 'Bebas Neue', sans-serif;
   font-size: 1.4rem;
   color: var(--navy);
   letter-spacing: 0.04em;
 }
 
-[data-theme="dark"] .card-price {
-   color: var(--yellow); 
+[data-theme="dark"] .card-price { 
+  color: var(--yellow); 
+}
+
+/* other needs sa products page*/
+.section-header-product { 
+  text-align: center; 
+  margin-bottom: 25px; 
+}
+
+.section-sub-product {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 12px;
+}
+
+.section-title-product {
+  font-size: clamp(2.4rem, 5vw, 3.6rem);
+  color: var(--text);
 }
 
 .size-select {
@@ -1584,7 +1616,7 @@ section {
   z-index: 500;
 }
 
-.back-to-top {
+.back-to-top.visible {
   opacity: 1;
   pointer-events: all;
   transform: translateY(0);
@@ -1613,6 +1645,7 @@ section {
     transform: translateY(0); 
   }
 }
+
 
 /* responsiveness = tablet and mobile */
 @media (max-width: 1024px) {
@@ -1696,7 +1729,8 @@ section {
     pointer-events: all;
     box-shadow: none;
     border: none;
-    min-width: auto;
+    /*padding: 12px 0 12px 16px;*/
+    min-width: auto;/*new*/
     width: max-content;
     padding: 28px;
     display: none;
@@ -1759,3 +1793,4 @@ section {
     padding: 14px 16px; 
   }
 }
+
