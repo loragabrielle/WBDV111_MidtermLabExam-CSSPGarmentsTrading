@@ -1,14 +1,27 @@
-- **Project Title:** CSSP Garments Trading  
-- **Student Name(s):** Lagman, Leyble, and Pacleb  
-- **Course & Section:** BSIT 1-Y2-4  
-- **Project Description:**
-CSSP Garments Trading is a retail website designed to showcase high-quality garments tailored for durability and comfort. The platform provides users with a seamless browsing experience, allowing them to explore products, learn about the brand, and connect with the business.
-- **Features Implemented:** 
-  - Responsive website design
-  - Dark mode functionality  
-  - Mobile-friendly layout 
-  - Product Section
-  - About Us Section
+<div align="center">
+
+# 🧵 CSSP Garments Trading 🧵
+
+### Student Name: Lagman • Leyble • Pacleb  
+**Course & Section: BSIT 1-Y2-4**
+
+---
+
+</div>
+
+## Project Description:
+**CSSP Garments Trading** is a modern retail website designed to showcase high-quality garments focused on durability, comfort, and style. It provides users with a smooth and engaging browsing experience where they can explore products, learn about the brand, and easily connect with the business.
+
+---
+
+## Features Implemented:
+  - Responsive Website Design  
+  - Dark Mode Functionality  
+  - Mobile-Friendly Layout  
+  - Product Section  
+  - About Us Section  
   - Contact / Inquiry Section  
-- **Website Preview:**
-  lagyan kapag done na yung website 
+
+---
+
+## Website Preview: 
