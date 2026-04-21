@@ -1223,7 +1223,7 @@ section {
   z-index: 500;
 }
 
-.back-to-top {
+.back-to-top.visible {
   opacity: 1;
   pointer-events: all;
   transform: translateY(0);
