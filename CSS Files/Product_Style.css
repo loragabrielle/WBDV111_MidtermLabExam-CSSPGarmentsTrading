@@ -207,6 +207,11 @@ section {
   padding: 9px 0;
 }
 
+[data-theme="dark"] .pre-header { 
+  background: var(--yellow); 
+  color: var(--navy); 
+}
+
 .ticker-track {
   display: inline-flex;
   gap: 56px;
