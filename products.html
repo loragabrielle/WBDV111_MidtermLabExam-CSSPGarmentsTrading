@@ -180,7 +180,10 @@
             </div>
 
             <div class="product-grid-product">
-                <div class="product-card">
+                <div class="product-card" 
+                    data-name="Coveralls (Blue)"
+                    data-desc="lora lora lora lora lora lora lora lora">
+
                     <div class="card-image-wrap"> 
                         <img src="Assets/Products/UNI-PR1-Front-Coverall (Blue).JPG" class="img-front" alt="Front View">
                         <img src="Assets/Products/UNI-PR1-Back-Coverall (Blue).JPG" class="img-back" alt="Back View">
@@ -197,14 +200,9 @@
                         <div class="card-price" data-base="900.00">₱900.00</div>
                         <div class="rating">★★★★★ <span>(137)</span></div>
                         
-                        <select class="size-select">
-                            <option selected disabled>Size</option>
-                            <option value="S">Small</option>
-                            <option value="M">Medium</option>
-                            <option value="L">Large</option>
-                            <option value="XL">Extra Large</option>
-                            <option value="XXL">Double Extra Large</option>
-                        </select>
+                        <button class="size-select add-to-cart-btn" onclick="openCartModal(this)">
+                            <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                        </button>
                     </div>
                 </div> 
                 <div class="product-card">
@@ -224,14 +222,9 @@
                         <div class="card-price" data-base="1000.00">₱1,000.00</div>
                         <div class="rating">★★★★★ <span>(866)</span></div>
                         
-                        <select class="size-select">
-                            <option selected disabled>Size</option>
-                            <option value="S">Small</option>
-                            <option value="M">Medium</option>
-                            <option value="L">Large</option>
-                            <option value="XL">Extra Large</option>
-                            <option value="XXL">Double Extra Large</option>
-                        </select>
+                        <button class="size-select add-to-cart-btn" onclick="openCartModal(this)">
+                            <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                        </button>
                     </div>
                 </div> 
                 <div class="product-card">
@@ -251,14 +244,9 @@
                         <div class="card-price" data-base="950.00">₱950.00</div>
                         <div class="rating">★★★★★ <span>(39)</span></div>
                         
-                        <select class="size-select">
-                            <option selected disabled>Size</option>
-                            <option value="S">Small</option>
-                            <option value="M">Medium</option>
-                            <option value="L">Large</option>
-                            <option value="XL">Extra Large</option>
-                            <option value="XXL">Double Extra Large</option>
-                        </select>
+                        <button class="size-select add-to-cart-btn" onclick="openCartModal(this)">
+                            <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                        </button>
                     </div>
                 </div> 
                 <div class="product-card">
@@ -278,14 +266,9 @@
                         <div class="card-price" data-base="800.00">₱800.00</div>
                         <div class="rating">★★★★★ <span>(214)</span></div>
                         
-                        <select class="size-select">
-                            <option selected disabled>Size</option>
-                            <option value="S">Small</option>
-                            <option value="M">Medium</option>
-                            <option value="L">Large</option>
-                            <option value="XL">Extra Large</option>
-                            <option value="XXL">Double Extra Large</option>
-                        </select>
+                        <button class="size-select add-to-cart-btn" onclick="openCartModal(this)">
+                            <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                        </button>
                     </div>
                 </div> 
             </div> 
@@ -315,15 +298,9 @@
                         <div class="card-price">₱1,200.00</div>
                         <div class="rating">★★★★★ <span>(125)</span></div>
                         
-                        <select class="size-select">
-                            <option selected disabled>Size</option>
-                            <option value="37">37</option>
-                            <option value="38">38</option>
-                            <option value="39">39</option>
-                            <option value="40">40</option>
-                            <option value="41">41</option>
-                            <option value="42">42</option>
-                        </select>
+                        <button class="size-select add-to-cart-btn" onclick="openCartModal(this)">
+                            <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                        </button>
                     </div>
                 </div> 
                 <div class="product-card">
@@ -343,15 +320,9 @@
                         <div class="card-price">₱1,000.00</div>
                         <div class="rating">★★★★★ <span>(55)</span></div>
                         
-                        <select class="size-select">
-                            <option selected disabled>Size</option>
-                            <option value="37">37</option>
-                            <option value="38">38</option>
-                            <option value="39">39</option>
-                            <option value="40">40</option>
-                            <option value="41">41</option>
-                            <option value="42">42</option>
-                        </select>
+                        <button class="size-select add-to-cart-btn" onclick="openCartModal(this)">
+                            <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                        </button>
                     </div>
                 </div> 
                 <div class="product-card">
@@ -371,20 +342,14 @@
                         <div class="card-price">₱1,100.00</div>
                         <div class="rating">★★★★★ <span>(278)</span></div>
                         
-                        <select class="size-select">
-                            <option selected disabled>Size</option>
-                            <option value="37">37</option>
-                            <option value="38">38</option>
-                            <option value="39">39</option>
-                            <option value="40">40</option>
-                            <option value="41">41</option>
-                            <option value="42">42</option>
-                        </select>
+                        <button class="size-select add-to-cart-btn" onclick="openCartModal(this)">
+                            <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                        </button>
                     </div>
                 </div> 
             </div> 
         </section>
-        
+
         <!-- ===== INFINITE TICKER 2 ===== -->
         <div class="section-ticker">
             <div class="ticker2-track">
@@ -444,12 +409,45 @@
             </div>
             </div>
         </footer>
-    
+
+        <!-- add to cart modal -->
+        <div class="cart-modal" id="cartModal">
+            <div class="cart-box">
+
+                <h2 id="modalProductName">Product</h2>
+
+                <p id="modalProductDesc" class="modal-desc"></p>
+
+                <!-- SIZE -->
+                <label>Size</label>
+                <select id="modalSize">
+                    <option value="" disabled selected>Select size</option>
+                    <option value="S">Small</option>
+                    <option value="M">Medium</option>
+                    <option value="L">Large</option>
+                    <option value="XL">Extra Large</option>
+                    <option value="XXL">Double XL</option>
+                </select>
+
+                <!-- QUANTITY -->
+                <label>Quantity</label>
+                <input type="number" id="modalQty" value="1" min="1">
+
+                <!-- ACTION BUTTONS -->
+                <div class="modal-actions">
+                    <button onclick="confirmAddToCart()">Add to Cart</button>
+                    <button onclick="closeCartModal()">Cancel</button>
+                </div>
+
+            </div>
+        </div>
+
         <!-- back to top button -->
         <button class="back-to-top" id="backToTop" title="Back to Top">
             <i class="fa-solid fa-anchor"></i>
         </button>
     
-        <script src="JS Files/Index_Script.js"></script>
+        <script src="JS Files/Products_Script.js"></script>
+        
     </body>
 </html>
