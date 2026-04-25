@@ -1,6 +1,6 @@
 /* shortcut color ------  var(--name)*/
 :root {
-  --bg:          #f5f5f0;
+  --bg:          #f5f5f0; 
   --bg-alt:      #eaeae4;
   --bg-dark:     #1a3a5c;
   --surface:     #ffffff;
@@ -13,7 +13,7 @@
   --green:       #2d6a4f;
   --white:       #ffffff;
   --darkred:     #610000;
-  --shadow:      0 4px 24px rgba(0,0,0,0.10);
+  --shadow:      0 4px 24px rgba(0,0,0,0.10); 
   --shadow-lg:   0 12px 48px rgba(0,0,0,0.18);
   --radius:      16px;
   --radius-sm:   8px;
@@ -196,6 +196,14 @@ h1, h2, h3, h4 {
 /* sections spacing */
 section { 
   padding: 100px 5%; 
+}
+
+.products {
+  padding: 80px 5%;
+}
+
+.products + .products {
+  padding-top: 0px;
 }
 
 /* pre-header ticker */
