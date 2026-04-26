@@ -401,7 +401,6 @@ function shakeModal() {
 const cartModal = document.getElementById("cartModal");
 
 cartModal.addEventListener("click", function (e) {
-  // if user clicks the dark background (NOT the modal box)
   if (e.target === cartModal) {
     closeCartModal();
   }
