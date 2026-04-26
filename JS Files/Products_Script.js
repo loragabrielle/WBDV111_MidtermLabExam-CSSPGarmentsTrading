@@ -2,13 +2,11 @@
 const $ = (id) => document.getElementById(id);
 const $$ = (sel) => document.querySelectorAll(sel);
 
-
 // ticker duplication logic
 const tickerTrack = $('tickerTrack');
 if (tickerTrack) {
   tickerTrack.innerHTML += tickerTrack.innerHTML;
 }
-
 
 // adds shadow to header after scrolling down 50px
 const header = $('siteHeader');
@@ -19,7 +17,6 @@ window.addEventListener('scroll', () => {
     header.classList.remove('scrolled');
   }
 });
-
 
 // toggles mobile nav and mega menu
 const hamburger = $('hamburger');
@@ -284,12 +281,12 @@ function openCartModal(btn) {
     document.getElementById("cartModal").classList.add("active");
 }
 
-// ===== CLOSE MODAL =====
+// closes the cart modal (yung x na button)
 function closeCartModal() {
   document.getElementById("cartModal").classList.remove("active");
 }
 
-// ===== NEXT IMAGE =====
+// next image in the modal carousel (yung right arrow)
 function nextImage() {
   if (images.length == 0) return;
     index++;
@@ -301,7 +298,7 @@ function nextImage() {
     document.getElementById("modalImage").src = images[index];
 }
 
-// ===== PREVIOUS IMAGE =====
+// previous image in the modal carousel (yung left arrow)
 function prevImage() {
   if (images.length == 0) return;
   index--;
@@ -313,7 +310,7 @@ function prevImage() {
     document.getElementById("modalImage").src = images[index];
 }
 
-// ===== ADD TO CART =====
+// add to cart confirmation (for size and quantity)
 function confirmAddToCart() {
   let size = document.getElementById("modalSize").value;
   let qty = Number(document.getElementById("modalQty").value);
@@ -392,8 +389,8 @@ function showSuccessModal() {
 function shakeModal() {
   const box = document.querySelector(".cart-box");
 
-  box.classList.remove("shake"); // reset animation
-  void box.offsetWidth; // force reflow (important trick)
+  box.classList.remove("shake"); 
+  void box.offsetWidth; 
   box.classList.add("shake");
 
   setTimeout(() => {
