@@ -351,7 +351,7 @@ function confirmAddToCart() {
     } 
     
     else if (qty > 50) {
-      qtyNotif.textContent = "⚠ Maximum order per product is 50 only. Proceed to Contacts Page for bulk orders.";
+      qtyNotif.textContent = "⚠ Maximum order per product is 50 pieces. For bulk orders, please proceed to the Contact Page to get in touch with our team.";
       qtyNotif.style.display = "block";
 
         setTimeout(() => {
