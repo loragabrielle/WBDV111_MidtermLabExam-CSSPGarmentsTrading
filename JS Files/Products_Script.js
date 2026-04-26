@@ -141,25 +141,6 @@ $$('#currencyDropdown li').forEach(item => {
   });
 });
 
-// add item to cart and add the badge count
-let cartCount = 0;
-const cartBadge = $('cartBadge');
-
-$$('.quick-add').forEach(btn => {
-  btn.addEventListener('click', () => {
-    cartCount++;
-
-    if (cartBadge) {
-      cartBadge.textContent = cartCount;
-
-      cartBadge.style.transform = 'scale(1.4)';
-      setTimeout(() => {
-        cartBadge.style.transform = 'scale(1)';
-      }, 200);
-    }
-  });
-});
-
 // back to top button logic
 const backBtn = $('backToTop');
 
