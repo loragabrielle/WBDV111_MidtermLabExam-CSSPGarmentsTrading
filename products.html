@@ -181,8 +181,12 @@
 
             <div class="product-grid-product">
                 <div class="product-card" 
+                    data-type="Uniforms"
                     data-name="Coveralls (Blue)"
-                    data-desc="lora lora lora lora lora lora lora lora">
+                    data-desc=" lora lora lora lora lora lora lora lora lora lora lora lora lora lora "
+                    data-extra="Assets/Products/UNI-PR1-Front-Coverall (Blue).JPG"
+                    data-front="Assets/Products/UNI-PR1-Front-Coverall (Blue).JPG"
+                    data-back="Assets/Products/UNI-PR1-Front-Coverall (Blue).JPG">
 
                     <div class="card-image-wrap"> 
                         <img src="Assets/Products/UNI-PR1-Front-Coverall (Blue).JPG" class="img-front" alt="Front View">
@@ -205,7 +209,15 @@
                         </button>
                     </div>
                 </div> 
-                <div class="product-card">
+
+                <div class="product-card" 
+                    data-type="Uniforms"
+                    data-name="Coveralls (Orange)"
+                    data-desc=" "
+                    data-extra=" "
+                    data-front=" "
+                    data-back=" ">
+
                     <div class="card-image-wrap"> 
                         <img src="Assets/Products/UNI-PR2-Front-Coverall (Orange).JPG" class="img-front" alt="Front View">
                         <img src="Assets/Products/UNI-PR2-Back-Coverall (Orange).JPG" class="img-back" alt="Back View">
@@ -227,7 +239,15 @@
                         </button>
                     </div>
                 </div> 
-                <div class="product-card">
+
+                <div class="product-card"
+                    data-type="Uniforms"
+                    data-name="Coveralls (Beige)"
+                    data-desc=" "
+                    data-extra=" "
+                    data-front=" "
+                    data-back=" ">
+
                     <div class="card-image-wrap"> 
                         <img src="Assets/Products/UNI-PR3-Front-Coverall (Beige).JPG" class="img-front" alt="Front View">
                         <img src="Assets/Products/UNI-PR3-Back-Coverall (Beige).JPG" class="img-back" alt="Back View">
@@ -249,7 +269,15 @@
                         </button>
                     </div>
                 </div> 
-                <div class="product-card">
+
+                <div class="product-card"
+                    data-type="Uniforms"
+                    data-name="Coveralls (Chef's)"
+                    data-desc=" "
+                    data-extra=" "
+                    data-front=" "
+                    data-back=" ">
+
                     <div class="card-image-wrap"> 
                         <img src="Assets/Products/UNI-PR4-Front-Coverall (Chef's).JPG" class="img-front" alt="Front View">
                         <img src="Assets/Products/UNI-PR4-Back-Coverall (Chef's).JPG" class="img-back" alt="Back View">
@@ -281,7 +309,14 @@
             </div>
 
             <div class="product-grid-product">
-                <div class="product-card">
+                <div class="product-card"
+                    data-type="Shoes"
+                    data-name="MG Safety (High Cut)"
+                    data-desc=" "
+                    data-extra=" "
+                    data-front=" "
+                    data-back=" ">
+
                     <div class="card-image-wrap"> 
                         <img src="Assets/Products/PR1-Front-High Cut (MG Safety).JPG" class="img-front" alt="Front View">
                         <img src="Assets/Products/PR1-Back-High Cut (MG Safety).JPG" class="img-back" alt="Back View">
@@ -303,7 +338,15 @@
                         </button>
                     </div>
                 </div> 
-                <div class="product-card">
+
+                <div class="product-card"
+                    data-type="Shoes"
+                    data-name="Rockwinner (Low Cut)"
+                    data-desc=" "
+                    data-extra=" "
+                    data-front=" "
+                    data-back=" ">
+
                     <div class="card-image-wrap"> 
                         <img src="Assets/Products/PR2-Front-Low Cut (Rockwinner).JPG" class="img-front" alt="Front View">
                         <img src="Assets/Products/PR2-Back-Low Cut (Rockwinner).JPG" class="img-back" alt="Back View">
@@ -325,7 +368,15 @@
                         </button>
                     </div>
                 </div> 
-                <div class="product-card">
+
+                <div class="product-card"
+                    data-type="Shoes"
+                    data-name="MG Safety (Low Cut)"
+                    data-desc=" "
+                    data-extra=" "
+                    data-front=" "
+                    data-back=" ">
+
                     <div class="card-image-wrap"> 
                         <img src="Assets/Products/PR3-Front-Low Cut (MG Safety).JPG" class="img-front" alt="Front View">
                         <img src="Assets/Products/PR3-Back-Low Cut (MG Safety).JPG" class="img-back" alt="Back View">
@@ -413,31 +464,50 @@
         <div class="cart-modal" id="cartModal">
             <div class="cart-box">
 
-                <h2 id="modalProductName">Product</h2>
-
-                <p id="modalProductDesc" class="modal-desc"></p>
-
-                <!-- SIZE -->
-                <label>Size</label>
-                <select id="modalSize">
-                    <option value="" disabled selected>Select size</option>
-                    <option value="S">Small</option>
-                    <option value="M">Medium</option>
-                    <option value="L">Large</option>
-                    <option value="XL">Extra Large</option>
-                    <option value="XXL">Double XL</option>
-                </select>
-
-                <!-- QUANTITY -->
-                <label>Quantity</label>
-                <input type="number" id="modalQty" value="1" min="1">
-
-                <!-- ACTION BUTTONS -->
-                <div class="modal-actions">
-                    <button onclick="confirmAddToCart()">Add to Cart</button>
-                    <button onclick="closeCartModal()">Cancel</button>
+                <!-- LEFT: IMAGE -->
+                <div class="modal-left">
+                    <div class="modal-carousel">
+                        <button class="carousel-btn prev" onclick="prevImage()">❮</button>
+                        <img id="modalImage" src="" alt="Product Image">
+                        <button class="carousel-btn next" onclick="nextImage()">❯</button>
+                    </div>
                 </div>
 
+                <!-- RIGHT: DETAILS -->
+                <div class="modal-right">
+
+                    <button class="modal-close" onclick="closeCartModal()">✕</button>
+
+                    <h2 id="modalProductName">Product</h2>
+                    <p id="modalProductDesc" class="modal-desc"></p>
+
+                    <!-- SIZE -->
+                    <label>Size</label>
+                    <select id="modalSize">
+                        <option value="" disabled selected>Select size</option>
+                    </select>
+
+                    <div class="size-notif" id="sizeNotif"></div>
+
+                    <!-- QUANTITY -->
+                    <label>Quantity</label>
+                    <input type="number" id="modalQty" value="1" min="1" max="50">
+
+                    <div class="qty-notif" id="qtyNotif"></div>
+
+                    <div class="modal-actions">
+                        <button onclick="confirmAddToCart()">Add to Cart</button>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="success-modal" id="successModal">
+            <div class="success-box">
+                <i class="fa-solid fa-circle-check"></i>
+                <p>Product successfully added to cart!</p>
             </div>
         </div>
 

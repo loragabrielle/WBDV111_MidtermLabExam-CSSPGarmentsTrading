@@ -144,7 +144,6 @@ $$('#currencyDropdown li').forEach(item => {
   });
 });
 
-
 // add item to cart and add the badge count
 let cartCount = 0;
 const cartBadge = $('cartBadge');
@@ -164,8 +163,6 @@ $$('.quick-add').forEach(btn => {
   });
 });
 
-
-
 // back to top button logic
 const backBtn = $('backToTop');
 
@@ -178,7 +175,6 @@ if (backBtn) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 }
-
 
 // section reveal transitions
 const style = document.createElement('style');
@@ -219,56 +215,189 @@ function addToCart() {
   alert('Added to Cart Successfully!');
 }
 
-let selectedProduct = null;
+// global variables for modal image switching
+let images = [];
+let index = 0;
 
-// OPEN MODAL
+// opens the cart modal and puts the correct product info 
 function openCartModal(btn) {
-    const card = btn.closest('.product-card');
+  let card = btn.closest(".product-card");
 
-    const name = card.querySelector('.card-name').innerText;
-    const category = card.querySelector('.card-category').innerText;
+  let name = card.dataset.name;
+  let desc = card.dataset.desc;
+  let type = card.dataset.type; 
 
-    selectedProduct = { name, category };
+  let front = card.dataset.front;
+  let back = card.dataset.back;
+  let extra = card.dataset.extra;
 
-    document.getElementById('modalProductName').innerText = name;
+  // show product info
+  document.getElementById("modalProductName").textContent = name;
+  document.getElementById("modalProductDesc").textContent = desc;
 
-    document.getElementById('modalProductDesc').innerText =
-        `${category} • Premium quality, durable and designed for professional use.`;
+  // for the size options (based on what product card ang pinindot)
+  const sizeSelect = document.getElementById("modalSize");
 
-    document.getElementById('modalSize').value = "";
-    document.getElementById('modalQty').value = 1;
+  sizeSelect.innerHTML = `<option value="" disabled selected>Select size</option>`;
 
-    document.getElementById('cartModal').classList.add('active');
-}
+  if (type === "Uniforms") {
+    sizeSelect.innerHTML += `
+      <option value="S">Small</option>
+      <option value="M">Medium</option>
+      <option value="L">Large</option>
+      <option value="XL">Extra Large</option>
+      <option value="XXL">Double Extra Large</option>
+    `;
+  }
 
-// CLOSE MODAL
-function closeCartModal() {
-    document.getElementById('cartModal').classList.remove('active');
-}
+  if (type === "Shoes") {
+    sizeSelect.innerHTML += `
+      <option value="36">36</option>
+      <option value="37">37</option>
+      <option value="38">38</option>
+      <option value="39">39</option>
+      <option value="40">40</option>
+      <option value="41">41</option>
+      <option value="42">42</option>
+      <option value="43">43</option>
+      <option value="44">44</option>
+      <option value="45">45</option>
+    `;
+  }
 
-// CONFIRM ADD TO CART
-function confirmAddToCart() {
-    const size = document.getElementById('modalSize').value;
-    const qty = parseInt(document.getElementById('modalQty').value);
+  // reset images
+  images = [];
+    if (front) images.push(front);
+    if (back) images.push(back);
+    if (extra) images.push(extra);
 
-    if (!size) {
-        alert("Please select a size");
-        return;
+    // fallback image
+    if (images.length == 0) {
+      let img = card.querySelector("img");
+      images.push(img.src);
     }
 
-    const badge = document.getElementById('cartBadge');
-    let count = parseInt(badge.innerText) || 0;
+    index = 0;
+    document.getElementById("modalImage").src = images[index];
 
-    badge.innerText = count + qty;
+    // show modal
+    document.getElementById("cartModal").classList.add("active");
+}
+
+// ===== CLOSE MODAL =====
+function closeCartModal() {
+  document.getElementById("cartModal").classList.remove("active");
+}
+
+// ===== NEXT IMAGE =====
+function nextImage() {
+  if (images.length == 0) return;
+    index++;
+
+    if (index >= images.length) {
+      index = 0;
+    }
+
+    document.getElementById("modalImage").src = images[index];
+}
+
+// ===== PREVIOUS IMAGE =====
+function prevImage() {
+  if (images.length == 0) return;
+  index--;
+
+    if (index < 0) {
+      index = images.length - 1;
+    }
+
+    document.getElementById("modalImage").src = images[index];
+}
+
+// ===== ADD TO CART =====
+function confirmAddToCart() {
+  let size = document.getElementById("modalSize").value;
+  let qty = Number(document.getElementById("modalQty").value);
+
+  let sizeNotif = document.getElementById("sizeNotif");
+  let qtyNotif = document.getElementById("qtyNotif");
+
+  let hasError = false;
+
+    // reset first
+    if (sizeNotif) sizeNotif.style.display = "none";
+    if (qtyNotif) qtyNotif.style.display = "none";
+    
+    // size check
+    if (size == "") {
+      sizeNotif.textContent = "⚠ Please select a size before adding to cart.";
+      sizeNotif.style.display = "block";
+
+        setTimeout(() => {
+          sizeNotif.style.display = "none";
+        }, 2000);
+      
+      shakeModal();
+      hasError = true;
+    }
+
+    // quantity check
+    if (qty <= 0) {
+      qtyNotif.textContent = "⚠ Quantity must be at least 1.";
+      qtyNotif.style.display = "block";
+
+        setTimeout(() => {
+            qtyNotif.style.display = "none";
+        }, 2000);
+
+      shakeModal();
+      hasError = true;
+    } 
+    
+    else if (qty > 50) {
+      qtyNotif.textContent = "⚠ Maximum order per product is 50 only. Proceed to Contacts Page for bulk orders.";
+      qtyNotif.style.display = "block";
+
+        setTimeout(() => {
+          qtyNotif.style.display = "none";
+        }, 2000);
+        
+      shakeModal();
+      hasError = true;
+    }
+
+    // stop only if error exists
+    if (hasError) return;
+
+    // success add to cart
+    let badge = document.getElementById("cartBadge");
+
+    if (badge) {
+      badge.textContent = Number(badge.textContent) + qty;
+    }
 
     closeCartModal();
-
-    alert(`${selectedProduct.name} added to cart (${size}, x${qty})`);
+    showSuccessModal();
 }
 
-// CLOSE WHEN CLICKING OUTSIDE BOX
-document.getElementById('cartModal').addEventListener('click', function(e) {
-    if (e.target === this) {
-        closeCartModal();
-    }
-});
+function showSuccessModal() {
+    const modal = document.getElementById("successModal");
+
+    modal.classList.add("active");
+
+    setTimeout(() => {
+      modal.classList.remove("active");
+    }, 2000);
+}
+
+function shakeModal() {
+  const box = document.querySelector(".cart-box");
+
+  box.classList.remove("shake"); // reset animation
+  void box.offsetWidth; // force reflow (important trick)
+  box.classList.add("shake");
+
+  setTimeout(() => {
+    box.classList.remove("shake");
+  }, 400);
+}
+
