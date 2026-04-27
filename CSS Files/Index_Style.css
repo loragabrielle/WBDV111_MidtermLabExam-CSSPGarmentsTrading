@@ -1,9 +1,9 @@
 /* "BEBAS NEUE CUSTOM" */
 @font-face {
   font-family: 'Bebas Neue Custom';
-  src: url('../WEBDEV111/Bebas\ Neue/BebasNeue-Regular.woff2') format('woff2'),
-       url('../WEBDEV111/Bebas\ Neue/BebasNeue-Regular.woff') format('woff'),
-       url('../WEBDEV111/Bebas\ Neue/BebasNeue-Regular.ttf') format('truetype');
+  src: url('../Fonts/Bebas\ Neue/BebasNeue-Regular.woff2') format('woff2'),
+       url('../Fonts/Bebas\ Neue/BebasNeue-Regular.woff') format('woff'),
+       url('../Fonts/Bebas\ Neue/BebasNeue-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
@@ -11,14 +11,14 @@
 /* "CREATO DISPLAY" */
 @font-face {
   font-family: 'Creato Display';
-  src: url('../WEBDEV111/Creato Display/CreatoDisplay-Medium.otf') format('opentype');
+  src: url('../Fonts/Creato Display/CreatoDisplay-Medium.otf') format('opentype');
   font-weight: 400; 
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Creato Display';
-  src: url('../WEBDEV111/Creato Display/CreatoDisplay-Bold.otf') format('opentype');
+  src: url('../Fonts/Creato Display/CreatoDisplay-Bold.otf') format('opentype');
   font-weight: 700; 
   font-style: normal;
 }
