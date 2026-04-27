@@ -1,145 +1,264 @@
-// helper functions for easier element selection
-const $ = id => document.getElementById(id);
+/* helper shortcuts */
+const $  = id  => document.getElementById(id);
 const $$ = sel => document.querySelectorAll(sel);
 
-
-const tickerTrack = $('tickerTrack');
-if (tickerTrack) {
-  const clone = tickerTrack.innerHTML;
-  tickerTrack.innerHTML += clone; // duplicate content
+/* ── UTILS ─────────────────────────────────── */
+function showToast(msg, type = 'default', duration = 3200) {
+  const icons = { success:'fa-circle-check', error:'fa-circle-xmark', warning:'fa-triangle-exclamation', default:'fa-bell' };
+  const t = document.createElement('div');
+  t.className = `toast ${type}`;
+  t.innerHTML = `<i class="fa-solid ${icons[type] || icons.default}"></i>${msg}`;
+  $('toastContainer').appendChild(t);
+  setTimeout(() => { t.classList.add('out'); setTimeout(() => t.remove(), 350); }, duration);
 }
 
-//  adds shadow to header after scrolling down 50px
-const header = $('siteHeader');
+/* ── TICKER clone for infinite loop ─────────── */
+const tickerTrack = $('tickerTrack');
+if (tickerTrack) tickerTrack.innerHTML += tickerTrack.innerHTML;
+
+/* ── SCROLL → sticky shadow ──────────────────── */
+const hdr = $('siteHeader');
 window.addEventListener('scroll', () => {
-  if (window.scrollY > 50) {
-    header.classList.add('scrolled');
-  } else {
-    header.classList.remove('scrolled');
-  }
-});
+  hdr.classList.toggle('scrolled', window.scrollY > 50);
+  $('backToTop').classList.toggle('visible', window.scrollY > 300);
+}, { passive: true });
 
-// toggles mobile nav and mega menu
-const hamburger = $('hamburger');
-const mainNav   = $('mainNav');
 
-hamburger.addEventListener('click', () => {
-  hamburger.classList.toggle('open');
-  mainNav.classList.toggle('open');
-});
+/* ── MEGA MENU (click-based, outside-click closes) ── */
+const megaItems = document.querySelectorAll('.nav-item.has-mega'); 
 
-$$('.nav-item.has-mega .nav-link').forEach(link => {
-  link.addEventListener('click', e => {
-    // for small screens
+megaItems.forEach(item => {
+  const btn = item.querySelector('.nav-link');
+
+  btn.addEventListener('click', e => {
+    // Check current state once
+    const isOpen = item.classList.contains('nav-open');
+    
+    // Logic for Mobile (<= 768px)
     if (window.innerWidth <= 768) {
+      // If the menu is closed, prevent the link from navigating and open the menu instead
+      if (!isOpen) {
+        e.preventDefault();
+        e.stopPropagation();
+      } 
+      // If the link is just a placeholder "#", always prevent navigation
+      else if (btn.getAttribute('href') === '#') {
+        e.preventDefault();
+      }
+    } else {
+      // Desktop behavior: Always treat the top-level click as a toggle
       e.preventDefault();
-      const parent = link.closest('.nav-item');
-      parent.classList.toggle('open');
+      e.stopPropagation();
     }
+
+    /* Close all other open mega menus */
+    megaItems.forEach(i => {
+      if (i !== item) {
+        i.classList.remove('nav-open');
+        i.querySelector('.nav-link').setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    /* Toggle the clicked menu */
+    const newState = !isOpen;
+    item.classList.toggle('nav-open', newState);
+    btn.setAttribute('aria-expanded', String(newState));
   });
 });
 
-// toggles search bar and focuses input
-const searchToggle = $('searchToggle');
-const searchBar    = $('searchBar');
-const searchInput  = $('searchInput');
-
-searchToggle.addEventListener('click', () => {
-  searchBar.classList.toggle('open');
-  if (searchBar.classList.contains('open')) {
-    searchInput.focus(); 
-  }
+/* Clicking outside closes any open menus */
+document.addEventListener('click', () => {
+  megaItems.forEach(i => {
+    i.classList.remove('nav-open');
+    i.querySelector('.nav-link').setAttribute('aria-expanded', 'false');
+  });
 });
 
+/* Clicking outside closes all menus */
+document.addEventListener('click', () => {
+  megaItems.forEach(i => {
+    i.classList.remove('nav-open');
+    i.querySelector('.nav-link').setAttribute('aria-expanded','false');
+    i.querySelector('.mega-menu').setAttribute('aria-hidden','true');
+  });
+});
+
+/* Escape key also closes */
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') {
-    searchBar.classList.remove('open');
-    mainNav.classList.remove('open');
-    hamburger.classList.remove('open');
+    megaItems.forEach(i => {
+      i.classList.remove('nav-open');
+      i.querySelector('.nav-link').setAttribute('aria-expanded','false');
+    });
+    $('searchBar').classList.remove('open');
+    $('mainNav').classList.remove('open');
+    $('hamburger').classList.remove('open');
+    $('hamburger').setAttribute('aria-expanded','false');
   }
 });
 
-// toggles light/dark mode and saves preference in localStorage
-const themeToggle = document.getElementById('themeToggle');
-const themeIcon   = document.getElementById('themeIcon');
-const htmlEl      = document.documentElement;
+/* ── HAMBURGER (mobile nav) ───────────────────── */
+$('hamburger').addEventListener('click', () => {
+  const isOpen = $('mainNav').classList.toggle('open');
+  $('hamburger').classList.toggle('open', isOpen);
+  $('hamburger').setAttribute('aria-expanded', String(isOpen));
+});
 
-const savedTheme = localStorage.getItem('cssp-theme') || 'light';
-htmlEl.setAttribute('data-theme', savedTheme);
-updateThemeUI(savedTheme);
+/* ── SEARCH BAR ───────────────────────────────── */
+/* Product data for live filtering */
+const productData = [
+  { name:'Coveralls (Blue)',   cat:'Uniforms',  price:'₱900',   img:'Assets/Products/UNI-PR1-Front-Coverall (Blue).JPG'   },
+  { name:'Coveralls (Orange)', cat:'Uniforms',  price:'₱1,000', img:'Assets/Products/UNI-PR2-Front-Coverall (Orange).JPG' },
+  { name:'Coveralls (Beige)',  cat:'Uniforms',  price:'₱950',   img:'Assets/Products/UNI-PR3-Front-Coverall (Beige).JPG'  },
+  { name:"Chef's White Top",   cat:'Kitchen',   price:'₱800',   img:'Assets/Products/UNI-PR4-Front-Coverall (Chef\'s).JPG'},
+  { name:'Full PPE Kit',       cat:'Safety',    price:'₱3,200', img:'https://placehold.co/42x42/e63946/fff?text=PPE'       },
+  { name:'Safety Boot',        cat:'Footwear',  price:'₱1,800', img:'https://placehold.co/42x42/1a3a5c/f4d03f?text=Boot'  },
+];
 
-themeToggle.addEventListener('click', () => {
-  const current = htmlEl.getAttribute('data-theme');
-  const next    = current === 'light' ? 'dark' : 'light';
-  
-  htmlEl.setAttribute('data-theme', next);
+$('searchToggle').addEventListener('click', () => {
+  const open = $('searchBar').classList.toggle('open');
+  if (open) $('searchInput').focus();
+  $('searchToggle').setAttribute('aria-expanded', String(open));
+});
+
+$('searchInput').addEventListener('input', () => {
+  const q = $('searchInput').value.trim().toLowerCase();
+  const res = $('searchResults');
+  if (!q) { res.classList.remove('show'); res.innerHTML=''; return; }
+  const hits = productData.filter(p => p.name.toLowerCase().includes(q) || p.cat.toLowerCase().includes(q));
+  if (!hits.length) {
+    res.innerHTML = `<p class="search-empty">No products found for "<strong>${q}</strong>"</p>`;
+    res.classList.add('show');
+    return;
+  }
+  res.innerHTML = hits.map(p =>
+    `<div class="search-result-item" onclick="window.location.href='products.html'">
+      <img src="${p.img}" alt="${p.name}" onerror="this.src='https://placehold.co/42x42/cccccc/666?text=?'"/>
+      <div><span class="sri-name">${p.name}</span><span class="sri-cat">${p.cat} · ${p.price}</span></div>
+    </div>`
+  ).join('');
+  res.classList.add('show');
+});
+
+/* ── THEME TOGGLE ─────────────────────────────── */
+const themeIcon = $('themeIcon');
+const html = document.documentElement;
+(function initTheme() {
+  const saved = localStorage.getItem('cssp-theme') || 'light';
+  html.setAttribute('data-theme', saved);
+  themeIcon.className = saved === 'dark' ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
+})();
+$('themeToggle').addEventListener('click', () => {
+  const next = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+  html.setAttribute('data-theme', next);
   localStorage.setItem('cssp-theme', next);
-  updateThemeUI(next);
+  themeIcon.className = next === 'dark' ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
 });
 
-// updates the theme toggle icon based on current theme
-function updateThemeUI(theme) {
-  if (theme === 'dark') {
-    themeIcon.className = 'fa-solid fa-moon';
-  } else {
-    themeIcon.className = 'fa-solid fa-sun';
-  }
-}
-
-const rates = {
-  PHP: { symbol: '₱', rate: 1 },
-  USD: { symbol: '$', rate: 0.018 },
-  EUR: { symbol: '€', rate: 0.016 }
-};
-
-let currentCurrency = 'PHP';
-
-// Toggle dropdown visibility
-$('currencyBtn').addEventListener('click', () => {
-  $('currencyDropdown').classList.toggle('open');
+/* ── CURRENCY SWITCHER ────────────────────────── */
+const rates = { PHP:{symbol:'₱',rate:1}, USD:{symbol:'$',rate:.018}, EUR:{symbol:'€',rate:.016} };
+let currency = 'PHP';
+$('currencyBtn').addEventListener('click', e => {
+  e.stopPropagation();
+  const open = $('currencyDropdown').classList.toggle('open');
+  $('currencyBtn').setAttribute('aria-expanded', String(open));
 });
-
-// Close dropdown when clicking outside
-document.addEventListener('click', e => {
-  const switcher = $('currencySwitcher');
-  if (!switcher.contains(e.target)) {
+document.addEventListener('click', () => $('currencyDropdown').classList.remove('open'));
+$$('#currencyDropdown li').forEach(li => {
+  li.addEventListener('click', () => {
+    currency = li.dataset.currency;
+    $('activeCurrency').textContent = currency;
     $('currencyDropdown').classList.remove('open');
-  }
-});
-
-// When user picks a currency, update everything
-$$('#currencyDropdown li').forEach(item => {
-  item.addEventListener('click', () => {
-    const chosen = item.getAttribute('data-currency');
-    currentCurrency = chosen;
-    $('activeCurrency').textContent = chosen;
-    $('currencyDropdown').classList.remove('open');
-
-    // Update all product price elements
     $$('.card-price').forEach(el => {
-      const basePHP = parseFloat(el.getAttribute('data-base'));
-      const { symbol, rate } = rates[chosen];
-      const converted = (basePHP * rate).toFixed(2);
-      el.textContent = symbol + converted;
+      const base = parseFloat(el.dataset.base);
+      const {symbol,rate} = rates[currency];
+      el.textContent = symbol + (base*rate).toFixed(2);
     });
   });
 });
 
+/* ── HERO IMAGE SLIDESHOW LOGIC ──────────────── */
+function initHeroImageRotation() {
+  const frame = document.querySelector('.hero-image-frame');
+  if (!frame) return;
 
-//  add item to cart and add the badge count
-let cartCount = 0;
+  const images = frame.querySelectorAll('.hero-img-slide');
+  let currentIndex = 0;
+
+  setInterval(() => {
+    // 1. Remove active class from current image
+    images[currentIndex].classList.remove('img-active');
+
+    // 2. Increment index (loop back to 0 if at the end)
+    currentIndex = (currentIndex + 1) % images.length;
+
+    // 3. Add active class to the next image
+    images[currentIndex].classList.add('img-active');
+  }, 3000); // 5000ms = 5 seconds
+}
+
+// Initialize the rotation
+initHeroImageRotation();
+
+/* ── FEATURED CARD → MODAL ────────────────────── */
+$$('.featured-card').forEach(card => {
+  function openModal() {
+    const id = card.dataset.modal;
+    const overlay = $(id);
+    if (!overlay) return;
+    overlay.classList.add('open');
+    overlay.setAttribute('aria-hidden','false');
+    document.body.style.overflow = 'hidden';
+    overlay.querySelector('.c-modal-close')?.focus();
+  }
+  card.addEventListener('click', openModal);
+  card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(); } });
+});
+
+/* Close modal buttons */
+$$('.c-modal-close, .c-modal-overlay').forEach(el => {
+  el.addEventListener('click', e => {
+    if (e.target === el) {
+      const overlay = el.closest('.c-modal-overlay') || el;
+      overlay.classList.remove('open');
+      overlay.setAttribute('aria-hidden','true');
+      document.body.style.overflow = '';
+    }
+  });
+});
+
+/* ── CART (LocalStorage) ──────────────────────── */
+function getCart() { return JSON.parse(localStorage.getItem('cssp_cart') || '[]'); }
+function saveCart(c) { localStorage.setItem('cssp_cart', JSON.stringify(c)); }
+function updateCartBadge() {
+  const n = getCart().reduce((s,i) => s + i.qty, 0);
+  $('cartBadge').textContent = n;
+  $('cartBadge').style.transform = 'scale(1.5)';
+  setTimeout(() => $('cartBadge').style.transform = '', 200);
+}
+updateCartBadge();
 
 $$('.quick-add').forEach(btn => {
-  btn.addEventListener('click', () => {
-    cartCount++;
-    $('cartBadge').textContent = cartCount;
-
-    // Brief bounce animation on the badge
-    $('cartBadge').style.transform = 'scale(1.4)';
-    setTimeout(() => {
-      $('cartBadge').style.transform = 'scale(1)';
-    }, 200);
+  btn.addEventListener('click', e => {
+    e.stopPropagation();
+    const card = btn.closest('.product-card');
+    const name  = card.dataset.name;
+    const price = parseFloat(card.dataset.price);
+    const img   = card.dataset.img || '';
+    const size  = card.querySelector('.size-select')?.value || 'One Size';
+    const cart  = getCart();
+    const key   = name + '-' + size;
+    const found = cart.find(i => i.key === key);
+    if (found) { found.qty++; }
+    else { cart.push({ key, name, price, img, size, qty:1 }); }
+    saveCart(cart);
+    updateCartBadge();
+    showToast(`<strong>${name}</strong> added to cart!`, 'success');
   });
+});
+
+$('cartIconBtn').addEventListener('click', () => {
+  window.location.href = 'cart.html';
 });
 
 //  auto-plays and can be clicked via dots
@@ -169,7 +288,7 @@ sliderDots.forEach(dot => {
 function startAutoSlide() {
   autoSlide = setInterval(() => {
     goToSlide(currentSlide + 1);
-  }, 5000);
+  }, 3000);
 }
 startAutoSlide();
 
@@ -229,57 +348,22 @@ $('submitReview').addEventListener('click', () => {
   }, 4000);
 });
 
-
-// faq interactive toggle
+/* ── FAQ ACCORDION ────────────────────────────── */
 $$('.faq-q').forEach(btn => {
   btn.addEventListener('click', () => {
     const item = btn.closest('.faq-item');
     const isOpen = item.classList.contains('open');
-
-    $$('.faq-item.open').forEach(openItem => {
-      openItem.classList.remove('open');
-    });
-
-    if (!isOpen) {
-      item.classList.add('open');
-    }
+    $$('.faq-item.open').forEach(i => { i.classList.remove('open'); i.querySelector('.faq-q').setAttribute('aria-expanded','false'); });
+    if (!isOpen) { item.classList.add('open'); btn.setAttribute('aria-expanded','true'); }
   });
 });
 
-const backBtn = $('backToTop');
+/* ── BACK TO TOP ──────────────────────────────── */
+$('backToTop').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
-window.addEventListener('scroll', () => {
-  if (window.scrollY > 300) {
-    backBtn.classList.add('visible');
-  } else {
-    backBtn.classList.remove('visible');
-  }
-});
-
-backBtn.addEventListener('click', () => {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-});
-
-
-// reveal on scroll
-const style = document.createElement('style');
-style.textContent = `
-  .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.6s ease, transform 0.6s ease; }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
-`;
-document.head.appendChild(style);
-
-$$('section').forEach(sec => {
-  sec.classList.add('reveal');
-});
-
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-      observer.unobserve(entry.target); 
-    }
-  });
-}, { threshold: 0.12 });
-
-$$('.reveal').forEach(el => observer.observe(el));
+/* ── SCROLL REVEAL ────────────────────────────── */
+$$('section').forEach(s => s.classList.add('reveal'));
+const revealObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObserver.unobserve(e.target); } });
+}, { threshold: .1 });
+$$('.reveal').forEach(el => revealObserver.observe(el));
