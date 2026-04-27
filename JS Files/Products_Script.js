@@ -207,7 +207,8 @@ function openCartModal(btn) {
 
   let front = card.dataset.front;
   let back = card.dataset.back;
-  let extra = card.dataset.extra;
+  let extra1 = card.dataset.extra1;
+  let extra2 = card.dataset.extra2;
 
   // show product info
   document.getElementById("modalProductName").textContent = name;
@@ -225,6 +226,7 @@ function openCartModal(btn) {
       <option value="L">Large</option>
       <option value="XL">Extra Large</option>
       <option value="XXL">Double Extra Large</option>
+      <option value="XXXL">Triple Extra Large</option>
     `;
   }
 
@@ -245,9 +247,10 @@ function openCartModal(btn) {
 
   // reset images
   images = [];
+    if (extra1) images.push(extra1);
+    if (extra2) images.push(extra2);
     if (front) images.push(front);
     if (back) images.push(back);
-    if (extra) images.push(extra);
 
     // fallback image
     if (images.length == 0) {
