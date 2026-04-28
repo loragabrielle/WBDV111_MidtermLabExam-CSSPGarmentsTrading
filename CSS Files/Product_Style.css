@@ -1061,8 +1061,8 @@ body > * {
 }
 
 .card-category {
-  font-size: 0.72rem;
-  font-weight: 700;
+  font-size: 0.65rem;
+  font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--red);
@@ -1070,9 +1070,9 @@ body > * {
 }
 
 .card-name {
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-family: 'DM Sans', sans-serif;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--text);
   margin-bottom: 8px;
 }
