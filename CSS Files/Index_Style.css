@@ -98,20 +98,19 @@ h1, h2, h3, h4 {
 }
 
 /* BUTTON */
-
 .btn-primary{
   display:inline-flex;
   align-items:center;
   gap:8px;
   padding:14px 32px;
-  background:var(--navy);
-  color:var(--yellow);
   border-radius:50px;
   font-weight:700;
   font-size:.95rem;
   letter-spacing:.05em;
-  border:2px solid var(--navy);
   transition:var(--trans);
+  background:var(--navy);
+  border:2px solid var(--navy);
+  color:var(--yellow);
 }
 
 .btn-primary:hover {
@@ -119,6 +118,18 @@ h1, h2, h3, h4 {
   color:var(--navy);
   transform:translateY(-3px);
   box-shadow:var(--shadow-lg)
+}
+
+.btn-primary#submitReview {
+  transition:var(--trans);
+  border:2px solid var(--yellow);
+  color:var(--yellow);
+}
+
+.btn-primary:hover#submitReview {
+  transition:var(--trans);
+  background:var(--yellow);
+  color:var(--navy);
 }
 
 .btn-ghost {
@@ -142,11 +153,22 @@ h1, h2, h3, h4 {
 .btn-ghost:hover {
   background: var(--navy);
   color: var(--yellow) !important;
-  transform: translateY(-3px);
+  /*transform: translateY(-3px);*/
+  box-shadow: var(--shadow-lg);
 }
 
 [data-theme="dark"] .btn-ghost {
   color: var(--yellow) !important;
+  border-color: var(--yellow);
+}
+
+[data-theme="dark"] .btn-primary {
+  color: var(--yellow) !important;
+  border-color: var(--yellow);
+}
+
+[data-theme="dark"] .btn-primary:hover {
+  color: var(--navy) !important;
   border-color: var(--yellow);
 }
 
@@ -1881,6 +1903,8 @@ section.ticker2-track3 .ticker2-track span{
 
 .reviews .section-sub { 
   color: var(--yellow); 
+  text-transform: uppercase;
+  font-weight: bolder;
 }
 
 .reviews .section-title { 
@@ -1910,18 +1934,20 @@ section.ticker2-track3 .ticker2-track span{
   max-width: 800px;
   margin: 0 auto;
   pointer-events: none;
+  margin-bottom: -18px;
 }
 
 .review-card.active { 
   display: block; 
   pointer-events: auto;
+  margin-bottom: -12px;
+  margin-top: -20px;
 }
 
 .review-stars {
   color: var(--yellow);
   font-size: 1.3rem;
   letter-spacing: 2px;
-  margin-bottom: 16px;
 }
 
 .review-text {
@@ -1929,13 +1955,12 @@ section.ticker2-track3 .ticker2-track span{
   line-height: 1.75;
   color: rgba(255,255,255,0.9);
   font-style: italic;
-  margin-bottom: 24px;
 }
 
 .reviewer {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 10px;
 }
 
 .reviewer img {
@@ -1964,7 +1989,8 @@ section.ticker2-track3 .ticker2-track span{
 }
 
 .slider-dot {
-  width: 8px; height: 8px;
+  width: 8px; 
+  height: 8px;
   border-radius: 50%;
   background: rgba(255,255,255,0.3);
   transition: var(--transition);
@@ -1989,7 +2015,7 @@ section.ticker2-track3 .ticker2-track span{
 .review-form-wrap h3 {
   font-size: 1.8rem;
   color: var(--yellow);
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .star-picker {
@@ -2035,7 +2061,7 @@ section.ticker2-track3 .ticker2-track span{
 }
 
 .review-success {
-  color: #6ee7b7;
+  color: var(--yellow);
   margin-top: 12px;
   font-weight: 600;
   display: flex;
@@ -2618,4 +2644,3 @@ section.ticker2-track3 .ticker2-track span{
   }
 }
 /* YEY */
-
