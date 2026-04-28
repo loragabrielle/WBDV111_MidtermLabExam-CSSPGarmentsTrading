@@ -101,10 +101,19 @@ $('hamburger').addEventListener('click', () => {
 /* ── SEARCH BAR ───────────────────────────────── */
 /* Product data for live filtering */
 const productData = [
-  { name:'Coveralls (Blue)',   cat:'Uniforms',  price:'₱900',   img:'Assets/Products/UNI-PR1-Front-Coverall (Blue).JPG'   },
-  { name:'Coveralls (Orange)', cat:'Uniforms',  price:'₱1,000', img:'Assets/Products/UNI-PR2-Front-Coverall (Orange).JPG' },
-  { name:'Coveralls (Beige)',  cat:'Uniforms',  price:'₱950',   img:'Assets/Products/UNI-PR3-Front-Coverall (Beige).JPG'  },
-  { name:"Chef's White Top",   cat:'Kitchen',   price:'₱800',   img:'Assets/Products/UNI-PR4-Front-Coverall (Chef\'s).JPG'},
+  { name:'Coveralls (Blue)',   cat:'Uniforms',  price:'₱900',   img:'Assets/Products/UNI-PR1-Front-Coverall (Blue).png'   },
+  { name:'Coveralls (Orange)', cat:'Uniforms',  price:'₱1,000', img:'Assets/Products/UNI-PR2-Front-Coverall (Orange).png' },
+  { name:'Coveralls (Beige)',  cat:'Uniforms',  price:'₱950',   img:'Assets/Products/UNI-PR3-Front-Coverall (Beige).png'  },
+  { name:"Chef's White Top (Long Sleeve)",   cat:'Kitchen',   price:'₱800',   img:'Assets/Products/UNI-PR4-Front-Top1.png'},
+  { name:"Chef's White Top (Long Sleeve)",   cat:'Kitchen',   price:'₱950',   img:'Assets/Products/UNI-PR5-Front-Top2.png'},
+  { name:"Chef's White Top (Short Sleeve)",   cat:'Kitchen',   price:'₱900',   img:'Assets/Products/UNI-PR6-Front-Top3.png'},
+  { name:"Chef's Black Pants",   cat:'Kitchen',   price:'₱900',   img:'Assets/Products/UNI-PR7-Front-Pants1.png'},
+  { name:"Chef's Checkered Pants",   cat:'Kitchen',   price:'₱1,050',   img:'Assets/Products/UNI-PR8-Front-Pants2.png'},
+  { name:"Seafarer's Jacket",   cat:'Uniform',   price:'₱1,250',   img:'Assets/Products/UNI-PR9-Front-Jacket1.png'},
+  { name:"Seafarer's Jacket (Reflective)",   cat:'Uniform',   price:'₱1,400',   img:'Assets/Products/UNI-PR10-Front-Jacket2.png'},
+  { name:"MG Safety (High Cut)",   cat:'Shoes',   price:'₱1,200',   img:'Assets/Products/SHO-PR1-Front-High Cut (MG Safety).png'},
+  { name:"Rockwinner (Low Cut)",   cat:'Shoes',   price:'₱1,000',   img:'Assets/Products/SHO-PR2-Front-Low Cut (Rockwinner).png'},
+  { name:"MG Safety (Low Cut)",   cat:'Shoes',   price:'₱1,100',   img:'Assets/Products/SHO-PR3-Front-Low Cut (MG Safety).png'},
   { name:'Full PPE Kit',       cat:'Safety',    price:'₱3,200', img:'https://placehold.co/42x42/e63946/fff?text=PPE'       },
   { name:'Safety Boot',        cat:'Footwear',  price:'₱1,800', img:'https://placehold.co/42x42/1a3a5c/f4d03f?text=Boot'  },
 ];
