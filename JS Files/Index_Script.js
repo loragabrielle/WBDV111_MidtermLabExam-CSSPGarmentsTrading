@@ -107,10 +107,11 @@ $('hamburger').addEventListener('click', () => {
 /* ── SEARCH BAR ───────────────────────────────── */
 /* Product data for live filtering */
 const productData = [
-  { name:'Coveralls (Blue)',   cat:'Uniforms',  price:'₱900',   img:'Assets/Products/UNI-PR1-Front-Coverall (Blue).JPG'   },
-  { name:'Coveralls (Orange)', cat:'Uniforms',  price:'₱1,000', img:'Assets/Products/UNI-PR2-Front-Coverall (Orange).JPG' },
-  { name:'Coveralls (Beige)',  cat:'Uniforms',  price:'₱950',   img:'Assets/Products/UNI-PR3-Front-Coverall (Beige).JPG'  },
-  { name:"Chef's White Top",   cat:'Kitchen',   price:'₱800',   img:'Assets/Products/UNI-PR4-Front-Coverall (Chef\'s).JPG'},
+  { name:'Royal Blue — 100% Cotton Twill Coverall (Reflectorized)',   cat:'Uniforms',  price:'₱1,000',   img:'Assets/Products/UNI-PR1-Front-Coverall (Blue).JPG'   },
+  { name:'Orange — 100% Cotton Twill Coverall (Reflectorized)', cat:'Uniforms',  price:'₱1,000', img:'Assets/Products/UNI-PR2-Front-Coverall (Orange).JPG' },
+  { name:'Khaki — 100% Cotton Twill Coverall (Reflectorized)',  cat:'Uniforms',  price:'₱1,000',   img:'Assets/Products/UNI-PR3-Front-Coverall (Beige).JPG'  },
+  { name:"Chef's Polo Long Sleeve",   cat:'Kitchen',   price:'₱800',   img:'Assets/Products/UNI-PR4-Front-Coverall (Chef\'s).JPG'},
+  { name:"Chef's Polo Long Sleeve — 100% Cotton Twill ",   cat:'Kitchen',   price:'₱950',   img:'Assets/Products/UNI-PR4-Front-Coverall (Chef\'s).JPG'},
   { name:'Full PPE Kit',       cat:'Safety',    price:'₱3,200', img:'https://placehold.co/42x42/e63946/fff?text=PPE'       },
   { name:'Safety Boot',        cat:'Footwear',  price:'₱1,800', img:'https://placehold.co/42x42/1a3a5c/f4d03f?text=Boot'  },
 ];
