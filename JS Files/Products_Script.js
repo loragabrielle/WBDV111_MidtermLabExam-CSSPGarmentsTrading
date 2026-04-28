@@ -226,7 +226,6 @@ function openCartModal(btn) {
       <option value="L">Large</option>
       <option value="XL">Extra Large</option>
       <option value="XXL">Double Extra Large</option>
-      <option value="XXXL">Triple Extra Large</option>
     `;
   }
 
