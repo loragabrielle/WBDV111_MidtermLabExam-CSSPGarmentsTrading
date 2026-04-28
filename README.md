@@ -19,7 +19,7 @@
   - Dark Mode Functionality  
   - Mobile-Friendly Layout  
   - Product Section
-  - Cart Section
+  - Cart Section 
   - About Us Section  
   - Contact Us / Inquiry Section
   - Policies Section
