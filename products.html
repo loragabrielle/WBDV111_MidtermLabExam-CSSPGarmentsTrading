@@ -39,68 +39,69 @@
             <div class="header-inner">
             
                 <!-- Logo -->
-                <a href="index.html" class="logo-wrap">
+                <a href="index.html" class="logo-wrap" aria-label="CSSP Garments Trading homepage">
                     <div class="logo-icon">
-                        <img src="Assets/logo-light-text.png" class="logo-img light-logo" alt="Logo">
-                        <img src="Assets/logo-dark-text.png" class="logo-img dark-logo" alt="Logo">
+                        <img src="Assets/logo-light-text.png" class="logo-img light-logo" alt="CSSP Garments Trading logo, light version">
+                        <img src="Assets/logo-dark-text.png" class="logo-img dark-logo" alt="CSSP Garments Trading logo, dark version">
                     </div>
                     <div class="logo-text">CSSP<span>Garments&nbsp;Trading</span></div>
                 </a>
 
-                <nav class="main-nav" id="mainNav">
+                <nav class="main-nav" id="mainNav" aria-label="Main navigation">
                     <ul class="nav-list">
             
-                    <li class="nav-item has-mega">
-                        <a href="#" class="nav-link">Products <i class="fa-solid fa-chevron-down nav-caret"></i></a>
-                            <div class="mega-menu">
+                        <li class="nav-item has-mega" id="navProducts">
+                            <a href="#" class="nav-link" id="navProductsBtn" aria-haspopup="true" aria-expanded="false">Products <i class="fa-solid fa-chevron-down nav-caret"></i></a>
+                            <div class="mega-menu" id="megaProducts" aria-hidden="true">
                                 <div class="mega-inner">
-                        
+                            
                                     <div class="mega-col">
                                         <p class="mega-label">Uniforms</p>
-                                            <div class="mega-feature-card">
-                                                <img src="https://placehold.co/200x140/f4d03f/1a3a5c?text=New+Arrivals" alt="New Arrivals" />
-                                                <p>Maritime & Culinary Uniforms</p>
-                                                <a href="products.html#uniforms" class="btn-sm">Gear Up</a>
-                                            </div>
+                                        <div class="mega-feature-card">
+                                            <img src="https://placehold.co/200x140/f4d03f/1a3a5c?text=Maritime+Uniforms" alt="Maritime and culinary uniform range including coveralls and chef tops" />
+                                            <p>Maritime &amp; Culinary Uniforms</p>
+                                            <a href="products.html#uniforms" class="btn-sm">Gear Up</a>
+                                        </div>
                                     </div> 
-                                    
+                                        
                                     <div class="mega-divider"></div>
-                                    
+                                        
                                     <div class="mega-col">
                                         <p class="mega-label">Safety Footwear</p>
-                                            <div class="mega-feature-card">
-                                                <img src="https://placehold.co/200x140/f4d03f/1a3a5c?text=New+Arrivals" alt="New Arrivals" />
-                                                <p>Steel-toe Safety Shoe</p>
-                                                <a href="products.html#safety-footwears" class="btn-sm">Secure Step</a>
-                                            </div>
+                                        <div class="mega-feature-card">
+                                            <img src="https://placehold.co/200x140/f4d03f/1a3a5c?text=Safety+Footwear" alt="Steel-toe safety shoe for deck and industrial use" />
+                                            <p>Steel-toe Safety Shoe</p>
+                                            <a href="products.html#safety-footwears" class="btn-sm">Secure Step</a>
+                                        </div>
                                     </div> 
                                 </div> 
                             </div>  
-                    </li>   
+                        </li> 
+                    
+                        <!-- about Us mega menu -->
+                        <li class="nav-item has-mega" id="navAbout">
+                            <a href="#" class="nav-link" id="navAboutBtn" aria-haspopup="true" aria-expanded="false">About Us <i class="fa-solid fa-chevron-down nav-caret"></i></a>
+                            <div class="mega-menu" id="megaAbout" aria-hidden="true">
+                                <div class="mega-inner">
+                                    <div class="mega-col">
+                                        <p class="mega-label">Company</p>
+                                        <a href="./aboutus.html#history" class="mega-item text-only"><i class="fa-solid fa-anchor"></i> Our Story</a>
+                                        <a href="./aboutus.html#people" class="mega-item text-only"><i class="fa-solid fa-users"></i> Our Team</a>
+                                        <a href="./aboutus.html#tailor" class="mega-item text-only"><i class="fa-solid fa-house"></i> Location</a>
+                                    </div>
 
-                    <!-- about Us mega menu -->
-                    <li class="nav-item has-mega">
-                        <a href="#" class="nav-link">About Us <i class="fa-solid fa-chevron-down nav-caret"></i></a>
-                        <div class="mega-menu">
-                            <div class="mega-inner">
-                                <div class="mega-col">
-                                    <p class="mega-label">Company</p>
-                                    <a href="./aboutus.html#history" class="mega-item text-only"><i class="fa-solid fa-anchor"></i> Our Story</a>
-                                    <a href="./aboutus.html#people" class="mega-item text-only"><i class="fa-solid fa-users"></i> Our Team</a>
-                                    <a href="./aboutus.html#tailor" class="mega-item text-only"><i class="fa-solid fa-house"></i> Location</a>
-                                </div>
+                                    <div class="mega-divider"></div>
 
-                                <div class="mega-divider"></div>
-
-                                <div class="mega-col">
-                                    <p class="mega-label">Support</p>
-                                    <a href="./index.html#faq" class="mega-item text-only"><i class="fa-solid fa-circle-question"></i> FAQ</a>
-                                    <a href="./contacts.html" class="mega-item text-only"><i class="fa-solid fa-envelope"></i> Contact Us</a>
-                                    <a href="contacts.html#privacy-page" class="mega-item text-only"><i class="fa-solid fa-file-contract"></i> Policies</a>
+                                    <div class="mega-col">
+                                        <p class="mega-label">Support</p>
+                                        <a href="./index.html#faq" class="mega-item text-only"><i class="fa-solid fa-circle-question"></i> FAQ</a>
+                                        <a href="./contacts.html" class="mega-item text-only"><i class="fa-solid fa-envelope"></i> Contact Us</a>
+                                        <a href="contacts.html#privacy-page" class="mega-item text-only"><i class="fa-solid fa-file-contract"></i> Policies</a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </li>
+                        </li>
+                    </ul>
                 </nav>
             
                 <!-- upper-right-side icon group -->
@@ -108,7 +109,7 @@
             
                     <!-- Currency switcher -->
                     <div class="currency-switcher" id="currencySwitcher">
-                        <button class="currency-btn" id="currencyBtn">
+                        <button class="currency-btn" id="currencyBtn" aria-label="Change currency" aria-expanded="false">
                             <i class="fa-solid fa-coins"></i>
                             <span id="activeCurrency">PHP</span>
                             <i class="fa-solid fa-chevron-down"></i>
@@ -121,23 +122,23 @@
                     </div>
             
                     <!-- cart icon -->
-                    <button class="icon-btn" title="Cart">
+                    <button class="icon-btn" title="Cart" aria-label="View cart" id="cartIconBtn">
                         <i class="fa-solid fa-cart-shopping"></i>
                         <span class="badge" id="cartBadge">0</span>
                     </button>
             
                     <!-- search icon -->
-                    <button class="icon-btn" id="searchToggle" title="Search">
+                    <button class="icon-btn" id="searchToggle" title="Search" aria-label="Toggle search">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </button>
             
                     <!-- light/dark mode toggle -->
-                    <button class="theme-toggle" id="themeToggle" title="Toggle Theme">
+                    <button class="theme-toggle" id="themeToggle" title="Toggle Theme" aria-label="Toggle colour theme">
                         <i class="fa-solid fa-sun" id="themeIcon"></i>
                     </button>
             
                     <!-- Hamburger (mobile only) -->
-                    <button class="hamburger" id="hamburger" aria-label="Open menu">
+                    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
                         <span></span><span></span><span></span>
                     </button>
                 </div>
@@ -145,7 +146,7 @@
         
             <!-- Search bar (hidden until toggled) -->
             <div class="search-bar" id="searchBar" role="search">
-                <input type="search" id="searchInput" placeholder="Search uniforms, PPE, safety shoes…" autocomplete="off" aria-label="Search products" />
+                <input type="search" id="searchInput" placeholder="Search uniforms, PPE, safety shoes…" autocomplete="off" aria-label="Search products">
                 <button aria-label="Submit search"><i class="fa-solid fa-magnifying-glass"></i></button>
                 <div class="search-results" id="searchResults" aria-live="polite"></div>
             </div>
