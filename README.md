@@ -18,9 +18,11 @@
   - Responsive Website Design  
   - Dark Mode Functionality  
   - Mobile-Friendly Layout  
-  - Product Section  
+  - Product Section
+  - Cart Section
   - About Us Section  
-  - Contact / Inquiry Section  
+  - Contact Us / Inquiry Section
+  - Policies Section
 
 ---
 
