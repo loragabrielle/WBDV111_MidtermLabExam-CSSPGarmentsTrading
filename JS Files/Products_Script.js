@@ -18,80 +18,136 @@ window.addEventListener('scroll', () => {
   }
 });
 
-// toggles mobile nav and mega menu
-const hamburger = $('hamburger');
-const mainNav = $('mainNav');
+/* ── MEGA MENU (click-based, outside-click closes) ── */
+const megaItems = document.querySelectorAll('.nav-item.has-mega'); 
 
-if (hamburger && mainNav) {
-  hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('open');
-    mainNav.classList.toggle('open');
-  });
-}
+megaItems.forEach(item => {
+  const btn = item.querySelector('.nav-link');
 
-// mega menu toggle for mobile
-$$('.nav-item.has-mega .nav-link').forEach(link => {
-  link.addEventListener('click', (e) => {
+  btn.addEventListener('click', e => {
+    // Check current state once
+    const isOpen = item.classList.contains('nav-open');
+    
+    // Logic for Mobile (<= 768px)
     if (window.innerWidth <= 768) {
+      // If the menu is closed, prevent the link from navigating and open the menu instead
+      if (!isOpen) {
+        e.preventDefault();
+        e.stopPropagation();
+      } 
+      // If the link is just a placeholder "#", always prevent navigation
+      else if (btn.getAttribute('href') === '#') {
+        e.preventDefault();
+      }
+    } else {
+      // Desktop behavior: Always treat the top-level click as a toggle
       e.preventDefault();
-      link.closest('.nav-item')?.classList.toggle('open');
+      e.stopPropagation();
     }
+
+    /* Close all other open mega menus */
+    megaItems.forEach(i => {
+      if (i !== item) {
+        i.classList.remove('nav-open');
+        i.querySelector('.nav-link').setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    /* Toggle the clicked menu */
+    const newState = !isOpen;
+    item.classList.toggle('nav-open', newState);
+    btn.setAttribute('aria-expanded', String(newState));
   });
 });
 
-// toggles search bar and focuses input
-const searchToggle = $('searchToggle');
-const searchBar = $('searchBar');
-const searchInput = $('searchInput');
-
-if (searchToggle && searchBar && searchInput) {
-  searchToggle.addEventListener('click', () => {
-    searchBar.classList.toggle('open');
-    if (searchBar.classList.contains('open')) {
-      searchInput.focus();
-    }
+/* Clicking outside closes any open menus */
+document.addEventListener('click', () => {
+  megaItems.forEach(i => {
+    i.classList.remove('nav-open');
+    i.querySelector('.nav-link').setAttribute('aria-expanded', 'false');
   });
-}
+});
 
-// ESC key closes UI
-document.addEventListener('keydown', (e) => {
+/* Clicking outside closes all menus */
+document.addEventListener('click', () => {
+  megaItems.forEach(i => {
+    i.classList.remove('nav-open');
+    i.querySelector('.nav-link').setAttribute('aria-expanded','false');
+    i.querySelector('.mega-menu').setAttribute('aria-hidden','true');
+  });
+});
+
+/* Escape key also closes */
+document.addEventListener('keydown', e => {
   if (e.key === 'Escape') {
-    searchBar?.classList.remove('open');
-    mainNav?.classList.remove('open');
-    hamburger?.classList.remove('open');
+    megaItems.forEach(i => {
+      i.classList.remove('nav-open');
+      i.querySelector('.nav-link').setAttribute('aria-expanded','false');
+    });
+    $('searchBar').classList.remove('open');
+    $('mainNav').classList.remove('open');
+    $('hamburger').classList.remove('open');
+    $('hamburger').setAttribute('aria-expanded','false');
   }
 });
 
-// toggles light/dark mode and saves preference in localStorage
-const themeToggle = $('themeToggle');
-const themeIcon = $('themeIcon');
-const htmlEl = document.documentElement;
+/* ── HAMBURGER (mobile nav) ───────────────────── */
+$('hamburger').addEventListener('click', () => {
+  const isOpen = $('mainNav').classList.toggle('open');
+  $('hamburger').classList.toggle('open', isOpen);
+  $('hamburger').setAttribute('aria-expanded', String(isOpen));
+});
 
-if (htmlEl) {
-  const savedTheme = localStorage.getItem('cssp-theme') || 'light';
-  htmlEl.setAttribute('data-theme', savedTheme);
-  updateThemeUI(savedTheme);
-}
+/* ── SEARCH BAR ───────────────────────────────── */
+/* Product data for live filtering */
+const productData = [
+  { name:'Coveralls (Blue)',   cat:'Uniforms',  price:'₱900',   img:'Assets/Products/UNI-PR1-Front-Coverall (Blue).JPG'   },
+  { name:'Coveralls (Orange)', cat:'Uniforms',  price:'₱1,000', img:'Assets/Products/UNI-PR2-Front-Coverall (Orange).JPG' },
+  { name:'Coveralls (Beige)',  cat:'Uniforms',  price:'₱950',   img:'Assets/Products/UNI-PR3-Front-Coverall (Beige).JPG'  },
+  { name:"Chef's White Top",   cat:'Kitchen',   price:'₱800',   img:'Assets/Products/UNI-PR4-Front-Coverall (Chef\'s).JPG'},
+  { name:'Full PPE Kit',       cat:'Safety',    price:'₱3,200', img:'https://placehold.co/42x42/e63946/fff?text=PPE'       },
+  { name:'Safety Boot',        cat:'Footwear',  price:'₱1,800', img:'https://placehold.co/42x42/1a3a5c/f4d03f?text=Boot'  },
+];
 
-if (themeToggle) {
-  themeToggle.addEventListener('click', () => {
-    const current = htmlEl.getAttribute('data-theme') || 'light';
-    const next = current === 'light' ? 'dark' : 'light';
+$('searchToggle').addEventListener('click', () => {
+  const open = $('searchBar').classList.toggle('open');
+  if (open) $('searchInput').focus();
+  $('searchToggle').setAttribute('aria-expanded', String(open));
+});
 
-    htmlEl.setAttribute('data-theme', next);
-    localStorage.setItem('cssp-theme', next);
-    updateThemeUI(next);
-  });
-}
-
-// updates the theme toggle icon based on current theme
-function updateThemeUI(theme) {
-  if (theme === 'dark') {
-    themeIcon.className = 'fa-solid fa-moon';
-  } else {
-    themeIcon.className = 'fa-solid fa-sun';
+$('searchInput').addEventListener('input', () => {
+  const q = $('searchInput').value.trim().toLowerCase();
+  const res = $('searchResults');
+  if (!q) { res.classList.remove('show'); res.innerHTML=''; return; }
+  const hits = productData.filter(p => p.name.toLowerCase().includes(q) || p.cat.toLowerCase().includes(q));
+  if (!hits.length) {
+    res.innerHTML = `<p class="search-empty">No products found for "<strong>${q}</strong>"</p>`;
+    res.classList.add('show');
+    return;
   }
-}
+  res.innerHTML = hits.map(p =>
+    `<div class="search-result-item" onclick="window.location.href='products.html'">
+      <img src="${p.img}" alt="${p.name}" onerror="this.src='https://placehold.co/42x42/cccccc/666?text=?'"/>
+      <div><span class="sri-name">${p.name}</span><span class="sri-cat">${p.cat} · ${p.price}</span></div>
+    </div>`
+  ).join('');
+  res.classList.add('show');
+});
+
+/* ── THEME TOGGLE ─────────────────────────────── */
+const themeIcon = $('themeIcon');
+const html = document.documentElement;
+(function initTheme() {
+  const saved = localStorage.getItem('cssp-theme') || 'light';
+  html.setAttribute('data-theme', saved);
+  themeIcon.className = saved === 'dark' ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
+})();
+$('themeToggle').addEventListener('click', () => {
+  const next = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('cssp-theme', next);
+  themeIcon.className = next === 'dark' ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
+});
 
 // currency system
 const rates = {
@@ -231,16 +287,12 @@ function openCartModal(btn) {
 
   if (type === "Shoes") {
     sizeSelect.innerHTML += `
-      <option value="36">36</option>
-      <option value="37">37</option>
-      <option value="38">38</option>
-      <option value="39">39</option>
-      <option value="40">40</option>
       <option value="41">41</option>
       <option value="42">42</option>
       <option value="43">43</option>
       <option value="44">44</option>
       <option value="45">45</option>
+      <option value="45">46</option>
     `;
   }
 
