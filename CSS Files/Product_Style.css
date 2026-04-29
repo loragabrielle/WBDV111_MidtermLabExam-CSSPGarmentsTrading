@@ -210,10 +210,6 @@ section {
   padding: 9px 0;
 }
 
-[data-theme="dark"] .pre-header { 
-  background: var(--yellow); 
-  color: var(--navy); 
-}
 
 .ticker-track {
   display: inline-flex;
@@ -231,10 +227,6 @@ section {
 
 .ticker-track span i { 
   margin-right: 6px; 
-}
-
-.ticker-track:hover {
-    animation-play-state: paused;
 }
 
 @keyframes ticker {
@@ -887,24 +879,17 @@ body > * {
   white-space: nowrap;
 }
 
-[data-theme="dark"] .section-ticker { 
-  background: var(--yellow); 
-  color: var(--navy); 
-}
-
-
 .ticker2-track {
   display: inline-flex;
-  gap: 48px;
-  animation: ticker 25s linear infinite;
+  gap: 52px;
+  animation: ticker 24s linear infinite;
 }
 
 .ticker2-track span {
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  /* color: var(--yellow); */
   flex-shrink: 0;
 }
 
@@ -1201,12 +1186,13 @@ body > * {
 
 /* right side (for details) */
 .modal-right {
-  padding: 30px;
+  padding: 25px;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 8px;
   position: relative;
 }
+
 
 /* close button */
 .modal-close {
@@ -1230,12 +1216,41 @@ body > * {
 
 /* text */
 .modal-right h2 {
-  font-size: 28px;
+  font-size: 27px;
 }
 
-.modal-desc {
-  color: var(--text);
-  font-size: 15px;
+.modal-price{
+  font-family: 'Bebas Neue Custom', sans-serif;
+  font-size: 1.4rem;
+  color: var(--navy);
+  letter-spacing: 0.04em;
+}
+
+[data-theme="dark"] .modal-price {
+  color: var(--yellow);
+}
+
+.modal-features {
+  margin: 10px 0 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: .95rem;
+}
+
+.feature-item i {
+  color: var(--green);
+  font-size: 1rem;
+}
+
+[data-theme="dark"] .feature-item i {
+  color: var(--yellow);
 }
 
 /* inputs */
