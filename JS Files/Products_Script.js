@@ -269,17 +269,22 @@ function openCartModal(btn) {
   let card = btn.closest(".product-card");
 
   let name = card.dataset.name;
-  let desc = card.dataset.desc;
+
   let type = card.dataset.type; 
+  const featuresBox = document.getElementById("modalFeatures");
+  featuresBox.innerHTML = "";
 
   let front = card.dataset.front;
   let back = card.dataset.back;
   let extra1 = card.dataset.extra1;
   let extra2 = card.dataset.extra2;
 
-  // show product info
+  // show product name po 
   document.getElementById("modalProductName").textContent = name;
-  document.getElementById("modalProductDesc").textContent = desc;
+
+  // get price from clicked card
+  let price = card.querySelector(".card-price").textContent;
+  document.getElementById("modalProductPrice").textContent = price;
 
   // for the size options (based on what product card ang pinindot)
   const sizeSelect = document.getElementById("modalSize");
@@ -306,6 +311,85 @@ function openCartModal(btn) {
       <option value="45">46</option>
     `;
   }
+
+  let features = [];
+
+  if (name.includes("Coverall")) {
+    features = [
+      "Reflectorized Safety Design",
+      "Heavy Duty Cotton Twill",
+      "Trusted for Deck Operations",
+      "Comfort for Long Shifts",
+      "Reliable Daily Performance"
+    ];
+  }
+
+  else if (
+    name.includes("Chef's Polo Long Sleeve") ||
+    name.includes("Kitchen Crew Polo")) {
+    features = [
+      "Heatproof Uniform for Cooking Environments",
+      "Breathable Fabric for Hot Kitchens",
+      "Comfortable Fit for Long Shifts",
+      "Professional Kitchen Appearance",
+      "Reliable Performance in Busy Kitchens"
+    ];
+  }
+
+  else if (
+    name.includes("Chef's Pants") ||
+    name.includes("Checkered Pants")) {
+    features = [
+      "Heat-Resistant Fabric for High Heat Kitchens",
+      "Protective Design for Safety in Cooking",
+      "Breathable Material for Long Shifts",
+      "Reinforced Stitching for Durability",
+      "Professional Kitchen Fit"
+    ];
+  }
+
+  if (name.includes("Winter Jacket") || name.includes("Ordinary Jacket")) {
+
+    features = [
+      "Reflectorized Design for Night Visibility",
+      "Wind-Resistant Outer Layer",
+      "Comfortable All-Day Fit",
+      "Durable Stitching for Long-Term Use",
+      "Professional Maritime Appearance"
+    ];
+
+    if (name.includes("Winter Jacket")) {
+      features[1] = "Insulated + Wind-Resistant Protection for Cold Weather";
+    } else if (name.includes("Ordinary Jacket")) {
+      features[1] = "Lightweight Wind-Resistant Protection for Daily Wear";
+    }
+  }
+
+  else if (name.includes("MG Safety (High Cut)")) {
+    features = [
+      "Steel Toe Cap Protection",
+      "High-Cut Design for Ankle Support",
+      "Oil and Slip-Resistant Outsole",
+      "Puncture-Resistant Midsole",
+      "Durable Industrial-Grade Construction"
+    ];
+  }
+
+  else if (name.includes("Rockwinner") || name.includes("MG Safety (Low Cut)")) {
+    features = [
+      "Low-Cut Design for Lightweight Movement",
+      "Steel Toe Protection for Basic Impact Safety",
+      "Flexible Build for Daily Workplace Use",
+      "Slip-Resistant Outsole for Stable Grip",
+      "Comfortable Fit for Extended Wear"
+    ];
+  }
+
+  featuresBox.innerHTML = features.map(item => `
+    <div class="feature-item">
+    <i class="fa-solid fa-circle-check"></i> ${item}
+    </div>
+  `).join("");
 
   // reset images
   images = [];
