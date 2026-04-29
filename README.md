@@ -34,10 +34,14 @@
 ### Products Page
 ![Products](Assets/README/Website-Preview-Products.png)
 
+### Cart Page
+
 ### About Us Page
 ![Home](Assets/README/Website-Preview-AboutUs.png)
 
-### Contacts Page
+### Contact Us/Inquiry Page
 ![Products](Assets/README/Website-Preview-Contacts.png)
+
+### Policies Page
 
 
