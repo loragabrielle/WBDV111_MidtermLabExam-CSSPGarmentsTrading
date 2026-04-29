@@ -2,90 +2,151 @@
 const $ = id => document.getElementById(id);
 const $$ = sel => document.querySelectorAll(sel);
 
+// ticker duplication logic
 const tickerTrack = $('tickerTrack');
 if (tickerTrack) {
-  const clone = tickerTrack.innerHTML;
-  tickerTrack.innerHTML += clone; // duplicate content
+  tickerTrack.innerHTML += tickerTrack.innerHTML;
 }
 
-//  adds shadow to header after scrolling down 50px
-const header = $('siteHeader');
+/* ── SCROLL → sticky shadow ──────────────────── */
+const hdr = $('siteHeader');
 window.addEventListener('scroll', () => {
-  if (window.scrollY > 50) {
-    header.classList.add('scrolled');
-  } else {
-    header.classList.remove('scrolled');
-  }
-});
+  hdr.classList.toggle('scrolled', window.scrollY > 50);
+  $('backToTop').classList.toggle('visible', window.scrollY > 300);
+}, { passive: true });
 
-/// toggles mobile nav and mega menu
-const hamburger = $('hamburger');
-const mainNav   = $('mainNav');
+/* ── MEGA MENU (click-based, outside-click closes) ── */
+const megaItems = document.querySelectorAll('.nav-item.has-mega'); 
 
-hamburger.addEventListener('click', () => {
-  hamburger.classList.toggle('open');
-  mainNav.classList.toggle('open');
-});
+megaItems.forEach(item => {
+  const btn = item.querySelector('.nav-link');
 
-$$('.nav-item.has-mega .nav-link').forEach(link => {
-  link.addEventListener('click', e => {
-    // for small screens
+  btn.addEventListener('click', e => {
+    // Check current state once
+    const isOpen = item.classList.contains('nav-open');
+    
+    // Logic for Mobile (<= 768px)
     if (window.innerWidth <= 768) {
+      // If the menu is closed, prevent the link from navigating and open the menu instead
+      if (!isOpen) {
+        e.preventDefault();
+        e.stopPropagation();
+      } 
+      // If the link is just a placeholder "#", always prevent navigation
+      else if (btn.getAttribute('href') === '#') {
+        e.preventDefault();
+      }
+    } else {
+      // Desktop behavior: Always treat the top-level click as a toggle
       e.preventDefault();
-      const parent = link.closest('.nav-item');
-      parent.classList.toggle('open');
+      e.stopPropagation();
     }
+
+    /* Close all other open mega menus */
+    megaItems.forEach(i => {
+      if (i !== item) {
+        i.classList.remove('nav-open');
+        i.querySelector('.nav-link').setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    /* Toggle the clicked menu */
+    const newState = !isOpen;
+    item.classList.toggle('nav-open', newState);
+    btn.setAttribute('aria-expanded', String(newState));
   });
 });
 
-// toggles search bar and focuses input
-const searchToggle = $('searchToggle');
-const searchBar    = $('searchBar');
-const searchInput  = $('searchInput');
-
-searchToggle.addEventListener('click', () => {
-  searchBar.classList.toggle('open');
-  if (searchBar.classList.contains('open')) {
-    searchInput.focus(); 
-  }
+/* Clicking outside closes any open menus */
+document.addEventListener('click', () => {
+  megaItems.forEach(i => {
+    i.classList.remove('nav-open');
+    i.querySelector('.nav-link').setAttribute('aria-expanded', 'false');
+  });
 });
 
+/* Clicking outside closes all menus */
+document.addEventListener('click', () => {
+  megaItems.forEach(i => {
+    i.classList.remove('nav-open');
+    i.querySelector('.nav-link').setAttribute('aria-expanded','false');
+    i.querySelector('.mega-menu').setAttribute('aria-hidden','true');
+  });
+});
+
+/* Escape key also closes */
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') {
-    searchBar.classList.remove('open');
-    mainNav.classList.remove('open');
-    hamburger.classList.remove('open');
+    megaItems.forEach(i => {
+      i.classList.remove('nav-open');
+      i.querySelector('.nav-link').setAttribute('aria-expanded','false');
+    });
+    $('searchBar').classList.remove('open');
+    $('mainNav').classList.remove('open');
+    $('hamburger').classList.remove('open');
+    $('hamburger').setAttribute('aria-expanded','false');
   }
 });
 
-// toggles light/dark mode and saves preference in localStorage
-const themeToggle = document.getElementById('themeToggle');
-const themeIcon   = document.getElementById('themeIcon');
-const htmlEl      = document.documentElement;
+/* ── HAMBURGER (mobile nav) ───────────────────── */
+$('hamburger').addEventListener('click', () => {
+  const isOpen = $('mainNav').classList.toggle('open');
+  $('hamburger').classList.toggle('open', isOpen);
+  $('hamburger').setAttribute('aria-expanded', String(isOpen));
+});
 
-const savedTheme = localStorage.getItem('cssp-theme') || 'light';
-htmlEl.setAttribute('data-theme', savedTheme);
-updateThemeUI(savedTheme);
+/* ── SEARCH BAR ───────────────────────────────── */
+/* Product data for live filtering */
+const productData = [
+  { name:'Coveralls (Blue)',   cat:'Uniforms',  price:'₱900',   img:'Assets/Products/UNI-PR1-Front-Coverall (Blue).JPG'   },
+  { name:'Coveralls (Orange)', cat:'Uniforms',  price:'₱1,000', img:'Assets/Products/UNI-PR2-Front-Coverall (Orange).JPG' },
+  { name:'Coveralls (Beige)',  cat:'Uniforms',  price:'₱950',   img:'Assets/Products/UNI-PR3-Front-Coverall (Beige).JPG'  },
+  { name:"Chef's White Top",   cat:'Kitchen',   price:'₱800',   img:'Assets/Products/UNI-PR4-Front-Coverall (Chef\'s).JPG'},
+  { name:'Full PPE Kit',       cat:'Safety',    price:'₱3,200', img:'https://placehold.co/42x42/e63946/fff?text=PPE'       },
+  { name:'Safety Boot',        cat:'Footwear',  price:'₱1,800', img:'https://placehold.co/42x42/1a3a5c/f4d03f?text=Boot'  },
+];
 
-themeToggle.addEventListener('click', () => {
-  const current = htmlEl.getAttribute('data-theme');
-  const next    = current === 'light' ? 'dark' : 'light';
-  
-  htmlEl.setAttribute('data-theme', next);
+$('searchToggle').addEventListener('click', () => {
+  const open = $('searchBar').classList.toggle('open');
+  if (open) $('searchInput').focus();
+  $('searchToggle').setAttribute('aria-expanded', String(open));
+});
+
+$('searchInput').addEventListener('input', () => {
+  const q = $('searchInput').value.trim().toLowerCase();
+  const res = $('searchResults');
+  if (!q) { res.classList.remove('show'); res.innerHTML=''; return; }
+  const hits = productData.filter(p => p.name.toLowerCase().includes(q) || p.cat.toLowerCase().includes(q));
+  if (!hits.length) {
+    res.innerHTML = `<p class="search-empty">No products found for "<strong>${q}</strong>"</p>`;
+    res.classList.add('show');
+    return;
+  }
+  res.innerHTML = hits.map(p =>
+    `<div class="search-result-item" onclick="window.location.href='products.html'">
+      <img src="${p.img}" alt="${p.name}" onerror="this.src='https://placehold.co/42x42/cccccc/666?text=?'"/>
+      <div><span class="sri-name">${p.name}</span><span class="sri-cat">${p.cat} · ${p.price}</span></div>
+    </div>`
+  ).join('');
+  res.classList.add('show');
+});
+
+/* ── THEME TOGGLE ─────────────────────────────── */
+const themeIcon = $('themeIcon');
+const html = document.documentElement;
+(function initTheme() {
+  const saved = localStorage.getItem('cssp-theme') || 'light';
+  html.setAttribute('data-theme', saved);
+  themeIcon.className = saved === 'dark' ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
+})();
+$('themeToggle').addEventListener('click', () => {
+  const next = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+  html.setAttribute('data-theme', next);
   localStorage.setItem('cssp-theme', next);
-  updateThemeUI(next);
+  themeIcon.className = next === 'dark' ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
 });
 
-// updates the theme toggle icon based on current theme
-function updateThemeUI(theme) {
-  if (theme === 'dark') {
-    themeIcon.className = 'fa-solid fa-moon';
-  } else {
-    themeIcon.className = 'fa-solid fa-sun';
-  }
-}
-
-// exchange rates relative to PHP (base currency)
+// currency system
 const rates = {
   PHP: { symbol: '₱', rate: 1 },
   USD: { symbol: '$', rate: 0.018 },
@@ -94,50 +155,42 @@ const rates = {
 
 let currentCurrency = 'PHP';
 
-// toggle dropdown visibility
-$('currencyBtn').addEventListener('click', () => {
-  $('currencyDropdown').classList.toggle('open');
-});
+const currencyBtn = $('currencyBtn');
+const currencyDropdown = $('currencyDropdown');
+const activeCurrency = $('activeCurrency');
+const currencySwitcher = $('currencySwitcher');
 
-// close dropdown when clicking outside
-document.addEventListener('click', e => {
-  const switcher = $('currencySwitcher');
-  if (!switcher.contains(e.target)) {
-    $('currencyDropdown').classList.remove('open');
+if (currencyBtn && currencyDropdown) {
+  currencyBtn.addEventListener('click', () => {
+    currencyDropdown.classList.toggle('open');
+  });
+}
+
+// close dropdown outside click
+document.addEventListener('click', (e) => {
+  if (currencySwitcher && !currencySwitcher.contains(e.target)) {
+    currencyDropdown?.classList.remove('open');
   }
 });
 
-// when user picks a currency, update everything
+// currency selection
 $$('#currencyDropdown li').forEach(item => {
   item.addEventListener('click', () => {
-    const chosen = item.getAttribute('data-currency');
+    const chosen = item.dataset.currency;
     currentCurrency = chosen;
-    $('activeCurrency').textContent = chosen;
-    $('currencyDropdown').classList.remove('open');
 
-    // update all product price elements
+    if (activeCurrency) {
+      activeCurrency.textContent = chosen;
+    }
+
+    currencyDropdown?.classList.remove('open');
+
     $$('.card-price').forEach(el => {
-      const basePHP = parseFloat(el.getAttribute('data-base'));
+      const base = parseFloat(el.dataset.base || "0");
       const { symbol, rate } = rates[chosen];
-      const converted = (basePHP * rate).toFixed(2);
-      el.textContent = symbol + converted;
+
+      el.textContent = symbol + (base * rate).toFixed(2);
     });
-  });
-});
-
-//  add item to cart and add the badge count
-let cartCount = 0;
-
-$$('.quick-add').forEach(btn => {
-  btn.addEventListener('click', () => {
-    cartCount++;
-    $('cartBadge').textContent = cartCount;
-
-    // brief bounce animation on the badge
-    $('cartBadge').style.transform = 'scale(1.4)';
-    setTimeout(() => {
-      $('cartBadge').style.transform = 'scale(1)';
-    }, 200);
   });
 });
 
@@ -241,40 +294,12 @@ $$('.people-grid-item').forEach(item => {
   });
 });
 
-// back to top button
-const backBtn = $('backToTop');
+/* ── BACK TO TOP ──────────────────────────────── */
+$('backToTop').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
-window.addEventListener('scroll', () => {
-  if (window.scrollY > 300) {
-    backBtn.classList.add('visible');
-  } else {
-    backBtn.classList.remove('visible');
-  }
-});
-
-backBtn.addEventListener('click', () => {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-});
-
-// smooth reveal on scroll
-const style = document.createElement('style');
-style.textContent = `
-  .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.6s ease, transform 0.6s ease; }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
-`;
-document.head.appendChild(style);
-
-$$('section').forEach(sec => {
-  sec.classList.add('reveal');
-});
-
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-      observer.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.12 });
-
-$$('.reveal').forEach(el => observer.observe(el));
+/* ── SCROLL REVEAL ────────────────────────────── */
+$$('section').forEach(s => s.classList.add('reveal'));
+const revealObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObserver.unobserve(e.target); } });
+}, { threshold: .1 });
+$$('.reveal').forEach(el => revealObserver.observe(el));
