@@ -784,14 +784,20 @@ h1, h2, h3, h4 {
     font-family: 'Bebas Neue', sans-serif;
 }
 
-.hero-title {
-    font-size: clamp(3.5rem, 7vw, 6rem);
-    color: var(--navy);
-    margin-bottom: 20px;
+.hero-about h1 .ph {
+    font-family: 'Zilap';
+    src: url(Fonts/Zilap/ZilapTifinaghPersonalUse-d90gR.ttf);
+    text-transform: uppercase;
+    font-size: 100px;
+    color: #996515;
+    white-space: nowrap; 
+    display: inline-block;
+    padding: 0 5px;
+    font-size: clamp(50px, 8vw, 120px);
 }
 
-[data-theme="dark"] .hero-title { 
-    color: var(--white); 
+[data-theme="dark"] .hero-about h1 .ph {
+    color: #d4af37;
 }
 
 .hero-about h1 {
@@ -806,21 +812,6 @@ h1, h2, h3, h4 {
 
 [data-theme="dark"] .hero-about h1 {
     color: var(--white);
-}
-
-.hero-about h1 .ph {
-    font-family: 'Zilap', sans-serif;
-    src: url(Fonts/Zilap/ZilapTifinaghPersonalUse-d90gR.ttf);
-    font-size: 100px;
-    color: #996515;
-    white-space: nowrap; 
-    display: inline-block;
-    padding: 0 5px;
-    font-size: clamp(50px, 8vw, 120px);
-}
-
-[data-theme="dark"] .hero-about h1 .ph {
-    color: #d4af37;
 }
 
 .hero-about h1 .year {
