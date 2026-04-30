@@ -1,4 +1,3 @@
-/* FONT FROM DAFONT.COM - BEBAS NEUE & CREATO DISPLAY*/
 @font-face {
   font-family: 'Bebas Neue Custom';
   src: url(../Fonts/Bebas\ Neue/BebasNeue-Regular.woff2) format('woff2'),
@@ -835,7 +834,6 @@ h1, h2, h3, h4 {
     font-size: 16px;
 }
 
-
 /* section ticker */
 .section-ticker {
     background: var(--navy);
@@ -844,7 +842,6 @@ h1, h2, h3, h4 {
     padding: 16px 0;
     white-space: nowrap;
 }
-
 
 .ticker2-track {
     display: inline-flex;
@@ -1101,13 +1098,6 @@ h1, h2, h3, h4 {
 }
 
 .tailor-intro p {
-    /* font-size: 1.1rem;
-    color: rgba(255, 255, 255, 0.9);
-    line-height: 1.8;
-    max-width: 100%;
-    padding-left: 0;
-    font-family: 'DM Sans', sans-serif;*/
-
     font-size: 1.1rem;
     color: rgba(255, 255, 255, 0.9);
     line-height: 1.8;
