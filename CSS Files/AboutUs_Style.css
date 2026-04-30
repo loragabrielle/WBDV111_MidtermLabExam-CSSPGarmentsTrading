@@ -1101,12 +1101,20 @@ h1, h2, h3, h4 {
 }
 
 .tailor-intro p {
+    /* font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.8;
+    max-width: 100%;
+    padding-left: 0;
+    font-family: 'DM Sans', sans-serif;*/
+
     font-size: 1.1rem;
     color: rgba(255, 255, 255, 0.9);
     line-height: 1.8;
     max-width: 100%;
     padding-left: 0;
     font-family: 'DM Sans', sans-serif;
+    margin-bottom: 80px;
 }
 
 .tailor-photo-grid {
