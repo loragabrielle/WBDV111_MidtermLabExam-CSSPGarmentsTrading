@@ -168,7 +168,7 @@ $$('#currencyDropdown li').forEach(li => {
   });
 });
 
-// history section slider
+/* ── HISTORY SLIDER ────────────────────────── */
 const yearStrips = $('yearStrips');
 const yearLabels = $$('.year-label');
 const descItems = $$('.growth-desc');
