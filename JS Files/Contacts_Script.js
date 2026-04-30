@@ -184,15 +184,21 @@ function showNotif(message, isSuccess = false) {
 }
 
 function showInlineError(inputEl, errorId, msg) {
-    const errorEl = $(errorId);
-    if (inputEl) {
-        inputEl.classList.add('shake');
-        setTimeout(() => inputEl.classList.remove('shake'), 500);
-    }
-    if (errorEl) {
-        errorEl.textContent = msg;
-        errorEl.style.display = 'block';
-    }
+  const errorEl = $(errorId);
+  if (inputEl) {
+    inputEl.classList.add('shake');
+    setTimeout(() => inputEl.classList.remove('shake'), 500);
+  }
+  if (errorEl) {
+    errorEl.textContent = msg;
+    errorEl.style.display = 'block';
+  }
+}
+
+if ($('contactName')) {
+  $('contactName').addEventListener('input', (e) => {
+    e.target.value = e.target.value.replace(/[0-9]/g, '');
+  });
 }
 
 const cBtn = $('contactBtn'); 
@@ -219,6 +225,13 @@ if (cBtn) {
       if(!email) showInlineError(emailEl, 'emailError', 'Email is required.');
       if(!message) showInlineError(msgEl, 'msgError', 'Message cannot be empty.');
       return; 
+    }
+
+    // Name validation
+    const namePattern = /^[a-zA-Z\sñÑ]*$/; 
+    if (!namePattern.test(name)) {
+      showInlineError(nameEl, 'nameError', 'Numbers are not allowed in the name.');
+      return;
     }
 
     // Email validation
