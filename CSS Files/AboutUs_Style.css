@@ -784,7 +784,7 @@ h1, h2, h3, h4 {
     font-family: 'Bebas Neue', sans-serif;
 }
 
-.hero-about h1 .ph {
+.hero-title .ph {
     font-family: 'Zilap';
     src: url(Fonts/Zilap/ZilapTifinaghPersonalUse-d90gR.ttf);
     text-transform: uppercase;
@@ -796,7 +796,7 @@ h1, h2, h3, h4 {
     font-size: clamp(50px, 8vw, 120px);
 }
 
-[data-theme="dark"] .hero-about h1 .ph {
+[data-theme="dark"] .hero-title .ph {
     color: #d4af37;
 }
 
