@@ -1,3 +1,4 @@
+/* FONT FROM DAFONT.COM - BEBAS NEUE & CREATO DISPLAY*/
 @font-face {
   font-family: 'Bebas Neue Custom';
   src: url(../Fonts/Bebas\ Neue/BebasNeue-Regular.woff2) format('woff2'),
@@ -16,6 +17,7 @@
   src: url(../Fonts/Creato\ Display/CreatoDisplay-Bold.otf) format('opentype');
   font-weight: 700;
 }
+
 
 /* shortcut color ------  var(--name)*/
 :root {
@@ -111,7 +113,6 @@ h1, h2, h3, h4 {
     letter-spacing: 0.05em;
     transition: var(--transition);
     border: 2px solid var(--navy);
-    margin-top: 10px;
 }
 
 .btn-primary:hover {
@@ -747,7 +748,6 @@ h1, h2, h3, h4 {
     white-space: nowrap;
 }
 
-
 .ticker2-track {
     display: inline-flex;
     gap: 48px;
@@ -822,8 +822,7 @@ h1, h2, h3, h4 {
 .contact-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 25px;
-    align-items: stretch;
+    gap: 30px;
     max-width: 1200px;
     margin: 50px auto;
     padding: 0 20px;
@@ -847,7 +846,7 @@ h1, h2, h3, h4 {
 }
 
 .card-title {
-    font-size: 18px;
+    font-size: 25px;
     font-family: 'Bebas Neue', sans-serif;
     color: var(--navy);
     margin-bottom: 12px;
@@ -872,14 +871,17 @@ h1, h2, h3, h4 {
     border: 0;
 }
 
-.card-text {
-    font-size: 0.9rem;
+.card-text-intro {
+    font-size: 1.1rem;
     color: var(--text);
     line-height: 2;
+    margin-bottom: 20px;
 }
 
-.contact-info-list {
-    margin-top: 20px;
+.card-text {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    line-height: 2;
 }
 
 .contact-info-list p {
@@ -889,7 +891,7 @@ h1, h2, h3, h4 {
 }
 
 .contact-info-list i {
-    color: var(--text); 
+    color: var(--text-muted); 
     width: 20px;
 }
 
@@ -897,7 +899,8 @@ h1, h2, h3, h4 {
     text-transform: uppercase;
     color: var(--red);
     font-weight: 600;
-    font-size: 14px !important;
+    font-size: 18px !important;
+    margin: 0;
 }
 
 /* CONTACT FORM */
@@ -948,7 +951,7 @@ textarea {
     display: flex;
     flex-direction: column;
     gap: 4px;
-    margin-bottom: 13px;
+    margin-bottom: 10px;
     position: relative;
 }
 
@@ -1060,7 +1063,6 @@ textarea {
     color: var(--yellow);
     margin-bottom: 14px;
 }
-
 
 .brand-col > p {
     font-size: 0.86rem;
@@ -1206,9 +1208,7 @@ textarea {
 
 @media (max-width: 1024px) {
     .contact-grid {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 20px;
-        max-width: 1000px;
+        grid-template-columns: 1fr; 
     }
     
     .info-card {
@@ -1235,10 +1235,6 @@ textarea {
     .info-card {
         min-height: 240px;
         padding: 20px;
-    }
-
-    .card-text {
-        font-size: 0.85rem;
     }
 
     .contact-form input, .contact-form textarea {
@@ -1350,6 +1346,7 @@ textarea {
     .contact-subtitle {
         font-size: 13px;
     }
+
     .contact-title {
         font-size: 50px;
     }
@@ -1363,11 +1360,6 @@ textarea {
     .info-card {
         min-height: 220px;
         padding: 15px;
-    }
-
-    .card-text {
-        font-size: 0.8rem;
-        line-height: 1.6;
     }
 
     .contact-form input, .contact-form textarea {
