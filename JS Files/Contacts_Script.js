@@ -1,6 +1,4 @@
-/* ============================================================
-   1. HELPERS & GLOBAL LOGIC
-   ============================================================ */
+/* helper shortcuts */
 const $ = id => document.getElementById(id);
 const $$ = sel => document.querySelectorAll(sel);
 
@@ -10,33 +8,37 @@ if (tickerTrack) {
   tickerTrack.innerHTML += tickerTrack.innerHTML;
 }
 
-// Scroll Event: Sticky shadow & Back to Top visibility
+/* ── SCROLL → sticky shadow ──────────────────── */
 const hdr = $('siteHeader');
 window.addEventListener('scroll', () => {
-  if (hdr) hdr.classList.toggle('scrolled', window.scrollY > 50);
-  const btt = $('backToTop');
-  if (btt) btt.classList.toggle('visible', window.scrollY > 300);
+  hdr.classList.toggle('scrolled', window.scrollY > 50);
+  $('backToTop').classList.toggle('visible', window.scrollY > 300);
 }, { passive: true });
 
-/* ============================================================
-   2. MEGA MENU LOGIC
-   ============================================================ */
+
+/* ── MEGA MENU (click-based, outside-click closes) ── */
 const megaItems = document.querySelectorAll('.nav-item.has-mega'); 
 
 megaItems.forEach(item => {
   const btn = item.querySelector('.nav-link');
 
   btn.addEventListener('click', e => {
+    // Check current state once
     const isOpen = item.classList.contains('nav-open');
     
+    // Logic for Mobile (<= 768px)
     if (window.innerWidth <= 768) {
+      // If the menu is closed, prevent the link from navigating and open the menu instead
       if (!isOpen) {
         e.preventDefault();
         e.stopPropagation();
-      } else if (btn.getAttribute('href') === '#') {
+      } 
+      // If the link is just a placeholder "#", always prevent navigation
+      else if (btn.getAttribute('href') === '#') {
         e.preventDefault();
       }
     } else {
+      // Desktop behavior: Always treat the top-level click as a toggle
       e.preventDefault();
       e.stopPropagation();
     }
@@ -49,51 +51,53 @@ megaItems.forEach(item => {
       }
     });
 
+    /* Toggle the clicked menu */
     const newState = !isOpen;
     item.classList.toggle('nav-open', newState);
     btn.setAttribute('aria-expanded', String(newState));
   });
 });
 
-/* Clicking outside or pressing Escape closes menus */
+/* Clicking outside closes any open menus */
 document.addEventListener('click', () => {
   megaItems.forEach(i => {
     i.classList.remove('nav-open');
     i.querySelector('.nav-link').setAttribute('aria-expanded', 'false');
-    const mm = i.querySelector('.mega-menu');
-    if (mm) mm.setAttribute('aria-hidden', 'true');
   });
 });
 
+/* Clicking outside closes all menus */
+document.addEventListener('click', () => {
+  megaItems.forEach(i => {
+    i.classList.remove('nav-open');
+    i.querySelector('.nav-link').setAttribute('aria-expanded','false');
+    i.querySelector('.mega-menu').setAttribute('aria-hidden','true');
+  });
+});
+
+/* Escape key also closes */
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') {
     megaItems.forEach(i => {
       i.classList.remove('nav-open');
       i.querySelector('.nav-link').setAttribute('aria-expanded','false');
     });
-    if ($('searchBar')) $('searchBar').classList.remove('open');
-    if ($('mainNav')) $('mainNav').classList.remove('open');
-    if ($('hamburger')) {
-        $('hamburger').classList.remove('open');
-        $('hamburger').setAttribute('aria-expanded','false');
-    }
+    $('searchBar').classList.remove('open');
+    $('mainNav').classList.remove('open');
+    $('hamburger').classList.remove('open');
+    $('hamburger').setAttribute('aria-expanded','false');
   }
 });
 
-/* ============================================================
-   3. NAVIGATION & SEARCH
-   ============================================================ */
-// Hamburger (Mobile Nav)
-const hamburger = $('hamburger');
-if (hamburger) {
-    hamburger.addEventListener('click', () => {
-      const isOpen = $('mainNav').classList.toggle('open');
-      hamburger.classList.toggle('open', isOpen);
-      hamburger.setAttribute('aria-expanded', String(isOpen));
-    });
-}
+/* ── HAMBURGER (mobile nav) ───────────────────── */
+$('hamburger').addEventListener('click', () => {
+  const isOpen = $('mainNav').classList.toggle('open');
+  $('hamburger').classList.toggle('open', isOpen);
+  $('hamburger').setAttribute('aria-expanded', String(isOpen));
+});
 
-// Search Bar Logic
+/* ── SEARCH BAR ───────────────────────────────── */
+/* Product data for live filtering */
 const productData = [
   { name:'Coveralls (Blue)',   cat:'Uniforms',  price:'₱900',   img:'Assets/Products/UNI-PR1-Front-Coverall (Blue).JPG'   },
   { name:'Coveralls (Orange)', cat:'Uniforms',  price:'₱1,000', img:'Assets/Products/UNI-PR2-Front-Coverall (Orange).JPG' },
@@ -103,89 +107,70 @@ const productData = [
   { name:'Safety Boot',        cat:'Footwear',  price:'₱1,800', img:'https://placehold.co/42x42/1a3a5c/f4d03f?text=Boot'  },
 ];
 
-const searchToggle = $('searchToggle');
-if (searchToggle) {
-    searchToggle.addEventListener('click', () => {
-      const open = $('searchBar').classList.toggle('open');
-      if (open) $('searchInput').focus();
-      searchToggle.setAttribute('aria-expanded', String(open));
-    });
-}
+$('searchToggle').addEventListener('click', () => {
+  const open = $('searchBar').classList.toggle('open');
+  if (open) $('searchInput').focus();
+  $('searchToggle').setAttribute('aria-expanded', String(open));
+});
 
-const searchInput = $('searchInput');
-if (searchInput) {
-    searchInput.addEventListener('input', () => {
-      const q = searchInput.value.trim().toLowerCase();
-      const res = $('searchResults');
-      if (!q) { res.classList.remove('show'); res.innerHTML=''; return; }
-      const hits = productData.filter(p => p.name.toLowerCase().includes(q) || p.cat.toLowerCase().includes(q));
-      if (!hits.length) {
-        res.innerHTML = `<p class="search-empty">No products found for "<strong>${q}</strong>"</p>`;
-        res.classList.add('show');
-        return;
-      }
-      res.innerHTML = hits.map(p =>
-        `<div class="search-result-item" onclick="window.location.href='products.html'">
-          <img src="${p.img}" alt="${p.name}" onerror="this.src='https://placehold.co/42x42/cccccc/666?text=?'"/>
-          <div><span class="sri-name">${p.name}</span><span class="sri-cat">${p.cat} · ${p.price}</span></div>
-        </div>`
-      ).join('');
-      res.classList.add('show');
-    });
-}
+$('searchInput').addEventListener('input', () => {
+  const q = $('searchInput').value.trim().toLowerCase();
+  const res = $('searchResults');
+  if (!q) { res.classList.remove('show'); res.innerHTML=''; return; }
+  const hits = productData.filter(p => p.name.toLowerCase().includes(q) || p.cat.toLowerCase().includes(q));
+  if (!hits.length) {
+    res.innerHTML = `<p class="search-empty">No products found for "<strong>${q}</strong>"</p>`;
+    res.classList.add('show');
+    return;
+  }
+  res.innerHTML = hits.map(p =>
+    `<div class="search-result-item" onclick="window.location.href='products.html'">
+      <img src="${p.img}" alt="${p.name}" onerror="this.src='https://placehold.co/42x42/cccccc/666?text=?'"/>
+      <div><span class="sri-name">${p.name}</span><span class="sri-cat">${p.cat} · ${p.price}</span></div>
+    </div>`
+  ).join('');
+  res.classList.add('show');
+});
 
-/* ============================================================
-   4. THEME & CURRENCY
-   ============================================================ */
-// Theme Toggle
+/* ── THEME TOGGLE ─────────────────────────────── */
 const themeIcon = $('themeIcon');
 const html = document.documentElement;
 (function initTheme() {
   const saved = localStorage.getItem('cssp-theme') || 'light';
   html.setAttribute('data-theme', saved);
-  if (themeIcon) themeIcon.className = saved === 'dark' ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
+  themeIcon.className = saved === 'dark' ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
 })();
-
-if ($('themeToggle')) {
-    $('themeToggle').addEventListener('click', () => {
-      const next = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
-      html.setAttribute('data-theme', next);
-      localStorage.setItem('cssp-theme', next);
-      if (themeIcon) themeIcon.className = next === 'dark' ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
-    });
-}
-
-// Currency Switcher
-const rates = { PHP: { symbol: '₱', rate: 1 }, USD: { symbol: '$', rate: 0.018 }, EUR: { symbol: '€', rate: 0.016 } };
-let currentCurrency = 'PHP';
-
-if ($('currencyBtn')) {
-  $('currencyBtn').addEventListener('click', () => $('currencyDropdown').classList.toggle('open'));
-}
-
-document.addEventListener('click', (e) => {
-  if ($('currencySwitcher') && !$('currencySwitcher').contains(e.target)) {
-    $('currencyDropdown')?.classList.remove('open');
-  }
+$('themeToggle').addEventListener('click', () => {
+  const next = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('cssp-theme', next);
+  themeIcon.className = next === 'dark' ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
 });
 
-$$('#currencyDropdown li').forEach(item => {
-  item.addEventListener('click', () => {
-    const chosen = item.dataset.currency;
-    currentCurrency = chosen;
-    if ($('activeCurrency')) $('activeCurrency').textContent = chosen;
-    $('currencyDropdown')?.classList.remove('open');
+/* ── CURRENCY SWITCHER ────────────────────────── */
+const rates = { PHP:{symbol:'₱',rate:1}, USD:{symbol:'$',rate:.018}, EUR:{symbol:'€',rate:.016} };
+let currency = 'PHP';
+$('currencyBtn').addEventListener('click', e => {
+  e.stopPropagation();
+  const open = $('currencyDropdown').classList.toggle('open');
+  $('currencyBtn').setAttribute('aria-expanded', String(open));
+});
+document.addEventListener('click', () => $('currencyDropdown').classList.remove('open'));
+$$('#currencyDropdown li').forEach(li => {
+  li.addEventListener('click', () => {
+    currency = li.dataset.currency;
+    $('activeCurrency').textContent = currency;
+    $('currencyDropdown').classList.remove('open');
     $$('.card-price').forEach(el => {
-      const base = parseFloat(el.dataset.base || "0");
-      const { symbol, rate } = rates[chosen];
-      el.textContent = symbol + (base * rate).toFixed(2);
+      const base = parseFloat(el.dataset.base);
+      const {symbol,rate} = rates[currency];
+      el.textContent = symbol + (base*rate).toFixed(2);
     });
   });
 });
 
-/* ============================================================
-   5. CONTACT FORM & NOTIFICATIONS
-   ============================================================ */
+
+/* ── CONTACTS NOTIF ────────────────────────── */
 function showNotif(message, isSuccess = false) { 
   const notif = $('customNotif');  
   const notifMsg = $('notifMessage');  
@@ -254,9 +239,7 @@ if (cBtn) {
   });
 }
 
-/* ============================================================
-   6. POLICY AGREEMENT & UTILS
-   ============================================================ */
+/* ── POLICY AGREEMENTS ────────────────────────── */
 const policyChecks  = $$('.policy-check');
 const policyBtn     = $('policySubmit');
 
@@ -275,19 +258,13 @@ if (policyBtn) {
         }
     });
 }
-// Back to Top functionality
-if ($('backToTop')) {
-    $('backToTop').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-}
 
-// Scroll Reveal
+/* ── BACK TO TOP ──────────────────────────────── */
+$('backToTop').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+/* ── SCROLL REVEAL ────────────────────────────── */
 $$('section').forEach(s => s.classList.add('reveal'));
 const revealObserver = new IntersectionObserver(entries => {
-  entries.forEach(e => { 
-      if (e.isIntersecting) { 
-          e.target.classList.add('visible'); 
-          revealObserver.unobserve(e.target); 
-      } 
-  });
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObserver.unobserve(e.target); } });
 }, { threshold: .1 });
 $$('.reveal').forEach(el => revealObserver.observe(el));
