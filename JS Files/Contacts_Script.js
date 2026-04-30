@@ -257,19 +257,24 @@ const policyChecks  = $$('.policy-check');
 const policyBtn     = $('policySubmit');
 
 if (policyBtn) {
-    policyBtn.addEventListener('click', () => {
-        let missing = [];
-        policyChecks.forEach(box => { if (!box.checked) missing.push(box.getAttribute('data-name')); });
-
-        if (missing.length === 0) {
-            $('successToast')?.classList.add('show');
-            setTimeout(() => $('successToast')?.classList.remove('show'), 3000);
-        } else {
-            if($('warningMsg')) $('warningMsg').textContent = `Please check all.`;
-            $('warningToast')?.classList.add('show');
-            setTimeout(() => $('warningToast')?.classList.remove('show'), 4000);
-        }
+  policyBtn.addEventListener('click', () => {
+    let missing = [];
+    policyChecks.forEach(box => { 
+      if (!box.checked) missing.push(box.getAttribute('data-name')); 
     });
+
+    if (missing.length === 0) {
+      $('successToast')?.classList.add('show');
+      policyChecks.forEach(box => {
+        box.checked = false;
+      });
+      setTimeout(() => $('successToast')?.classList.remove('show'), 4000);
+    } else {
+      if($('warningMsg')) $('warningMsg').textContent = `Please check all.`;
+      $('warningToast')?.classList.add('show');
+      setTimeout(() => $('warningToast')?.classList.remove('show'), 4000);
+    }
+  });
 }
 
 /* ── BACK TO TOP ──────────────────────────────── */
