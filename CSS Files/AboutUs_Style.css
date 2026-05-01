@@ -67,7 +67,7 @@ html {
     font-size: 16px; }
 
 body {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Creato Display', sans-serif;
     background-color: var(--bg);
     color: var(--text);
     overflow-x: hidden;
@@ -97,7 +97,7 @@ button {
 }
 
 h1, h2, h3, h4 { 
-    font-family: 'Bebas Neue', sans-serif; 
+    font-family: 'Bebas Neue Custom', sans-serif; 
     letter-spacing: 0.02em; 
     line-height: 1.1; 
 }
@@ -265,7 +265,7 @@ h1, h2, h3, h4 {
 }
 
 .logo-text {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Bebas Neue Custom', sans-serif;
     font-size: 1.5rem;
     color: #001f3f;
     line-height: 1;
@@ -780,12 +780,11 @@ h1, h2, h3, h4 {
     text-transform: uppercase;
     color: var(--green);;
     margin-bottom: 10px;
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Bebas Neue Custom', sans-serif;
 }
 
 .hero-title .ph {
     font-family: 'Zilap';
-    src: url(Fonts/Zilap/ZilapTifinaghPersonalUse-d90gR.ttf);
     text-transform: uppercase;
     font-size: 100px;
     color: #996515;
@@ -804,7 +803,7 @@ h1, h2, h3, h4 {
     font-weight: 700;
     line-height: 1.1;
     margin-bottom: 25px;
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Bebas Neue Custom', sans-serif;
     letter-spacing: 1px;
     color: #071a2b;
 }
@@ -910,7 +909,7 @@ h1, h2, h3, h4 {
     font-size: clamp(40px, 8vw, 70px);
     margin-bottom: 1rem;
     color: var(--white);
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Bebas Neue Custom', sans-serif;
 }
 
 .history-content p {
@@ -919,7 +918,7 @@ h1, h2, h3, h4 {
     line-height: 1.8;
     max-width: 100%;
     padding-left: 0;
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Creato Display', sans-serif;
 }
 
 .history-pictures {
@@ -962,7 +961,7 @@ h1, h2, h3, h4 {
 }
 
 .big-year {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Bebas Neue Custom', sans-serif;
     font-size: clamp(5rem, 12vw, 10rem);
     line-height: 1;
     height: clamp(120px, 20vw, 180px);
@@ -1020,7 +1019,7 @@ h1, h2, h3, h4 {
     background: none;
     border: none;
     color: var(--white);
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Bebas Neue Custom', sans-serif;
     font-size: 1.4rem;
     opacity: 0.4;
     cursor: pointer;
@@ -1103,7 +1102,7 @@ h1, h2, h3, h4 {
     line-height: 1.8;
     max-width: 100%;
     padding-left: 0;
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Creato Display', sans-serif;
     margin-bottom: 80px;
 }
 
@@ -1160,7 +1159,7 @@ h1, h2, h3, h4 {
 }
 
 .tailor-photo-info h4 {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Bebas Neue Custom', sans-serif;
     font-size: 1.8rem;
     color: #e2e8f0; 
     margin-bottom: 0;
@@ -1236,7 +1235,7 @@ h1, h2, h3, h4 {
     line-height: 1.8;
     max-width: 100%;
     padding-left: 0;
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Creato Display', sans-serif;
     margin-bottom: 80px;
 }
 
@@ -1304,7 +1303,7 @@ h1, h2, h3, h4 {
 }
 
 .people-content-box h4 {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Bebas Neue Custom', sans-serif;
     font-size: 1.8rem;
     font-weight: 600;
     margin-bottom: 20px;
@@ -1319,7 +1318,7 @@ h1, h2, h3, h4 {
     color: var(--white);
     line-height: 1.8;
     transition: color 0.4s ease;
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Creato Display', sans-serif;
 }
 
 .people-grid-item:hover .people-inner {
@@ -1399,7 +1398,7 @@ h1, h2, h3, h4 {
     display: flex;
     align-items: center;
     gap: 10px;
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Bebas Neue Custom', sans-serif;
     font-size: 1.55rem;
     color: var(--yellow);
     margin-bottom: 14px;
@@ -1438,7 +1437,7 @@ h1, h2, h3, h4 {
 }
 
 .footer-col h4 {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Bebas Neue Custom', sans-serif;
     font-size: 1.25rem;
     color: var(--yellow);
     margin-bottom: 18px;
