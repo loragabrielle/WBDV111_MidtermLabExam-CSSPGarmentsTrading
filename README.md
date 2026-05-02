@@ -37,11 +37,12 @@
 ### Cart Page
 
 ### About Us Page
-![Home](Assets/README/Website-Preview-AboutUs.png)
+![About Us](Assets/README/Website-Preview-AboutUs.png)
 
 ### Contact Us/Inquiry Page
-![Products](Assets/README/Website-Preview-Contacts.png)
+![Contac Us](Assets/README/Website-Preview-Contacts.png) 
 
 ### Policies Page
+![Policies](Assets/README/Website-Preview-Policies.png)
 
 
