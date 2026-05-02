@@ -41,8 +41,8 @@
 
 ### Contact Us/Inquiry Page
 ![Contac Us](Assets/README/Website-Preview-Contacts.png) 
-![About Us](Assets/README/Website-Preview-AboutUs.png)
 
 ### Policies Page
+![Policies](Assets/README/Website-Preview-Policies.png)
 
 
