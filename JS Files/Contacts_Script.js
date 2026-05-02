@@ -230,12 +230,11 @@ if (cBtn) {
     // Name validation
     const namePattern = /^[a-zA-Z\sñÑ]*$/; 
     if (!namePattern.test(name)) {
-      showInlineError(nameEl, 'nameError', 'Numbers are not allowed in the name.');
       return;
     }
 
     // Email validation
-    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|net|org|edu|gov|ph|io|me|info)$/i;
     if (!emailPattern.test(email)) {
       showInlineError(emailEl, 'emailError', 'Please enter a valid email address.');
       return;
@@ -246,7 +245,6 @@ if (cBtn) {
     setTimeout(() => {         
       nameEl.value = "";          
       emailEl.value = "";
-      if($('contactPhone')) $('contactPhone').value = ""; // Clear phone if exists, but don't format/validate
       msgEl.value = ""; 
     }, 1000);    
   });

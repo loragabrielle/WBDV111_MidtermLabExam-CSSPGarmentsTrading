@@ -93,7 +93,7 @@ button {
 }
 
 h1, h2, h3, h4 { 
-    font-family: 'Bebas Neue', sans-serif; 
+    font-family: 'Bebas Neue Custom', sans-serif; 
     letter-spacing: 0.02em; 
     line-height: 1.1; 
 }
@@ -261,7 +261,7 @@ h1, h2, h3, h4 {
 }
 
 .logo-text {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Bebas Neue Custom', sans-serif;
     font-size: 1.5rem;
     color: #001f3f;
     line-height: 1;
@@ -814,7 +814,7 @@ h1, h2, h3, h4 {
 
 .contact-title {
     font-size: clamp(4.5rem, 6vw, 5.5rem);
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Bebas Neue Custom', sans-serif;
     color: var(--text);
 }
 
@@ -846,7 +846,7 @@ h1, h2, h3, h4 {
 
 .card-title {
     font-size: 25px;
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Bebas Neue Custom', sans-serif;
     color: var(--navy);
     margin-bottom: 12px;
 }
@@ -898,8 +898,10 @@ h1, h2, h3, h4 {
     text-transform: uppercase;
     color: var(--red);
     font-weight: 600;
-    font-size: 18px !important;
+    font-size: 20px !important;
     margin: 0;
+    font-family: 'Bebas Neue Custom', sans-serif;
+    letter-spacing: 0.04em;
 }
 
 /* CONTACT FORM */
@@ -1057,7 +1059,7 @@ textarea {
     display: flex;
     align-items: center;
     gap: 10px;
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Bebas Neue Custom', sans-serif;
     font-size: 1.55rem;
     color: var(--yellow);
     margin-bottom: 14px;
@@ -1095,7 +1097,7 @@ textarea {
 }
 
 .footer-col h4 {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Bebas Neu Custom', sans-serif;
     font-size: 1.25rem;
     color: var(--yellow);
     margin-bottom: 18px;
@@ -1208,6 +1210,7 @@ textarea {
 @media (max-width: 1024px) {
     .contact-grid {
         grid-template-columns: 1fr; 
+        gap: 24px;
     }
     
     .info-card {
@@ -1227,13 +1230,27 @@ textarea {
 @media (max-width: 768px) {
     .contact-grid {
         grid-template-columns: 1fr;
-        gap: 25px;
+        gap: 20px;
         max-width: 95%;
+        margin: 40px auto;
     }
     
     .info-card {
         min-height: 240px;
         padding: 20px;
+    }
+
+    .card-text-intro {
+        font-size: 1rem;
+        margin-bottom: 16px;
+    }
+
+    .card-text {
+        font-size: 1rem;
+    }
+
+    .map-container {
+        height: 160px;
     }
 
     .contact-form input, .contact-form textarea {
@@ -1349,11 +1366,12 @@ textarea {
     .contact-title {
         font-size: 50px;
     }
-       
+
     .contact-grid {
         grid-template-columns: 1fr;
         gap: 20px;
         max-width: 98%;
+        margin: 30px auto;
     }
     
     .info-card {
@@ -1361,9 +1379,25 @@ textarea {
         padding: 15px;
     }
 
+    .card-title {
+        font-size: 22px;
+    }
+
+    .card-text-intro {
+        font-size: 0.95rem;
+    }
+
+    .card-text {
+        font-size: 0.95rem;
+    }
+
+    .map-container {
+        height: 140px;
+    }
+
     .contact-form input, .contact-form textarea {
         padding: 10px 12px;
-        font-size: 16px;
+        font-size: 14px;
     }
 
     textarea {
