@@ -32,7 +32,7 @@
 ![Home](Assets/README/Website-Preview-Index.png)
 
 ### Products Page
-![Products](Assets/README/Website-Preview-Products.png)
+![Products](Assets/README/Website-Preview-Product.png)
 
 ### Cart Page
 
