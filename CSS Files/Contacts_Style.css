@@ -802,7 +802,7 @@ h1, h2, h3, h4 {
 
 .contact-subtitle {
     display: inline-block;
-    font-size: (0.8rem, 1.5vw, 1rem);
+    font-size: 15px;
     letter-spacing: 0.2em;
     text-transform: uppercase;
     font-weight: 700;
@@ -812,7 +812,7 @@ h1, h2, h3, h4 {
 }
 
 .contact-title {
-    font-size: clamp(4.5rem, 6vw, 5.5rem);
+    font-size: 80px;
     font-family: 'Bebas Neue Custom', sans-serif;
     color: var(--text);
 }
@@ -1211,6 +1211,14 @@ textarea {
         grid-template-columns: 1fr; 
         gap: 24px;
     }
+
+    .contact-subtitle {
+        font-size: 14px;
+    }
+
+    .contact-title {
+        font-size: 70px;
+    }
     
     .info-card {
         min-height: 260px;
@@ -1232,6 +1240,14 @@ textarea {
         gap: 20px;
         max-width: 95%;
         margin: 40px auto;
+    }
+
+    .contact-subtitle {
+        font-size: 13px;
+    }
+
+    .contact-title {
+        font-size: 50px;
     }
     
     .info-card {
@@ -1359,11 +1375,11 @@ textarea {
     }
 
     .contact-subtitle {
-        font-size: 13px;
+        font-size: 12px;
     }
 
     .contact-title {
-        font-size: 50px;
+        font-size: 14px;
     }
 
     .contact-grid {
