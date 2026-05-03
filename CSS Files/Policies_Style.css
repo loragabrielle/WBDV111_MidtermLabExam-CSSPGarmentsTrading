@@ -42,7 +42,7 @@
 
 .page-title {
   font-size: 80px;
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: 'Bebas Neue Custom', sans-serif;
   color: var(--text);
 }
 
@@ -63,7 +63,7 @@
 }
 
 .shipping-block-title, .privacy-card-title, .terms-card-title  {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Bebas Neue Custom', sans-serif;
     font-size: 1.8rem;
     color: var(--navy);
     margin-bottom: 18px;
@@ -137,7 +137,7 @@
 }
 
 .shipping-card-title {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Bebas Neue Custom', sans-serif;
     font-size: 2.2rem;
     margin-bottom: 20px;
     color: var(--text);
