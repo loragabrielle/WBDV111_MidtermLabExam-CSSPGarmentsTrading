@@ -1553,7 +1553,7 @@ h1, h2, h3, h4 {
         padding: 100px 15px 60px; 
     }
 
-    .history-wrapper.history-section {
+    #history {
         flex-direction: column;
     }
 
@@ -1561,15 +1561,7 @@ h1, h2, h3, h4 {
         height: 50vh;
         min-height: 400px;
     }
-
-    .history-content {
-        padding: 60px 40px;
-    }
-
-    .history-content h2 {
-        font-size: clamp(32px, 7vw, 60px);
-    }
-
+  
     #tailor, #people {
         padding: 64px 5%;
     }
@@ -1739,18 +1731,9 @@ h1, h2, h3, h4 {
         padding: 12px 4%; 
     }
 
-    .hero-about::before {
-        background-size: 40px 40px;
-        opacity: 0.3;
-    }
-
     .hero-subtitle {
         font-size: 10px;
         letter-spacing: 5px;
-    }
-
-    .history-content {
-        padding: 40px 15px;
     }
 
     .timeline-nav {
