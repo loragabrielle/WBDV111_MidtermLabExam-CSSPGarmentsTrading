@@ -31,7 +31,7 @@
 
 .page-subtitle {
     display: inline-block;
-    font-size: (0.8rem, 1.5vw, 1rem);
+    font-size: 15px;
     letter-spacing: 0.2em;
     text-transform: uppercase;
     font-weight: 700;
@@ -41,7 +41,7 @@
 }
 
 .page-title {
-  font-size: clamp(4.5rem, 6vw, 5.5rem);
+  font-size: 80px;
   font-family: 'Bebas Neue', sans-serif;
   color: var(--text);
 }
@@ -392,6 +392,14 @@
 
 /* responsiveness = tablet and mobile */
 @media (max-width: 1024px) {
+    .page-subtitle {
+        font-size: 14px;
+    }
+
+    .page-title {
+        font-size: 70px;
+    }
+    
     .shipping-grid {
         gap: 20px;
     }
@@ -407,6 +415,14 @@
 }
 
 @media (max-width: 768px) {
+    .page-subtitle {
+        font-size: 13px;
+    }
+
+    .page-title {
+        font-size: 50px;
+    }
+
     .shipping-grid {
         gap: 16px;
     }
@@ -423,15 +439,19 @@
     .shipping-block, .privacy-card, .terms-card, .terms-acceptance {
         padding: 30px 20px;
     }
+
+    .shipping-block-text, .privacy-card-text, .terms-card-text, .terms-acceptance {
+        font-size: 1rem;
+    }
 }
 
 @media (max-width: 480px) {
     .page-subtitle {
-        font-size: 13px;
+        font-size: 12px;
     }
 
     .page-title {
-        font-size: 50px;
+        font-size: 44px;
     }
 
     .shipping-grid {
@@ -441,13 +461,18 @@
     .shipping-card {
         padding: 24px 16px;
     }
+    
+    .shipping-card-title {
+        font-size: 1.8rem;
+    }
+
 
     .shipping-card-icon {
         font-size: 2rem;
     }
 
     .shipping-card-text {
-        font-size: 0.9rem;
+        font-size: 0.95rem;
     }
 
     .shipping-list li {
@@ -456,6 +481,14 @@
 
     .shipping-block, .privacy-card, .terms-card, .terms-acceptance {
         padding: 24px 16px;
+    }
+
+    .shipping-block-title, .privacy-card-title, .terms-card-title {
+        font-size: 1.4rem;
+    }
+
+    .shipping-block-text, .privacy-card-text, .terms-card-text, .terms-acceptance {
+        font-size: 0.95rem;
     }
 
     .policy-btn {
