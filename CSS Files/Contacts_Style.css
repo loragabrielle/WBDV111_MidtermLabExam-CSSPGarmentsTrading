@@ -167,7 +167,6 @@ h1, h2, h3, h4 {
     color: var(--navy); 
 }
 
-
 /* pre-header ticker */
 .pre-header {
     background: var(--navy);
@@ -901,7 +900,7 @@ h1, h2, h3, h4 {
     font-size: 20px !important;
     margin: 0;
     font-family: 'Bebas Neue Custom', sans-serif;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.05em;
 }
 
 /* CONTACT FORM */
@@ -1097,7 +1096,7 @@ textarea {
 }
 
 .footer-col h4 {
-    font-family: 'Bebas Neu Custom', sans-serif;
+    font-family: 'Bebas Neue Custom', sans-serif;
     font-size: 1.25rem;
     color: var(--yellow);
     margin-bottom: 18px;
