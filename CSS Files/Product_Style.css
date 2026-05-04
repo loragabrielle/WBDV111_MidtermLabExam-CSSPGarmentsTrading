@@ -1078,6 +1078,22 @@ body > * {
   color: var(--yellow); 
 }
 
+.card-desc {
+  font-size: 0.85rem;
+  color: var(--text);
+  margin-top: 6px;
+}
+
+.card-desc i {
+  color: var(--green);
+  font-size: 1rem;
+  padding: auto;
+}
+
+[data-theme="dark"] .card-desc i {
+  color: var(--red);
+}
+
 .add-to-cart-btn {
     width: 100%;
     margin-top: 10px;
