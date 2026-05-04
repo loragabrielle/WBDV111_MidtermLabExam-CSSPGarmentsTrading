@@ -20,7 +20,7 @@
 
 @font-face {
   font-family: 'Sarasvati';
-  src: url(../Fonts/Sarasvati/Sarasvati-9Y4w5.ttf) format('truetype');
+  src: url(Fonts/Sarasvati/info.txt); 
 }
 
 /* shortcut color ------  var(--name)*/
