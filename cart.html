@@ -2160,18 +2160,26 @@ function calculateTotal(cart) {
   return selected.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 }
 
+// Define the function
 function toggleSelectAll() {
-  const selectAll = $('selectAll').checked;
+  const selectAllElement = $('selectAll');
+  if (!selectAllElement) return; // Safety check
+
+  const isChecked = selectAllElement.checked;
   let cart = getCart();
   
+  // Update the 'selected' property for every item
   cart = cart.map(item => ({
     ...item,
-    selected: selectAll
+    selected: isChecked
   }));
   
   saveCart(cart);
   renderCart();
 }
+
+// CRITICAL: Explicitly expose it to the HTML
+window.toggleSelectAll = toggleSelectAll;
 
 function toggleItemSelection(id) {
   let cart = getCart();
@@ -2240,9 +2248,8 @@ function renderCart() {
   itemsList.innerHTML = cart.map(item => `
     <div class="cart-item">
       <div class="cart-item-checkbox">
-        <input type="checkbox" class="cart-checkbox" ${item.selected ? 'checked' : ''} 
-               onchange="toggleItemSelection(${item.id})">
-      </div>
+        // Inside your renderCart loop:
+<input type="checkbox" class="item-checkbox" ${item.selected ? 'checked' : ''} onchange="toggleItemSelection(${item.id})">
       <div class="cart-item-image">
         <img src="${item.image}" alt="${item.name}">
       </div>
