@@ -18,6 +18,11 @@
   font-weight: 700;
 }
 
+@font-face {
+  font-family: 'Sarasvati';
+  src: url(../Fonts/Sarasvati/Sarasvati-9Y4w5.ttf) format('truetype');
+}
+
 /* shortcut color ------  var(--name)*/
 :root {
   --bg:          #f5f5f0; 
