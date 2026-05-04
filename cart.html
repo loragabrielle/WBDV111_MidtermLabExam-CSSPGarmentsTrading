@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>CSSP Garments Trading</title>
+        <title>Shopping Cart - CSSP Garments Trading</title>
 
         <link rel="icon" type="image/png" href="Assets/logo-light-text.png">
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -270,7 +270,7 @@ section {
 .site-header {
   position: sticky;
   top: 0;
-  z-: 900;
+  z-index: 900;
   background: var(--surface);
   border-bottom: 1px solid var(--border);
   transition: background var(--transition);
@@ -497,7 +497,7 @@ section {
   border-radius: var(--radius-sm);
   box-shadow: var(--shadow);
   min-width: 120px;
-  z-: 1000;
+  z-index: 1000;
 }
 
 .currency-menu.active {
@@ -549,7 +549,7 @@ section {
   top: 80px;
   left: 50%;
   transform: translateX(-50%);
-  z-: 99999;
+  z-index: 99999;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -904,7 +904,7 @@ section {
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.7);
-  z-: 9999;
+  z-index: 9999;
   align-items: center;
   justify-content: center;
   padding: 20px;
@@ -944,7 +944,7 @@ section {
   position: sticky;
   top: 0;
   background: var(--surface);
-  z-: 10;
+  z-index: 10;
 }
 
 .checkout-header h2 {
@@ -1070,7 +1070,7 @@ section {
   border-radius: 0 0 var(--radius-sm) var(--radius-sm);
   max-height: 200px;
   overflow-y: auto;
-  z-: 100;
+  z-index: 100;
   display: none;
   box-shadow: var(--shadow);
 }
@@ -1380,7 +1380,7 @@ section {
   right: 0;
   height: 4px;
   background: var(--border);
-  z-: 0;
+  z-index: 0;
 }
 
 .tracking-line-fill {
@@ -1392,7 +1392,7 @@ section {
 
 .tracking-step {
   position: relative;
-  z-: 1;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1432,7 +1432,7 @@ section {
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.7);
-  z-: 10000;
+  z-index: 10000;
   align-items: center;
   justify-content: center;
   padding: 20px;
@@ -1590,33 +1590,41 @@ section {
         <!-- Toast Container -->
         <div id="toastContainer"></div>
 
+        <!-- Pre-header Ticker -->
         <div class="pre-header">
-            <div class="ticker-track" id="tickerTrack">
-                <span><i class="fa-solid fa-ship"></i> National Delivery: 3 Days</span>
-                <span><i class="fa-solid fa-map-location-dot"></i> Provincial Delivery: 5 Days</span>
-                <span><i class="fa-solid fa-globe"></i> International Shipping: 1 Week</span>
-                <span><i class="fa-solid fa-headset"></i> Customer Service: 7AM – 7PM</span>
-                <span><i class="fa-solid fa-shield-halved"></i> 100% Secure Checkout</span>
-                <span><i class="fa-solid fa-box-open"></i> Welcome Offer: Free Shipping</span>
+            <div class="ticker-track">
+                <span><i class="fa-solid fa-shipping-fast"></i> Free shipping on orders over ₱2,000</span>
+                <span><i class="fa-solid fa-badge-check"></i> 100% Authentic Products</span>
+                <span><i class="fa-solid fa-headset"></i> 24/7 Customer Support</span>
+                <span><i class="fa-solid fa-shield-check"></i> Secure Payment</span>
+                
+                <!-- Duplicate for seamless loop -->
+                <span><i class="fa-solid fa-shipping-fast"></i> Free shipping on orders over ₱2,000</span>
+                <span><i class="fa-solid fa-badge-check"></i> 100% Authentic Products</span>
+                <span><i class="fa-solid fa-headset"></i> 24/7 Customer Support</span>
+                <span><i class="fa-solid fa-shield-check"></i> Secure Payment</span>
             </div>
         </div>
 
         <!-- Header -->
         <header class="site-header">
             <div class="header-inner">
-                <a href="./.html" class="logo-wrap">
+                <a href="./anotherproducts.html" class="logo-wrap">
                     <div class="logo-icon">
                         <img src="Assets/logo-light-text.png" alt="Logo" class="logo-img light-logo">
                         <img src="Assets/logo-dark-text.png" alt="Logo" class="logo-img dark-logo">
                     </div>
                     <div class="logo-text">
-                        CSSP<span>Garments Trading</span>
+                        CSSP
+                        <span>Garments Trading</span>
                     </div>
                 </a>
 
                 <nav class="nav-links">
-                    <a href="./products.html">Products</a>
-                    <a href="./aboutus.html">About</a>
+                    <a href="./anotherproducts.html">Home</a>
+                    <a href="./anotherproducts.html#products">Products</a>
+                    <a href="#about">About</a>
+                    <a href="#contact">Contact</a>
                 </nav>
 
                 <div class="action-buttons">
@@ -1646,6 +1654,12 @@ section {
                         </div>
                     </button>
 
+                    <!-- Cart -->
+                    <a href="cart.html" class="cart-button">
+                        <i class="fa-solid fa-shopping-cart"></i>
+                        <span class="cart-badge" id="cartBadge">0</span>
+                    </a>
+
                     <!-- Mobile Menu Toggle -->
                     <button class="mobile-toggle">
                         <i class="fa-solid fa-bars"></i>
@@ -1662,7 +1676,7 @@ section {
                 <i class="fa-solid fa-shopping-cart"></i>
                 <h3>Your cart is empty</h3>
                 <p>Start shopping to add items to your cart</p>
-                <a href="./products.html" class="btn-primary">
+                <a href="./anotherproducts.html" class="btn-primary">
                     <i class="fa-solid fa-arrow-left"></i>
                     Continue Shopping
                 </a>
@@ -1704,7 +1718,7 @@ section {
                         <i class="fa-solid fa-lock"></i>
                         Proceed to Checkout
                     </button>
-                    <a href="./products.html" class="btn-ghost" style="margin-top: 12px; text-align: center;">
+                    <a href="./anotherproducts.html" class="btn-ghost" style="margin-top: 12px; text-align: center;">
                         <i class="fa-solid fa-arrow-left"></i>
                         Continue Shopping
                     </a>
@@ -1990,7 +2004,7 @@ section {
                 </div>
                 <div class="footer-section">
                     <h4>Quick Links</h4>
-                    <a href="./.html">Home</a>
+                    <a href="./anotherproducts.html">Home</a>
                     <a href="products.html#products">Products</a>
                     <a href="#about">About Us</a>
                     <a href="#contact">Contact</a>
@@ -2160,26 +2174,18 @@ function calculateTotal(cart) {
   return selected.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 }
 
-// Define the function
 function toggleSelectAll() {
-  const selectAllElement = $('selectAll');
-  if (!selectAllElement) return; // Safety check
-
-  const isChecked = selectAllElement.checked;
+  const selectAll = $('selectAll').checked;
   let cart = getCart();
   
-  // Update the 'selected' property for every item
   cart = cart.map(item => ({
     ...item,
-    selected: isChecked
+    selected: selectAll
   }));
   
   saveCart(cart);
   renderCart();
 }
-
-// CRITICAL: Explicitly expose it to the HTML
-window.toggleSelectAll = toggleSelectAll;
 
 function toggleItemSelection(id) {
   let cart = getCart();
@@ -2248,7 +2254,7 @@ function renderCart() {
   itemsList.innerHTML = cart.map(item => `
     <div class="cart-item">
       <div class="cart-item-checkbox">
-    <input type="checkbox" class="cart-checkbox" ${item.selected ? 'checked' : ''} 
+        <input type="checkbox" class="cart-checkbox" ${item.selected ? 'checked' : ''} 
                onchange="toggleItemSelection(${item.id})">
       </div>
       <div class="cart-item-image">
@@ -2445,38 +2451,41 @@ $('phoneCountry')?.addEventListener('change', () => {
 
 // Global state for location data
 let locationConfig = null;
-let cityData = [];
-let barangayData = [];
+cityData = [];
+barangayData = [];
 let selectedCountryConfig = null;
 
-/*New*/
+/**
+ * Initialize the location system by loading country.json
+ * and populating the country dropdown.
+ */
 async function initLocationSystem() {
     try {
-        // 1. Fetch the main country config
-        const response = await fetch('country.json'); // Ensure this path is correct
+        const response = await fetch('country.json');
         if (!response.ok) throw new Error('Failed to fetch country.json');
-        locationConfig = await response.json();
-
-        // 2. Fetch and fill your cityData array (Fixes the .length error)
-        const cityRes = await fetch('path/to/cities.json'); // Replace with your actual file path
-        if (!cityRes.ok) throw new Error('Failed to fetch cities');
-        cityData = await cityRes.json(); 
-
-        // 3. Fetch and fill your barangayData array
-        const brgyRes = await fetch('path/to/barangays.json'); // Replace with your actual file path
-        if (!brgyRes.ok) throw new Error('Failed to fetch barangays');
-        barangayData = await brgyRes.json();
-
-        // 4. Any logic to populate your dropdowns initially
-        // populateCountryDropdown(); 
-
+        
+        const data = await response.json();
+        locationConfig = data.countries;
+        
+        const countrySelect = $('country');
+        if (countrySelect) {
+            // Preserve the first "Select country" option
+            const firstOption = countrySelect.options[0];
+            countrySelect.innerHTML = '';
+            countrySelect.appendChild(firstOption);
+            
+            locationConfig.forEach(country => {
+                const option = document.createElement('option');
+                option.value = country.code; // Use code (PH, US, UK) as value
+                option.textContent = country.name;
+                countrySelect.appendChild(option);
+            });
+        }
     } catch (error) {
-        console.error('Initialization failed:', error);[cite: 1]
+        console.error('Location System Init Error:', error);
+        // We don't show toast here to avoid annoying the user on page load
     }
 }
-
-// Don't forget to call it at the bottom of your script!
-initLocationSystem();
 
 /**
  * Handle country change: load cities and toggle field visibility
@@ -3211,5 +3220,7 @@ updateCartBadge();
 updateCurrencyDisplay();
 renderCart();
         </script>
+    </body>
+</html>
     </body>
 </html>
