@@ -1,0 +1,14 @@
+{
+  "cities": [
+    { "name": "London", "region": "Greater London" },
+    { "name": "Birmingham", "region": "West Midlands" },
+    { "name": "Manchester", "region": "Greater Manchester" },
+    { "name": "Glasgow", "region": "Scotland" },
+    { "name": "Liverpool", "region": "Merseyside" },
+    { "name": "Bristol", "region": "South West" },
+    { "name": "Edinburgh", "region": "Scotland" },
+    { "name": "Leeds", "region": "West Yorkshire" },
+    { "name": "Sheffield", "region": "South Yorkshire" },
+    { "name": "Leicester", "region": "East Midlands" }
+  ]
+}
