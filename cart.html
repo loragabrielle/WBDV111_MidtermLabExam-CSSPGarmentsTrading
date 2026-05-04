@@ -2449,37 +2449,34 @@ let cityData = [];
 let barangayData = [];
 let selectedCountryConfig = null;
 
-/**
- * Initialize the location system by loading country.json
- * and populating the country dropdown.
- */
+/*New*/
 async function initLocationSystem() {
     try {
-        const response = await fetch('country.json');
+        // 1. Fetch the main country config
+        const response = await fetch('country.json'); // Ensure this path is correct
         if (!response.ok) throw new Error('Failed to fetch country.json');
-        
-        const data = await response.json();
-        locationConfig = data.countries;
-        
-        const countrySelect = $('country');
-        if (countrySelect) {
-            // Preserve the first "Select country" option
-            const firstOption = countrySelect.options[0];
-            countrySelect.innerHTML = '';
-            countrySelect.appendChild(firstOption);
-            
-            locationConfig.forEach(country => {
-                const option = document.createElement('option');
-                option.value = country.code; // Use code (PH, US, UK) as value
-                option.textContent = country.name;
-                countrySelect.appendChild(option);
-            });
-        }
+        locationConfig = await response.json();
+
+        // 2. Fetch and fill your cityData array (Fixes the .length error)
+        const cityRes = await fetch('path/to/cities.json'); // Replace with your actual file path
+        if (!cityRes.ok) throw new Error('Failed to fetch cities');
+        cityData = await cityRes.json(); 
+
+        // 3. Fetch and fill your barangayData array
+        const brgyRes = await fetch('path/to/barangays.json'); // Replace with your actual file path
+        if (!brgyRes.ok) throw new Error('Failed to fetch barangays');
+        barangayData = await brgyRes.json();
+
+        // 4. Any logic to populate your dropdowns initially
+        // populateCountryDropdown(); 
+
     } catch (error) {
-        console.error('Location System Init Error:', error);
-        // We don't show toast here to avoid annoying the user on page load
+        console.error('Initialization failed:', error);[cite: 1]
     }
 }
+
+// Don't forget to call it at the bottom of your script!
+initLocationSystem();
 
 /**
  * Handle country change: load cities and toggle field visibility
