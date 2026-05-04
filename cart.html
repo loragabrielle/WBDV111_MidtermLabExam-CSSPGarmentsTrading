@@ -2248,8 +2248,7 @@ function renderCart() {
   itemsList.innerHTML = cart.map(item => `
     <div class="cart-item">
       <div class="cart-item-checkbox">
-        // Inside your renderCart loop:
-<input type="checkbox" class="item-checkbox" ${item.selected ? 'checked' : ''} onchange="toggleItemSelection(${item.id})">
+    <input type="checkbox" class="item-checkbox" ${item.selected ? 'checked' : ''} onchange="toggleItemSelection(${item.id})">
       <div class="cart-item-image">
         <img src="${item.image}" alt="${item.name}">
       </div>
