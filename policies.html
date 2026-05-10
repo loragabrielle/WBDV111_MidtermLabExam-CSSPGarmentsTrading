@@ -346,42 +346,35 @@
                 </p>
             </div>
         </div>
-    
+
+      <!-- ===== checkbox ===== -->
         <div class="terms-acceptance">
-            <div class="terms-check-group">  
-    
+            <div class="terms-check-group">
+                <p class="policy-intro">
+                    To learn more, check out our <a href="#termsPage"><b>Terms of Service</b></a>, including the 
+                    <a href="#shippingPage"><b>Shipping Policy</b></a> and <a href="#privacyPage"><b>Privacy Policy</b></a>.
+                </p>
+      
                 <label class="custom-checkbox">
-                    <input type="checkbox" class="policy-check" id="checkShipping" data-name="Shipping Policy">
-                    <span class="checkmark"></span>
-                    <span class="label-text">I have read and agree to the <a href="#shippingPage">Shipping Policy</a></span>
-                </label>
-    
-                <label class="custom-checkbox">
-                    <input type="checkbox" class="policy-check" id="checkPrivacy" data-name="Privacy Policy">
-                    <span class="checkmark"></span>
-                    <span class="label-text">I have read and agree to the <a href="#privacyPage">Privacy Policy</a></span>    
+                    <input type="checkbox" class="policy-check" id="checkTerms" data-name="Terms & Conditions">  
+                    <span class="checkmark"></span>        
+                    <span class="label-text">
+                        I have read & understood the <b>Terms of Service</b>, including the <b>Shipping Policy</b> and <b>Privacy Policy</b>.         
+                    </span>      
                 </label>
 
-                <label class="custom-checkbox">  
-                    <input type="checkbox" class="policy-check" id="checkTerms" data-name="Terms & Conditions"> 
-                    <span class="checkmark"></span> 
-                    <span class="label-text">I have read and agree to the <a href="#termsPage">Terms & Conditions</a></span>
+                <label class="custom-checkbox align-top">
+                    <input type="checkbox" class="policy-check" id="checkConsent" data-name="Data Consent">
+                    <span class="checkmark"></span>
+                    <span class="label-text">
+                        By checking this box, you consent to the processing of your personal data in connection with our provision of CSSP Garments Trading and its related services to you. You acknowledge that the data privacy laws may differ depending on your jurisdiction. For more information about how your personal data will be processed, please refer to our <a href="#privacyPage"><b>Privacy Policy</b></a>
+                    </span>
                 </label>
             </div>
-    
-            <div class="terms-action">
-                <button id="policySubmit" class="policy-btn"></a>Accept & Continue</button>
+
+            <div class="terms-action">     
+                <button id="policySubmit" class="policy-btn">Accept & Continue</button>  
             </div>
-        </div>
-
-        <div id="successToast" class="status-toast success">
-            <div class="check-box-icon">✅</div>
-            <span>All policies accepted successfully!</span>
-        </div>
-
-        <div id="warningToast" class="status-toast warning">
-            <div check-box-icon>⚠️</div>
-            <span id="warningMsg"></span>
         </div>
     </section>
 
