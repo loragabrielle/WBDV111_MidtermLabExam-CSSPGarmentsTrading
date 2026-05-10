@@ -1126,7 +1126,7 @@ body > * {
 
 /* =========================================================================================== */
 
-/* Toast notification */
+/* Toast notification - PREMIUM POSITIONING */
 #toastContainer {
   position: fixed;
   top: 80px;
@@ -2126,4 +2126,3 @@ body > * {
     width: 95%;
   }
 }
-
