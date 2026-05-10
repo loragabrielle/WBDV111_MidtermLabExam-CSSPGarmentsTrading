@@ -261,7 +261,7 @@ if (policyBtn) {
       if (!box.checked) missing.push(box.getAttribute('data-name')); 
     });
 
-    if (missing.length === 0) {
+    /* if (missing.length === 0) {
       $('successToast')?.classList.add('show');
       policyChecks.forEach(box => {
         box.checked = false;
@@ -272,7 +272,7 @@ if (policyBtn) {
       $('warningToast')?.classList.add('show');
       setTimeout(() => $('warningToast')?.classList.remove('show'), 4000);
     }
-  });
+  }); */
 }
 
 /* ── BACK TO TOP ──────────────────────────────── */
