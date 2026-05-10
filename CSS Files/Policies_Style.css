@@ -237,27 +237,49 @@
 }
 
 /* =============================================
-   POLICY CHECKBOX
+   CHECKBOX
    ============================================= */
 .terms-acceptance {
     max-width: 1000px;
-    margin: 0 auto;
-    margin-bottom: 40px;
+    margin: 0 auto 40px auto;
     background-color: var(--surface) !important;
     padding: 50px 40px;
     border-radius: var(--radius);
     border: 1px solid var(--border);
     box-shadow: var(--shadow);
-    transition: var(--transition);
     display: flex;
     flex-direction: column;
     position: relative;
     z-index: 10;
 }
 
+.policy-intro {
+    color: var(--text);
+    margin-bottom: 25px;
+    font-size: 1.05rem;
+    line-height: 2;
+    text-align: center; 
+}
+
+[data-theme="dark"] .policy-intro {
+    color: var(--white);
+}
+
+.policy-intro a {
+    color: var(--red);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    opacity: 0.8;
+}
+
+.policy-intro a:hover {
+    color: var(--text-muted);
+    opacity: 1;
+}
+
 .custom-checkbox {
     display: flex;
-    align-items: center;
+    align-items: center; 
     position: relative;
     padding-left: 35px;
     margin-bottom: 20px;
@@ -265,6 +287,14 @@
     font-size: 1rem;
     color: var(--white);
     user-select: none;
+}
+
+.custom-checkbox.align-top {
+    align-items: flex-start;
+}
+
+.custom-checkbox.align-top .checkmark {
+    top: 2px; 
 }
 
 .custom-checkbox input {
@@ -312,6 +342,8 @@
 .label-text {
     color: var(--text);
     text-align: left;
+    font-size: 1.05rem;
+    line-height: 2;
 }
 
 [data-theme="dark"] .label-text {
@@ -324,11 +356,7 @@
     font-weight: 800;
 }
 
-.terms-action {
-    margin-top: 10px;
-    text-align: center;
-}
-
+/* --- BUTTON --- */
 .policy-btn {
     display: inline-block;
     background-color: var(--navy);
@@ -337,19 +365,16 @@
     border-radius: 50px;
     font-weight: 700;
     font-size: 0.95rem;
-    letter-spacing: 1px;
     cursor: pointer;
-    transition: var(--transition);
     width: 100%;
     border: 2px solid var(--navy);
+    transition: var(--transition);
 }
 
 .policy-btn:hover {
     background: var(--yellow);
     color: var(--navy);
-    font-weight: 700;
     transform: translateY(-2px);
-    box-shadow: var(--shadow);
 }
 
 .status-toast {
