@@ -1,13 +1,3 @@
-function updateCartBadgeGlobal() {
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
-  let badge = document.getElementById("cartBadge");
-
-  if (!badge) return;
-
-  let totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
-  badge.textContent = totalQty;
-}
-
 // helper functions for easier element selection
 const $ = (id) => document.getElementById(id);
 const $$ = (sel) => document.querySelectorAll(sel);
@@ -259,20 +249,262 @@ const observer = new IntersectionObserver((entries) => {
 
 $$('.reveal').forEach(el => observer.observe(el));
 
-// add to cart function
-function addToCart() {
-  const cartBadge = $('cartBadge');
-  if (!cartBadge) return;
+// toast notification 
+function showToast(type, title, message) {
+  const container = $('toastContainer');
+  if (!container) return;
 
-  let count = parseInt(cartBadge.textContent || "0");
-  cartBadge.textContent = count + 1;
+  const toast = document.createElement('div');
+  toast.className = `toast ${type}`;
+  
+  const icon = type === 'success' ? 'fa-check' : 'fa-exclamation-triangle';
+  
+  toast.innerHTML = `
+    <div class="toast-icon">
+      <i class="fa-solid ${icon}"></i>
+    </div>
+    <div class="toast-content">
+      <div class="toast-title">${title}</div>
+      <div class="toast-message">${message}</div>
+    </div>
+    <button class="toast-close" onclick="this.parentElement.remove()">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  `;
 
-  alert('Added to Cart Successfully!');
+  container.appendChild(toast);
+
+  setTimeout(() => {
+    toast.classList.add('show');
+  }, 10);
+
+  setTimeout(() => {
+    toast.classList.remove('show');
+    setTimeout(() => toast.remove(), 300);
+  }, 3000);
 }
+
+// add to cart function
+function getCart() {
+  const cart = localStorage.getItem('cssp-cart');
+  return cart ? JSON.parse(cart) : [];
+}
+
+function saveCart(cartItem) {
+  let cart = JSON.parse(localStorage.getItem('cssp-cart')) || [];
+
+  cart.push(cartItem);
+
+  localStorage.setItem('cssp-cart', JSON.stringify(cart));
+
+  updateCartBadge();
+}
+
+function updateCartBadge() {
+  const cart = getCart();
+
+  const totalQty = cart.reduce((sum, item) => {
+    return sum + (Number(item.quantity) || 0);
+  }, 0);
+
+  const badge = $('cartBadge');
+
+  if (badge) {
+    badge.textContent = totalQty;
+  }
+}
+
+
+// Initialize cart badge on page load
+updateCartBadge();
 
 // global variables for modal image switching
 let images = [];
 let index = 0;
+let currentProductData = null;
+
+// opens the cart modal and puts the correct product info 
+function openCartModal(btn) {
+  if (!btn) return;
+
+  const card = btn.closest(".product-card");
+  if (!card) return;
+
+  const name = card.dataset.name;
+  const type = card.dataset.type;
+  const price = card.dataset.price;
+
+  const front = card.dataset.front;
+  const back = card.dataset.back;
+  const extra1 = card.dataset.extra1;
+  const extra2 = card.dataset.extra2;
+
+  currentProductData = {
+    name,
+    type,
+    price: parseFloat(price),
+    image: front || card.querySelector("img")?.src
+  };
+
+  document.getElementById("modalProductName").textContent = name;
+
+  const sizeSelect = document.getElementById("modalSize");
+  sizeSelect.innerHTML = `<option value="" disabled selected>Select size</option>`;
+
+  if (type === "Uniforms") {
+    sizeSelect.innerHTML += `
+      <option value="S">Small</option>
+      <option value="M">Medium</option>
+      <option value="L">Large</option>
+      <option value="XL">XL</option>
+      <option value="XXL">XXL</option>
+    `;
+  }
+
+  if (type === "Shoes") {
+    sizeSelect.innerHTML += `
+      <option value="36">36</option>
+      <option value="37">37</option>
+      <option value="38">38</option>
+      <option value="39">39</option>
+      <option value="40">40</option>
+      <option value="41">41</option>
+      <option value="42">42</option>
+      <option value="43">43</option>
+      <option value="44">44</option>
+      <option value="45">45</option>
+    `;
+  }
+
+  images = [];
+  if (front) images.push(front);
+  if (back) images.push(back);
+  if (extra1) images.push(extra1);
+  if (extra2) images.push(extra2);
+
+  if (images.length === 0) {
+    const img = card.querySelector("img");
+    if (img) images.push(img.src);
+  }
+
+  index = 0;
+  document.getElementById("modalImage").src = images[0] || "";
+
+  document.getElementById("modalQty").value = 1;
+
+  document.getElementById("cartModal").classList.add("active");
+}
+
+// closes the cart modal (yung x na button)
+function closeCartModal() {
+  document.getElementById("cartModal").classList.remove("active");
+  currentProductData = null;
+}
+
+// next image in the modal carousel (yung right arrow)
+function nextImage() {
+  if (images.length == 0) return;
+    index++;
+
+    if (index >= images.length) {
+      index = 0;
+    }
+
+    document.getElementById("modalImage").src = images[index];
+}
+
+// previous image in the modal carousel (yung left arrow)
+function prevImage() {
+  if (images.length == 0) return;
+  index--;
+
+    if (index < 0) {
+      index = images.length - 1;
+    }
+
+    document.getElementById("modalImage").src = images[index];
+}
+
+// add to cart confirmation (for size and quantity)
+function confirmAddToCart() {
+  let size = document.getElementById("modalSize").value;
+  let qty = Number(document.getElementById("modalQty").value);
+
+  let sizeNotif = document.getElementById("sizeNotif");
+  let qtyNotif = document.getElementById("qtyNotif");
+
+  let hasError = false;
+
+  if (sizeNotif) sizeNotif.style.display = "none";
+  if (qtyNotif) qtyNotif.style.display = "none";
+
+  if (size == "") {
+    sizeNotif.textContent = "⚠ Please select a size.";
+    sizeNotif.style.display = "block";
+    showToast('error', 'Missing Size', 'Please select a size');
+    hasError = true;
+  }
+
+  if (qty <= 0) {
+    qtyNotif.textContent = "⚠ Quantity must be at least 1.";
+    qtyNotif.style.display = "block";
+    showToast('error', 'Invalid Quantity', 'Quantity must be at least 1');
+    hasError = true;
+  }
+
+  if (hasError) return;
+
+  const cartItem = {
+    id: Date.now(),
+    name: currentProductData.name,
+    price: currentProductData.price,
+    image: currentProductData.image,
+    size: size,
+    quantity: qty
+  };
+
+  saveCart(cartItem);
+
+  closeCartModal();
+  showToast('success', 'Added to Cart!', `${qty}x ${currentProductData.name} (${size})`);
+  showSuccessModal();
+} 
+
+
+function showSuccessModal() {
+    const modal = document.getElementById("successModal");
+
+    modal.classList.add("active");
+
+    setTimeout(() => {
+      modal.classList.remove("active");
+    }, 2000);
+}
+
+function shakeModal() {
+  const box = document.querySelector(".cart-box");
+
+  box.classList.remove("shake"); 
+  void box.offsetWidth; 
+  box.classList.add("shake");
+
+  setTimeout(() => {
+    box.classList.remove("shake");
+  }, 400);
+}
+
+const cartModal = document.getElementById("cartModal");
+
+cartModal.addEventListener("click", function (e) {
+  if (e.target === cartModal) {
+    closeCartModal();
+  }
+});
+
+/* global variables for modal image switching
+let images = [];
+let index = 0;
+
 
 // opens the cart modal and puts the correct product info 
 function openCartModal(btn) {
@@ -506,46 +738,11 @@ function confirmAddToCart() {
     if (hasError) return;
 
     // success add to cart
-    // let badge = document.getElementById("cartBadge");
-
-    // if (badge) {
-    //  badge.textContent = Number(badge.textContent) + qty;
-    // }
-
-     let name = document.getElementById("modalProductName").textContent;
-    let priceText = document.getElementById("modalProductPrice").textContent;
-    let image = document.getElementById("modalImage").src;
-
-    let price = Number(priceText.replace(/[₱,]/g, ""));
-
-     let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-    let existing = cart.find(item =>
-      item.name === name && item.size === size
-    );
-
-    if (existing) {
-      existing.qty += qty;
-    } else {
-      cart.push({
-        name: name,
-        price: price,
-        image: image,
-        size: size,
-        qty: qty
-      });
-    }
-
-    localStorage.setItem("cart", JSON.stringify(cart));
-    updateCartBadgeGlobal();
-
-     let badge = document.getElementById("cartBadge");
+    let badge = document.getElementById("cartBadge");
 
     if (badge) {
-      let totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
-      badge.textContent = totalQty;
+      badge.textContent = Number(badge.textContent) + qty;
     }
-
 
     closeCartModal();
     showSuccessModal();
@@ -580,5 +777,4 @@ cartModal.addEventListener("click", function (e) {
     closeCartModal();
   }
 });
-
-updateCartBadgeGlobal();
+*/
