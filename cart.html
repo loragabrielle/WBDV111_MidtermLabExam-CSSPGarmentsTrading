@@ -278,7 +278,7 @@ section {
 }
 
 .site-header.scrolled { 
-  box-shadow: 0 2px 32px rgba(0, 0, 0, 0.12)
+  box-shadow: 0 2px 32px rgba(0, 0, 0, 0.12);
 }
 
 .header-inner {
@@ -316,7 +316,7 @@ section {
 .logo-img {
   width:100%;
   height:100%;
-  object-fit:contain
+  object-fit:contain;
 }
 
 .logo-text {
@@ -330,14 +330,12 @@ section {
   display: block;
   font-size: 0.65rem;
   font-family: 'Creato Display', sans-serif;
-  font-size: 0.62rem;
   font-weight: 600;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--text-muted);
 }
 
-/* default state = light mode */
 .dark-logo { 
   display: none; 
 }
@@ -354,193 +352,403 @@ section {
   display: none; 
 }
 
-.nav-links {
+.main-nav { 
+  flex: 1;
   display: flex;
-  gap: 32px;
-  align-items: center;
-}
-
-.nav-links a {
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--text);
-  transition: var(--transition);
-  position: relative;
-}
-
-.nav-links a::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: var(--navy);
-  transition: var(--transition);
-}
-
-[data-theme="dark"] .nav-links a::after {
-  background: var(--yellow);
-}
-
-.nav-links a:hover::after {
-  width: 100%;
-}
-
-.action-buttons {
-  display: flex;
-  gap: 20px;
-  align-items: center;
-}
-
-/* theme toggle button */
-.theme-toggle {
-  position: relative;
-  width: 58px;
-  height: 30px;
-  background: var(--navy);
-  border-radius: 30px;
-  cursor: pointer;
-  transition: var(--transition);
-}
-
-.theme-toggle .toggle-circle {
-  position: absolute;
-  top: 3px;
-  left: 3px;
-  width: 24px;
-  height: 24px;
-  background: var(--yellow);
-  border-radius: 50%;
-  transition: var(--transition);
-  display: flex;
-  align-items: center;
   justify-content: center;
 }
 
-.theme-toggle .toggle-circle i {
-  font-size: 0.7rem;
+.nav-list {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.nav-item { 
+  position: relative; 
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 18px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.03em;
+  border-radius: 8px;
+  transition: var(--transition);
+  color: var(--text);
+  white-space: nowrap;
+}
+
+.nav-link:hover, .nav-item.nav-open > .nav-link {
+  background: var(--bg);
   color: var(--navy);
 }
 
-[data-theme="dark"] .theme-toggle .toggle-circle {
-  transform: translateX(28px);
+[data-theme="dark"] .nav-link:hover, [data-theme="dark"] .nav-item.nav-open > .nav-link {
+  background: var(--bg-alt);
+  color: var(--yellow);
 }
 
-/* cart icon */
-.cart-button {
+.nav-caret { 
+  font-size: 0.65rem; 
+  transition: transform var(--transition); 
+}
+
+.nav-item.nav-open .nav-caret { 
+  transform: rotate(180deg); 
+}
+
+/* mega Menu */
+.mega-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%) translateY(6px);
+  width: 95vw;
+  max-width: 600px; 
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, .16);
+  border: 1px solid var(--border);
+  padding: 28px 28px 24px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s ease, transform .25s ease;
+  z-index: 800;
+}
+
+.nav-item.nav-open > .mega-menu {
+  opacity: 1;
+  pointer-events: all;
+  transform: translateX(-50%) translateY(0);
+}
+
+.mega-inner { 
+  display: flex; 
+  gap: 28px; 
+  flex-wrap: wrap;
+}
+
+.mega-col { 
+  flex: 1; 
+  min-width: 200px;
+}
+
+.mega-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 14px;
+  display: block;
+}
+
+.mega-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 10px;
+  border-radius: var(--radius-sm);
+  font-size: .87rem;
+  font-weight: 500;
+  color: var(--text);
+  transition: var(--transition);
+  margin-bottom: 2px;
+}
+
+.mega-item:hover { 
+  background: var(--bg); 
+  color: var(--navy); 
+}
+
+[data-theme="dark"] .mega-item:hover { 
+  background: var(--bg-alt); 
+  color: var(--yellow); 
+}
+
+.mega-item img { 
+  width: 42px; 
+  height: 42px; 
+  border-radius: var(--radius-sm); 
+  object-fit: cover; 
+  flex-shrink: 0; 
+}
+
+.mega-item.text-only i { 
+  width: 18px; 
+  text-align: center; 
+  color: var(--navy); 
+}
+
+[data-theme="dark"] .mega-item.text-only i { 
+  color: var(--yellow); 
+}
+
+.mega-feature-card { 
+  text-align: center; 
+}
+
+.mega-feature-card img {
+  border-radius: var(--radius-sm);
+  height: 108px;
+  object-fit: cover;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.mega-feature-card p {
+  font-size: .84rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: var(--text);
+}
+
+.mega-divider {
+  width: 1px;
+  background: var(--border);
+  flex-shrink: 0;
+}
+
+.header-actions { 
+  display: flex; 
+  align-items: center; 
+  gap: 4px; 
+}
+
+.icon-btn {
   position: relative;
-  font-size: 1.4rem;
-  color: var(--navy);
+  width: 40px; 
+  height: 40px;
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+  border-radius: 8px;
+  color: var(--text);
+  font-size: 1rem;
   transition: var(--transition);
 }
 
-.cart-button:hover {
-  color: var(--yellow);
-  transform: scale(1.1);
+.icon-btn:hover { 
+  background: var(--bg); 
+  color: var(--navy); 
 }
 
-[data-theme="dark"] .cart-button {
-  color: var(--yellow);
+[data-theme="dark"] .icon-btn:hover { 
+  background: var(--bg-alt); 
+  color: var(--yellow); 
 }
 
-[data-theme="dark"] .cart-button:hover {
-  color: var(--white);
-}
-
-.cart-badge {
+.icon-btn .badge {
   position: absolute;
-  top: -8px;
-  right: -10px;
+  top: 4px; 
+  right: 4px;
+  width: 17px; 
+  height: 17px;
   background: var(--red);
-  color: var(--white);
-  font-size: 0.7rem;
+  color: white;
+  font-size: 0.58rem;
   font-weight: 700;
-  padding: 2px 6px;
-  border-radius: 10px;
-  min-width: 18px;
-  text-align: center;
+  border-radius: 50%;
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+  pointer-events: none;
+  transition: transform .2s ease;
 }
 
-/* currency dropdown */
-.currency-dropdown {
-  position: relative;
+.currency-switcher { 
+  position: relative; 
 }
 
-.currency-toggle {
+.currency-btn {
   display: flex;
   align-items: center;
   gap: 6px;
   padding: 8px 12px;
-  background: var(--bg-alt);
-  border-radius: 20px;
-  font-size: 0.85rem;
-  font-weight: 600;
+  background: var(--bg);
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 700;
   color: var(--text);
   transition: var(--transition);
-  border: 1px solid var(--border);
 }
 
-.currency-toggle:hover {
-  background: var(--navy);
-  color: var(--yellow);
-  border-color: var(--navy);
+.currency-btn:hover { 
+  background: var(--navy); 
+  color: var(--yellow); 
 }
 
-.currency-menu {
-  display: none;
+.currency-btn i:last-child { 
+  font-size: 0.6rem; 
+}
+
+.currency-dropdown {
   position: absolute;
-  top: 110%;
+  top: calc(100% + 8px);
   right: 0;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   box-shadow: var(--shadow);
-  min-width: 120px;
-  z-index: 1000;
-}
-
-.currency-menu.active {
-  display: block;
-}
-
-.currency-menu button {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  width: 100%;
-  padding: 10px 16px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--text);
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(4px);
   transition: var(--transition);
-  border-bottom: 1px solid var(--border);
+  min-width: 130px;
+  z-index: 950;
 }
 
-.currency-menu button:last-child {
-  border-bottom: none;
+.currency-dropdown.open {
+  opacity: 1;
+  pointer-events: all;
+  transform: translateY(0);
 }
 
-.currency-menu button:hover {
-  background: var(--bg-alt);
-  color: var(--navy);
-}
-
-.currency-menu button.active {
-  background: var(--navy);
-  color: var(--yellow);
-}
-
-/* Mobile menu toggle */
-.mobile-toggle {
-  display: none;
-  font-size: 1.5rem;
-  color: var(--navy);
+.currency-dropdown li {
+  padding: 10px 14px;
+  font-size: 0.85rem;
+  font-weight: 600;
   cursor: pointer;
+  transition: var(--transition);
 }
 
-[data-theme="dark"] .mobile-toggle {
-  color: var(--yellow);
+.currency-dropdown li:hover { 
+  background: var(--bg); 
+  color: var(--navy); 
+}
+
+.currency-dropdown li.active {
+  background: var(--bg);
+  color: var(--navy);
+}
+
+.theme-toggle {
+  width: 40px; 
+  height: 40px;
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+  border-radius: 8px;
+  color: var(--text);
+  font-size: 1rem;
+  transition: var(--transition);
+}
+
+.theme-toggle:hover { 
+  background: var(--yellow); 
+  color: var(--navy); 
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  padding: 8px;
+}
+
+.hamburger span {
+  display: block;
+  width: 22px; 
+  height: 2px;
+  background: var(--text);
+  border-radius: 2px;
+  transition: var(--transition);
+}
+
+.hamburger.open span:nth-child(1) { 
+  transform: translateY(7px) rotate(45deg); 
+}
+
+.hamburger.open span:nth-child(2) { 
+  opacity: 0; 
+}
+
+.hamburger.open span:nth-child(3) { 
+  transform: translateY(-7px) rotate(-45deg); 
+}
+
+@media (max-width: 1024px) {
+  .main-nav {
+    position: fixed;
+    inset: 0;
+    top: 78px;
+    background: var(--surface);
+    transform: translateX(100%);
+    transition: transform var(--transition);
+    overflow-y: auto;
+    padding: 24px 5%;
+    z-index: 800;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  .main-nav.open { 
+    transform: translateX(0); 
+  }
+
+  .nav-list { 
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .nav-item { 
+    width: 100%; 
+  }
+
+  .nav-link { 
+    width: 100%; 
+  }
+
+  .mega-menu {
+    position: static;
+    top: auto;
+    left: auto;
+    transform: none;
+    width: 100%;
+    max-width: none;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+  }
+
+  .mega-inner { 
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .mega-col { 
+    min-width: auto;
+  }
+
+  .mega-divider { 
+    display: none; 
+  }
+
+  .header-actions { 
+    gap: 12px; 
+  }
+
+  .hamburger { 
+    display: flex; 
+  }
+
+  .currency-dropdown { 
+    width: 100%; 
+  }
+
+  .currency-dropdown.open {
+    position: static;
+    transform: none;
+    opacity: 1;
+    pointer-events: all;
+  }
 }
 
 /* Toast notification - PREMIUM POSITIONING */
@@ -583,6 +791,16 @@ section {
   border-left: 4px solid var(--red);
 }
 
+/* TOAST SYSTEM - warning type */
+.toast.warning {
+  border-left: 4px solid var(--yellow);
+}
+
+.toast.warning .toast-icon {
+  background: var(--yellow);
+  color: var(--navy);
+}
+
 .toast-icon {
   width: 24px;
   height: 24px;
@@ -601,6 +819,11 @@ section {
 .toast.error .toast-icon {
   background: var(--red);
   color: var(--white);
+}
+
+/* SHIPPING - region selector */
+#shippingRegionGroup select {
+  height: 48px;
 }
 
 .toast-content {
@@ -634,9 +857,27 @@ section {
   color: var(--text);
 }
 
-/* ============================================
-   CART PAGE SPECIFIC STYLES
-   ============================================ */
+.toast-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.toast-action {
+  padding: 8px 12px;
+  background: var(--navy);
+  color: var(--yellow);
+  border-radius: 999px;
+  font-weight: 700;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.toast-action:hover {
+  background: var(--yellow);
+  color: var(--navy);
+}
 
 .cart-container {
   max-width: 1200px;
@@ -670,6 +911,19 @@ section {
 .empty-cart p {
   color: var(--text-muted);
   margin-bottom: 32px;
+}
+
+.empty-cart .btn-primary {
+  width: fit-content;
+  margin: 0 auto;
+  padding: 10px 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.empty-cart .btn-primary i {
+  font-size: 0.95rem;
 }
 
 .cart-content {
@@ -887,6 +1141,245 @@ section {
   color: var(--yellow);
 }
 
+.summary-card-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.summary-item-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  box-shadow: var(--shadow);
+}
+
+.summary-item-thumb {
+  width: 72px;
+  height: 72px;
+  border-radius: 14px;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: var(--surface);
+}
+
+.summary-item-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.summary-item-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.summary-item-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.summary-item-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+
+.summary-item-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.summary-item-side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.summary-item-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px;
+  background: var(--navy);
+  color: var(--yellow);
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.summary-item-price {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--navy);
+  min-width: 96px;
+  text-align: right;
+}
+
+.cart-summary .btn-primary,
+.cart-summary .btn-ghost {
+  width: 100%;
+}
+
+.cart-summary .btn-ghost {
+  margin-top: 12px;
+}
+
+.security-notice {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 16px;
+  padding: 14px 16px;
+  background: var(--bg-alt);
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+.security-notice i {
+  color: var(--navy);
+  font-size: 1rem;
+}
+
+.voucher-section {
+  padding: 18px;
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  margin-top: 20px;
+}
+
+.voucher-input-group {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.voucher-input-group input {
+  flex: 1;
+  min-width: 0;
+  height: 48px;
+  padding: 14px 16px;
+  border: 2px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  color: var(--text);
+}
+
+.voucher-input-group input:focus {
+  outline: none;
+  border-color: var(--navy);
+  box-shadow: 0 0 0 3px rgba(26, 58, 92, 0.1);
+}
+
+.voucher-applied {
+  margin-top: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  color: var(--green);
+  font-size: 0.95rem;
+}
+
+.voucher-applied button {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.policy-control {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.policy-checkbox {
+  position: relative;
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-alt);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.policy-checkbox input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.checkbox-mark {
+  width: 10px;
+  height: 6px;
+  border-right: 2px solid transparent;
+  border-bottom: 2px solid transparent;
+  transform: rotate(45deg);
+  transition: border-color var(--transition);
+}
+
+.policy-checkbox input:checked + .checkbox-mark {
+  border-color: var(--yellow);
+}
+
+.policy-text {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+.policy-link {
+  color: var(--navy);
+  text-decoration: underline;
+}
+
+.policy-link:hover {
+  color: var(--green);
+}
+
+.shipping-option.locked {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.shipping-option.locked:hover {
+  border-color: var(--border);
+  background: var(--bg-alt);
+}
+
+.shipping-option-note {
+  font-size: 0.82rem;
+  margin-top: 8px;
+  opacity: 0.8;
+}
+
 .checkout-btn {
   width: 100%;
   margin-top: 20px;
@@ -904,6 +1397,7 @@ section {
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(6px);
   z-index: 9999;
   align-items: center;
   justify-content: center;
@@ -1167,10 +1661,59 @@ section {
 .voucher-input-group input {
   flex: 1;
   text-transform: uppercase;
+  padding: 14px 16px;
+  border: 1px solid rgba(26, 58, 92, 0.12);
+  border-radius: 12px;
+  background: var(--surface);
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.voucher-input-group input:focus {
+  outline: none;
+  border-color: var(--navy);
+  box-shadow: 0 0 0 3px rgba(36, 79, 121, 0.08);
 }
 
 .voucher-input-group button {
   flex-shrink: 0;
+  min-width: 120px;
+  padding: 14px 18px;
+}
+
+.voucher-section {
+  margin: 24px 0;
+  padding: 22px;
+  background: var(--surface);
+  border: 1px solid rgba(26, 58, 92, 0.08);
+  border-radius: calc(var(--radius) - 4px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.policy-link {
+  color: var(--navy);
+  text-decoration: underline;
+  font-weight: 600;
+  transition: var(--transition);
+}
+
+.policy-link:hover {
+  color: var(--yellow);
+  text-decoration: none;
+}
+
+.select-all-label {
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.select-all-label input {
+  margin-top: 4px;
+}
+
+.shipping-option.locked {
+  opacity: 0.55;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 .voucher-applied {
@@ -1416,11 +1959,33 @@ section {
   transform: scale(1.2);
 }
 
+.tracking-step.active.processing-step .tracking-dot {
+  background: var(--green);
+  transform: scale(1.2);
+  animation: processingPulse 1.5s ease-in-out infinite;
+  box-shadow: 0 0 0 0 rgba(45, 106, 79, 0.7);
+}
+
+@keyframes processingPulse {
+  0%   { box-shadow: 0 0 0 0 rgba(45, 106, 79, 0.7); }
+  50%  { box-shadow: 0 0 0 12px rgba(45, 106, 79, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(45, 106, 79, 0); }
+}
+
+.tracking-step.inactive .tracking-dot {
+  background: var(--border);
+}
+
 .tracking-label {
   font-size: 0.75rem;
   font-weight: 600;
   color: var(--text-muted);
   text-align: center;
+}
+
+.tracking-step.active .tracking-label {
+  color: var(--text);
+  font-weight: 700;
 }
 
 /* PayPal Login Modal */
@@ -1496,12 +2061,12 @@ section {
 
 /* Responsive */
 @media (max-width: 768px) {
-  .nav-links {
+  .nav-list {
     display: none;
   }
 
-  .mobile-toggle {
-    display: block;
+  .hamburger {
+    display: flex;
   }
 
   .cart-content {
@@ -1547,42 +2112,296 @@ section {
 /* Footer */
 .site-footer {
   background: var(--navy);
-  color: var(--yellow);
-  padding: 60px 5% 30px;
+  color: rgba(255,255,255,0.8);
+  position: relative;
 }
 
-.footer-content {
-  max-width: 1400px;
-  margin: 0 auto;
+.footer-wave {
+  line-height: 0;
+  transform: rotate(180deg);
+}
+
+.footer-wave svg { 
+  display: block; 
+  width: 100%; 
+}
+
+.footer-wave path { 
+  fill: var(--bg-alt); 
+}
+
+[data-theme="dark"] .footer-wave path { 
+  fill: var(--bg-alt); 
+}
+
+.footer-inner {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 40px;
-  margin-bottom: 40px;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 48px;
+  padding: 60px 5% 40px;
+  max-width: 1300px;
+  margin: 0 auto;
 }
 
-.footer-section h4 {
-  font-size: 1.4rem;
-  margin-bottom: 16px;
+.footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Bebas Neue Custom', sans-serif;
+  font-size: 1.55rem;
+  color: var(--yellow);
+  margin-bottom: 14px;
 }
 
-.footer-section p,
-.footer-section a {
-  color: rgba(244, 208, 63, 0.8);
-  margin-bottom: 8px;
-  display: block;
+.brand-col > p {
+  font-size: 0.86rem;
+  line-height: 1.7;
+  margin-bottom: 22px;
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.social-icons { 
+  display: flex; 
+  gap: 10px; 
+}
+
+.social-icons a {
+  width: 40px; 
+  height: 40px;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--yellow);
+  border-radius: 8px;
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+  font-size: 1rem;
   transition: var(--transition);
 }
 
-.footer-section a:hover {
+.social-icons a:hover { 
+  background: var(--yellow); 
+  color: var(--navy); 
+  transform: translateY(-3px); 
+}
+
+.footer-col h4 {
+  font-family: 'Bebas Neue Custom', sans-serif;
+  font-size: 1.25rem;
   color: var(--yellow);
-  transform: translateX(4px);
+  margin-bottom: 18px;
+  letter-spacing: 0.06em;
+}
+
+.footer-col ul li { 
+  margin-bottom: 10px; 
+}
+
+.footer-col ul li a {
+  font-size: 0.86rem;
+  color: rgba(255, 255, 255, 0.62);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: var(--transition);
+}
+
+.footer-col ul li a:hover { 
+  color: var(--yellow); 
+  padding-left: 4px; 
+}
+
+.footer-col ul li a i { 
+  font-size: 0.62rem; 
 }
 
 .footer-bottom {
-  text-align: center;
-  padding-top: 20px;
-  border-top: 1px solid rgba(244, 208, 63, 0.3);
-  color: rgba(244, 208, 63, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 18px 5%;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.42);
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.legal-links { 
+  display: flex; 
+  gap: 18px; 
+}
+
+.legal-links a {
+  color: rgba(255, 255, 255, 0.42);
+  transition: var(--transition);
+}
+
+.legal-links a:hover { 
+  color: var(--yellow); 
+}
+
+/* ============================================
+   MODAL NOTICE
+   ============================================ */
+.shipping-notice-card {
+  background: linear-gradient(135deg, var(--yellow) 0%, #f8e6a0 100%);
+  border: 1px solid rgba(244, 208, 63, 0.3);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 8px rgba(244, 208, 63, 0.2);
+}
+
+.notice-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.notice-content i {
+  color: var(--navy);
+  font-size: 1.2rem;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.notice-content strong {
+  display: block;
+  color: var(--navy);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.notice-content p {
+  color: var(--navy);
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* POLICY LINKS */
+.policy-link {
+  color: var(--navy);
+  text-decoration: underline;
+  font-weight: 600;
+  transition: var(--transition);
+}
+
+.policy-link:hover {
+  color: var(--yellow);
+  text-decoration: none;
+}
+
+/* RESPONSIVE MEGA MENU */
+@media (max-width: 1200px) {
+  .mega-menu {
+    max-width: 95vw;
+    width: 95vw;
+    left: 2.5vw;
+    right: auto;
+    padding: 20px;
+  }
+  
+  .mega-inner {
+    gap: 20px;
+  }
+  
+  .mega-col {
+    min-width: 180px;
+  }
+}
+
+@media (max-width: 900px) {
+  .mega-menu {
+    max-width: 90vw;
+    width: 90vw;
+    left: 5vw;
+    right: auto;
+    transform: translateX(0) translateY(6px);
+    padding: 16px;
+  }
+  
+  .nav-item.nav-open > .mega-menu {
+    transform: translateX(0) translateY(0);
+  }
+  
+  .mega-inner {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  
+  .mega-col {
+    flex: 1 1 calc(50% - 8px);
+    min-width: auto;
+  }
+  
+  .mega-divider {
+    display: none;
+  }
+  
+  .mega-label {
+    font-size: 0.9rem;
+  }
+  
+  .mega-item {
+    padding: 10px 12px;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .mega-menu {
+    max-width: calc(100vw - 20px);
+    width: calc(100vw - 20px);
+    left: 10px;
+    padding: 16px;
+    max-height: 70vh;
+    overflow-y: auto;
+  }
+  
+  .mega-inner {
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .mega-col {
+    flex: 1 1 100%;
+  }
+  
+  .mega-label {
+    margin-bottom: 12px;
+    font-size: 0.9rem;
+  }
+  
+  .mega-item {
+    padding: 8px 12px;
+    font-size: 0.85rem;
+  }
+  
+  .mega-item img {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+@media (max-width: 480px) {
+  .mega-menu {
+    left: 5px;
+    right: 5px;
+    width: calc(100vw - 10px);
+    padding: 12px;
+  }
+  
+  .mega-inner {
+    gap: 12px;
+  }
+  
+  .mega-item {
+    padding: 6px 8px;
+    font-size: 0.8rem;
+  }
 }
     </style>
 
@@ -1606,61 +2425,97 @@ section {
             </div>
         </div>
 
-        <!-- Header -->
-        <header class="site-header">
+        <!-- ===== HEADER / NAVIGATION ===== -->
+        <header class="site-header" id="siteHeader">
             <div class="header-inner">
-                <a href="./index.html" class="logo-wrap">
+                <a href="index.html" class="logo-wrap" aria-label="CSSP Garments Trading homepage">
                     <div class="logo-icon">
-                        <img src="Assets/logo-light-text.png" alt="Logo" class="logo-img light-logo">
-                        <img src="Assets/logo-dark-text.png" alt="Logo" class="logo-img dark-logo">
+                        <img src="Assets/logo-light-text.png" class="logo-img light-logo" alt="CSSP Garments Trading logo, light version">
+                        <img src="Assets/logo-dark-text.png" class="logo-img dark-logo" alt="CSSP Garments Trading logo, dark version">
                     </div>
-                    <div class="logo-text">
-                        CSSP
-                        <span>Garments Trading</span>
-                    </div>
+                    <div class="logo-text">CSSP<span>Garments&nbsp;Trading</span></div>
                 </a>
 
-                <nav class="nav-links">
-                    <a href="./products.html">Products</a>
-                    <a href="./aboutus.html">About</a>
+                <nav class="main-nav" id="mainNav" aria-label="Main navigation">
+                    <ul class="nav-list">
+                        <li class="nav-item has-mega" id="navProducts">
+                            <a href="#" class="nav-link" id="navProductsBtn" aria-haspopup="true" aria-expanded="false">Products <i class="fa-solid fa-chevron-down nav-caret"></i></a>
+                            <div class="mega-menu" id="megaProducts" aria-hidden="true">
+                                <div class="mega-inner">
+                                    <div class="mega-col">
+                                        <p class="mega-label">Uniforms</p>
+                                        <div class="mega-feature-card">
+                                            <img src="https://placehold.co/200x140/f4d03f/1a3a5c?text=Maritime+Uniforms" alt="Maritime and culinary uniform range including coveralls and chef tops" />
+                                            <p>Maritime &amp; Culinary Uniforms</p>
+                                            <a href="products.html" class="btn-sm">Gear Up</a>
+                                        </div>
+                                    </div>
+
+                                    <div class="mega-divider"></div>
+
+                                    <div class="mega-col">
+                                        <p class="mega-label">Safety Footwear</p>
+                                        <div class="mega-feature-card">
+                                            <img src="https://placehold.co/200x140/f4d03f/1a3a5c?text=Safety+Footwear" alt="Steel-toe safety shoe for deck and industrial use" />
+                                            <p>Steel-toe Safety Shoe</p>
+                                            <a href="products.html#safety-footwears" class="btn-sm">Secure Step</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item has-mega" id="navAbout">
+                            <a href="#" class="nav-link" id="navAboutBtn" aria-haspopup="true" aria-expanded="false">About Us <i class="fa-solid fa-chevron-down nav-caret"></i></a>
+                            <div class="mega-menu" id="megaAbout" aria-hidden="true">
+                                <div class="mega-inner">
+                                    <div class="mega-col">
+                                        <p class="mega-label">Company</p>
+                                        <a href="./aboutus.html#history" class="mega-item text-only"><i class="fa-solid fa-anchor"></i> Our Story</a>
+                                        <a href="./aboutus.html#people" class="mega-item text-only"><i class="fa-solid fa-users"></i> Our Team</a>
+                                        <a href="./aboutus.html#tailor" class="mega-item text-only"><i class="fa-solid fa-house"></i> Location</a>
+                                    </div>
+
+                                    <div class="mega-divider"></div>
+
+                                    <div class="mega-col">
+                                        <p class="mega-label">Support</p>
+                                        <a href="./index.html#faq" class="mega-item text-only"><i class="fa-solid fa-circle-question"></i> FAQ</a>
+                                        <a href="./contacts.html" class="mega-item text-only"><i class="fa-solid fa-envelope"></i> Contact Us</a>
+                                        <a href="contacts.html#privacy-page" class="mega-item text-only"><i class="fa-solid fa-file-contract"></i> Policies</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
                 </nav>
 
-                <div class="action-buttons">
-                    <!-- Currency Dropdown -->
-                    <div class="currency-dropdown">
-                        <button class="currency-toggle" id="currencyToggle">
-                            <span id="currentCurrency">PHP</span>
+                <div class="header-actions">
+                    <div class="currency-switcher" id="currencySwitcher">
+                        <button class="currency-btn" id="currencyBtn" aria-label="Change currency" aria-expanded="false">
+                            <i class="fa-solid fa-coins"></i>
+                            <span id="activeCurrency">PHP</span>
                             <i class="fa-solid fa-chevron-down"></i>
                         </button>
-                        <div class="currency-menu" id="currencyMenu">
-                            <button data-currency="PHP" class="active">
-                                <span>₱</span> PHP
-                            </button>
-                            <button data-currency="USD">
-                                <span>$</span> USD
-                            </button>
-                            <button data-currency="GBP">
-                                <span>£</span> GBP
-                            </button>
-                        </div>
+                        <ul class="currency-dropdown" id="currencyDropdown">
+                            <li data-currency="PHP" data-symbol="₱">🇵🇭 PHP</li>
+                            <li data-currency="USD" data-symbol="$">🇺🇸 USD</li>
+                            <li data-currency="GBP" data-symbol="£">🇬🇧 GBP</li>
+                        </ul>
                     </div>
 
-                    <!-- Theme Toggle -->
-                    <button class="theme-toggle" id="themeToggle">
+                    <a class="icon-btn" title="Cart" aria-label="View cart" id="cartIconBtn" href="./cart.html">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <span class="badge" id="cartBadge">0</span>
+                    </a>
+
+                    <button class="theme-toggle" id="themeToggle" title="Toggle Theme" aria-label="Toggle colour theme">
                         <div class="toggle-circle">
                             <i class="fa-solid fa-sun"></i>
                         </div>
                     </button>
 
-                    <!-- Cart -->
-                    <a href="cart.html" class="cart-button">
-                        <i class="fa-solid fa-shopping-cart"></i>
-                        <span class="cart-badge" id="cartBadge">0</span>
-                    </a>
-
-                    <!-- Mobile Menu Toggle -->
-                    <button class="mobile-toggle">
-                        <i class="fa-solid fa-bars"></i>
+                    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+                        <span></span><span></span><span></span>
                     </button>
                 </div>
             </div>
@@ -1674,7 +2529,7 @@ section {
                 <i class="fa-solid fa-shopping-cart"></i>
                 <h3>Your cart is empty</h3>
                 <p>Start shopping to add items to your cart</p>
-                <a href="./anotherproducts.html" class="btn-primary">
+                <a href="./anotherproducts.html" class="btn-primary" style="width: fit-content; margin: 0 auto; padding: 10px 18px;">
                     <i class="fa-solid fa-arrow-left"></i>
                     Continue Shopping
                 </a>
@@ -1688,8 +2543,19 @@ section {
                             <input type="checkbox" id="selectAll" class="cart-checkbox" onchange="toggleSelectAll()">
                             <label for="selectAll" class="select-all-label">Select All</label>
                         </div>
-                        <div style="color: var(--text-muted); font-size: 0.9rem;">
-                            <span id="selectedCount">0</span> item(s) selected
+                        <div style="display: flex; gap: 16px; align-items: center; flex-wrap: wrap;">
+                            <div style="color: var(--text-muted); font-size: 0.9rem;">
+                                <span id="selectedCount">0</span> item(s) selected
+                            </div>
+                            <!-- BULK ACTIONS - Always visible -->
+                            <div id="bulkActions" style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+                                <button class="btn-sm icon-btn" type="button" onclick="openCheckout()" id="checkoutSelectedBtn" disabled title="Checkout selected items">
+                                    <i class="fa-solid fa-cart-check"></i>
+                                </button>
+                                <button class="btn-sm icon-btn" type="button" onclick="deleteSelectedItems()" id="deleteSelectedBtn" disabled title="Delete selected items" style="background:var(--red); color:#fff;">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
 
@@ -1700,6 +2566,9 @@ section {
 
                 <div class="cart-summary">
                     <h3>Order Summary</h3>
+                    <div id="selectedItemsList" style="margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--border);">
+                        <!-- Selected items will be rendered here -->
+                    </div>
                     <div class="summary-row">
                         <span>Subtotal:</span>
                         <span id="subtotalAmount">₱0.00</span>
@@ -1724,6 +2593,8 @@ section {
             </div>
         </div>
 
+        </div>
+
         <!-- Checkout Modal -->
         <div class="checkout-modal" id="checkoutModal">
             <div class="checkout-box">
@@ -1735,7 +2606,7 @@ section {
                 </div>
 
                 <div class="checkout-content">
-                    <!-- Step 1: Customer Information -->
+                    <!-- Step 1: Customer Information + Shipping Address -->
                     <div class="checkout-step active" id="step1">
                         <h3 style="margin-bottom: 24px; font-size: 1.5rem;">Customer Information</h3>
                         
@@ -1772,25 +2643,24 @@ section {
                             <div class="error-text" id="phoneError"></div>
                         </div>
 
-                        <div class="checkout-actions">
-                            <button class="btn-ghost" onclick="closeCheckout()">Cancel</button>
-                            <button class="btn-primary" onclick="goToStep2()">
-                                Next
-                                <i class="fa-solid fa-arrow-right"></i>
-                            </button>
-                        </div>
-                    </div>
+                        <h3 style="margin: 28px 0 20px; font-size: 1.5rem;">Shipping Address</h3>
 
-                    <!-- Step 2: Shipping & Payment -->
-                    <div class="checkout-step" id="step2">
-                        <h3 style="margin-bottom: 24px; font-size: 1.5rem;">Shipping Address</h3>
-                        
                         <div class="form-group">
                             <label>Country *</label>
                             <select id="country" onchange="loadCountryData()">
                                 <option value="">Select country</option>
                             </select>
                             <div class="error-text" id="countryError"></div>
+                        </div>
+
+                        <!-- PH Region Dropdown (shown only for PH) -->
+                        <div class="form-group" id="regionGroup" style="display:none;">
+                            <label>Region *</label>
+                            <div class="searchable-input">
+                                <input type="text" id="regionSearch" placeholder="Type to search region..." autocomplete="off">
+                                <div class="search-dropdown" id="regionDropdown"></div>
+                            </div>
+                            <div class="error-text" id="regionError"></div>
                         </div>
 
                         <div class="form-group">
@@ -1800,6 +2670,7 @@ section {
                                 <div class="search-dropdown" id="cityDropdown"></div>
                             </div>
                             <input type="hidden" id="cityValue">
+                            <input type="hidden" id="cityCodeValue">
                             <div class="error-text" id="cityError"></div>
                         </div>
 
@@ -1810,8 +2681,12 @@ section {
                                 <div class="search-dropdown" id="barangayDropdown"></div>
                             </div>
                             <input type="hidden" id="barangayValue">
+                            <input type="hidden" id="barangayCodeValue">
                             <div class="error-text" id="barangayError"></div>
                         </div>
+
+                        <input type="hidden" id="regionValue">
+                        <input type="hidden" id="postalValue">
 
                         <div class="form-group">
                             <label>Street Address *</label>
@@ -1820,36 +2695,72 @@ section {
                         </div>
 
                         <div class="form-group">
-                            <label>Postal/Zip Code *</label>
-                            <input type="text" id="postalCode" placeholder="Enter postal code">
+                            <label>Postal/Zip Code</label>
+                            <input type="text" id="postalCode" placeholder="Auto-filled from city selection" readonly style="background: var(--bg-alt); cursor: not-allowed; opacity: 0.8;">
+                            <small style="color: var(--text-muted); font-size: 0.8rem; margin-top: 4px; display:block;">Automatically filled based on selected city.</small>
                         </div>
 
-                        <h3 style="margin: 32px 0 16px; font-size: 1.5rem;">Shipping Method</h3>
-                        
-                        <div class="shipping-options">
-                            <div class="shipping-option" data-method="standard" data-price="50" onclick="selectShipping('standard', 50)">
-                                <div class="shipping-option-title">
-                                    <i class="fa-solid fa-truck"></i>
-                                    Standard
+                        <div class="checkout-actions">
+                            <button class="btn-ghost" onclick="closeCheckout()">Cancel</button>
+                            <button class="btn-primary" onclick="goToStep2()">
+                                Next
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Cart + Shipping Selection -->
+                    <div class="checkout-step" id="step2">
+                        <h3 style="margin-bottom: 8px; font-size: 1.5rem;">Cart &amp; Shipping</h3>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 24px;">Review your items and choose a shipping method.</p>
+
+                        <!-- MODAL NOTICE -->
+                        <div class="shipping-notice-card">
+                            <div class="notice-content">
+                                <i class="fa-solid fa-info-circle"></i>
+                                <div>
+                                    <strong>Shipping Rates Notice</strong>
+                                    <p>Shipping prices are fixed sample rates. This website is static and has no live shipping connection.</p>
                                 </div>
-                                <div class="shipping-option-price">₱50.00</div>
-                                <div class="shipping-option-time">5-7 business days</div>
                             </div>
-                            <div class="shipping-option" data-method="express" data-price="150" onclick="selectShipping('express', 150)">
-                                <div class="shipping-option-title">
-                                    <i class="fa-solid fa-bolt"></i>
-                                    Express
+                        </div>
+
+                        <!-- Cart Items in Checkout -->
+                        <h3 style="margin: 20px 0 14px; font-size: 1.2rem;">Order Items</h3>
+                        <div id="checkoutItemsList" style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px;"></div>
+
+                        <!-- Shipping Method -->
+                        <h3 style="margin: 8px 0 16px; font-size: 1.2rem;">Shipping Method</h3>
+
+                        <!-- Destination Type -->
+                        <div class="form-group">
+                            <label>Destination *</label>
+                            <div class="shipping-options" style="grid-template-columns: 1fr 1fr; margin-bottom: 0;">
+                                <div class="shipping-option" id="destNational" onclick="selectDestination('national')">
+                                    <div class="shipping-option-title"><i class="fa-solid fa-map-marker-alt"></i> Philippines</div>
+                                    <div class="shipping-option-price" style="font-size: 0.8rem; opacity: 0.8;">Within Philippines</div>
                                 </div>
-                                <div class="shipping-option-price">₱150.00</div>
-                                <div class="shipping-option-time">2-3 business days</div>
+                                <div class="shipping-option" id="destInternational" onclick="selectDestination('international')">
+                                    <div class="shipping-option-title"><i class="fa-solid fa-globe"></i> International</div>
+                                    <div class="shipping-option-price" style="font-size: 0.8rem; opacity: 0.8;">Outside Philippines</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Delivery Type -->
+                        <div class="form-group" id="deliveryTypeGroup" style="display:none; margin-top: 16px;">
+                            <label>Delivery Type *</label>
+                            <div class="shipping-options" id="shippingOptionsList">
+                                <!-- Populated by JS -->
                             </div>
                         </div>
                         <div class="error-text" id="shippingError"></div>
 
-                        <div class="voucher-section">
+                        <!-- Voucher -->
+                        <div class="voucher-section" style="margin: 20px 0;">
                             <label style="font-weight: 600; margin-bottom: 12px; display: block;">Discount Code</label>
                             <div class="voucher-input-group">
-                                <input type="text" id="voucherCode" placeholder="Enter voucher code" style="text-transform: uppercase;">
+                                <input type="text" id="voucherCode" class="voucher-input" placeholder="Enter voucher code" autocomplete="off" />
                                 <button class="btn-primary" onclick="applyVoucher()">Apply</button>
                             </div>
                             <div class="voucher-applied" id="voucherApplied">
@@ -1858,8 +2769,27 @@ section {
                             </div>
                         </div>
 
-                        <h3 style="margin: 32px 0 16px; font-size: 1.5rem;">Payment Method</h3>
-                        
+                        <!-- Order Summary -->
+                        <h3 style="margin: 8px 0 14px; font-size: 1.2rem;">Order Summary</h3>
+                        <div class="summary-row">
+                            <span>Subtotal:</span>
+                            <span id="checkoutSubtotal">₱0.00</span>
+                        </div>
+                        <div class="summary-row" id="discountRow" style="display: none;">
+                            <span>Voucher Discount:</span>
+                            <span id="discountAmount" style="color: var(--green);">-₱0.00</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Shipping:</span>
+                            <span id="checkoutShipping">—</span>
+                        </div>
+                        <div class="summary-row total">
+                            <span>Total:</span>
+                            <span id="checkoutTotal">₱0.00</span>
+                        </div>
+
+                        <!-- Payment Method -->
+                        <h3 style="margin: 28px 0 16px; font-size: 1.2rem;">Payment Method</h3>
                         <div class="payment-methods">
                             <div class="payment-method" data-method="card" onclick="selectPayment('card')">
                                 <i class="fa-solid fa-credit-card"></i>
@@ -1877,12 +2807,10 @@ section {
                                 <label>Cardholder Name</label>
                                 <input type="text" id="cardName" placeholder="Name on card">
                             </div>
-
                             <div class="form-group">
                                 <label>Card Number</label>
                                 <input type="password" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="16">
                             </div>
-
                             <div class="form-row">
                                 <div class="form-group">
                                     <label>Expiry Date</label>
@@ -1893,19 +2821,30 @@ section {
                                     <input type="password" id="cardCVV" placeholder="123" maxlength="3">
                                 </div>
                             </div>
-
                             <label class="card-visibility-toggle">
                                 <input type="checkbox" id="showCardDetails" onchange="toggleCardVisibility()">
                                 Show card details
                             </label>
                         </div>
 
+                        <div class="form-group policy-control-group" style="margin-top: 16px;">
+                            <label class="policy-control">
+                                <span class="policy-checkbox">
+                                    <input type="checkbox" id="agreePolicy" />
+                                    <span class="checkbox-mark"></span>
+                                </span>
+                                <span class="policy-text">
+                                    I agree to the <a href="policies.html" class="policy-link">Shipping Policy</a>, <a href="policies.html" class="policy-link">Terms & Conditions</a>, and <a href="policies.html" class="policy-link">Privacy Policy</a>.
+                                </span>
+                            </label>
+                            <div class="error-text" id="agreeError"></div>
+                        </div>
                         <div class="checkout-actions">
                             <button class="btn-ghost" onclick="goToStep1()">
                                 <i class="fa-solid fa-arrow-left"></i>
                                 Back
                             </button>
-                            <button class="btn-primary" onclick="processPayment()">
+                            <button class="btn-primary" id="placeOrderBtn" onclick="processPayment()" disabled>
                                 Place Order
                                 <i class="fa-solid fa-check"></i>
                             </button>
@@ -1940,19 +2879,25 @@ section {
                                         </div>
                                         <div class="tracking-label">Order Placed</div>
                                     </div>
-                                    <div class="tracking-step" id="track2">
+                                    <div class="tracking-step processing-step" id="track2">
                                         <div class="tracking-dot">
                                             <i class="fa-solid fa-box"></i>
                                         </div>
                                         <div class="tracking-label">Processing</div>
                                     </div>
-                                    <div class="tracking-step" id="track3">
+                                    <div class="tracking-step inactive" id="track3">
                                         <div class="tracking-dot">
                                             <i class="fa-solid fa-truck"></i>
                                         </div>
                                         <div class="tracking-label">Shipped</div>
                                     </div>
-                                    <div class="tracking-step" id="track4">
+                                    <div class="tracking-step inactive" id="track4">
+                                        <div class="tracking-dot">
+                                            <i class="fa-solid fa-map-marker-alt"></i>
+                                        </div>
+                                        <div class="tracking-label">Out for Delivery</div>
+                                    </div>
+                                    <div class="tracking-step inactive" id="track5">
                                         <div class="tracking-dot">
                                             <i class="fa-solid fa-home"></i>
                                         </div>
@@ -1994,28 +2939,37 @@ section {
         </div>
 
         <!-- Footer -->
-        <footer class="site-footer">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>CSSP Garments</h4>
-                    <p>Your trusted source for quality school uniforms and professional attire.</p>
+        <!-- ===== FOOTER ===== -->
+        <footer class="site-footer" id="footer">
+            <div class="footer-wave">
+                <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg"><path d="M0,40 C360,0 1080,80 1440,40 L1440,0 L0,0 Z" /></svg>
+            </div>
+            <div class="footer-inner">
+                <div class="footer-col brand-col">
+                    <div class="footer-logo"><i class="fa-solid fa-ship"></i><span>CSSP Garments Trading</span></div>
+                    <p>Your trusted maritime uniform supplier since 2024. Quality gear for every sailor, cook, and crew member.</p>
+                    <div class="social-icons">
+                        <a href="./contacts.html" title="Contacts"><i class="fa-regular fa-address-book"></i></a>
+                    </div>
                 </div>
-                <div class="footer-section">
+                <div class="footer-col">
                     <h4>Quick Links</h4>
-                    <a href="./anotherproducts.html">Home</a>
-                    <a href="products.html#products">Products</a>
-                    <a href="#about">About Us</a>
-                    <a href="#contact">Contact</a>
-                </div>
-                <div class="footer-section">
-                    <h4>Contact Info</h4>
-                    <p><i class="fa-solid fa-envelope"></i> info@csspgarments.com</p>
-                    <p><i class="fa-solid fa-phone"></i> +63 123 456 7890</p>
-                    <p><i class="fa-solid fa-location-dot"></i> Quezon City, Philippines</p>
+                    <ul>
+                        <li><a href="./index.html"><i class="fa-solid fa-chevron-right"></i> Home</a></li>
+                        <li><a href="./products.html"><i class="fa-solid fa-chevron-right"></i> Products</a></li>
+                        <li><a href="./aboutus.html"><i class="fa-solid fa-chevron-right"></i> About Us</a></li>
+                        <li><a href="./index.html#reviews"><i class="fa-solid fa-chevron-right"></i> Reviews</a></li>
+                        <li><a href="./index.html#faq"><i class="fa-solid fa-chevron-right"></i> FAQ</a></li>
+                    </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 CSSP Garments Trading. All rights reserved.</p>
+                <p>&copy; 2024 CSSP Garments Trading. All rights reserved.<br> Designed by Logmunch!</p>
+                <div class="legal-links">
+                    <a href="./contacts.html#privacy-page">Privacy Policy</a>
+                    <a href="./contacts.html#terms-page">Terms & Conditions</a>
+                    <a href="./contacts.html#shipping-page">Shipping Policy</a>
+                </div>
             </div>
         </footer>
 
@@ -2032,8 +2986,8 @@ const $$ = (sel) => document.querySelectorAll(sel);
 const html = document.documentElement;
 const themeToggle = $('themeToggle');
 
-// Load saved theme
-const savedTheme = localStorage.getItem('cssp-theme') || 'light';
+// Load saved theme from new or legacy keys
+const savedTheme = localStorage.getItem('themeMode') || localStorage.getItem('cssp-theme') || 'light';
 html.setAttribute('data-theme', savedTheme);
 updateThemeIcon();
 
@@ -2041,6 +2995,7 @@ themeToggle?.addEventListener('click', () => {
   const current = html.getAttribute('data-theme');
   const next = current === 'light' ? 'dark' : 'light';
   html.setAttribute('data-theme', next);
+  localStorage.setItem('themeMode', next);
   localStorage.setItem('cssp-theme', next);
   updateThemeIcon();
 });
@@ -2057,7 +3012,7 @@ function updateThemeIcon() {
 // ============================================
 // CURRENCY SYSTEM
 // ============================================
-let currentCurrency = localStorage.getItem('cssp-currency') || 'PHP';
+let currentCurrency = localStorage.getItem('selectedCurrency') || localStorage.getItem('cssp-currency') || 'PHP';
 
 const currencyRates = {
   PHP: 1,
@@ -2078,47 +3033,80 @@ function formatPrice(amount) {
   return `${symbol}${converted.toFixed(2)}`;
 }
 
+const TAX_RATE = 0.0;
+let lastRemovedItem = null;
+
 function updateCurrencyDisplay() {
-  $('currentCurrency').textContent = currentCurrency;
-  $$('.currency-menu button').forEach(btn => {
+  const el = $('activeCurrency');
+  if (el) el.textContent = currentCurrency;
+  $$('#currencyDropdown li').forEach(btn => {
     btn.classList.toggle('active', btn.dataset.currency === currentCurrency);
   });
   renderCart();
   updateShippingDisplay();
+  updateCartSummary();
+  updateShippingRatesDisplay();
+}
+
+// Hide cart icon on another.html only
+const cartIconBtn = $('cartIconBtn');
+const currentPage = window.location.pathname.split('/').pop();
+if (currentPage === 'another.html') {
+  cartIconBtn?.style.setProperty('display', 'none', 'important');
 }
 
 // Currency dropdown toggle
-$('currencyToggle')?.addEventListener('click', (e) => {
+$('currencyBtn')?.addEventListener('click', (e) => {
   e.stopPropagation();
-  $('currencyMenu').classList.toggle('active');
+  $('currencyDropdown').classList.toggle('open');
 });
 
 // Currency selection
-$$('.currency-menu button').forEach(btn => {
-  btn.addEventListener('click', () => {
-    currentCurrency = btn.dataset.currency;
+$$('#currencyDropdown li').forEach(item => {
+  item.addEventListener('click', () => {
+    currentCurrency = item.dataset.currency;
+    localStorage.setItem('selectedCurrency', currentCurrency);
     localStorage.setItem('cssp-currency', currentCurrency);
     updateCurrencyDisplay();
-    $('currencyMenu').classList.remove('active');
+    updateShippingRatesDisplay();
+    $('currencyDropdown').classList.remove('open');
   });
 });
 
 // Close currency menu when clicking outside
 document.addEventListener('click', () => {
-  $('currencyMenu')?.classList.remove('active');
+  $('currencyDropdown')?.classList.remove('open');
+});
+
+window.addEventListener('storage', (event) => {
+  if (event.key === 'cssp-cart') {
+    renderCart();
+    updateCartBadge();
+  }
+
+  if (event.key === 'selectedCurrency' || event.key === 'cssp-currency') {
+    currentCurrency = localStorage.getItem('selectedCurrency') || localStorage.getItem('cssp-currency') || currentCurrency;
+    updateCurrencyDisplay();
+  }
+
+  if (event.key === 'themeMode' || event.key === 'cssp-theme') {
+    const saved = localStorage.getItem('themeMode') || localStorage.getItem('cssp-theme') || 'light';
+    html.setAttribute('data-theme', saved);
+    updateThemeIcon();
+  }
 });
 
 // ============================================
 // TOAST NOTIFICATION SYSTEM
 // ============================================
-function showToast(type, title, message) {
+function showToast(type, title, message, actionLabel, actionCallback) {
   const container = $('toastContainer');
   if (!container) return;
 
   const toast = document.createElement('div');
   toast.className = `toast ${type}`;
   
-  const icon = type === 'success' ? 'fa-check' : 'fa-exclamation-triangle';
+  const icon = type === 'success' ? 'fa-check' : type === 'warning' ? 'fa-triangle-exclamation' : 'fa-exclamation-triangle';
   
   toast.innerHTML = `
     <div class="toast-icon">
@@ -2128,10 +3116,24 @@ function showToast(type, title, message) {
       <div class="toast-title">${title}</div>
       <div class="toast-message">${message}</div>
     </div>
+    <div class="toast-actions"></div>
     <button class="toast-close" onclick="this.parentElement.remove()">
       <i class="fa-solid fa-xmark"></i>
     </button>
   `;
+
+  const actions = toast.querySelector('.toast-actions');
+  if (actionLabel && typeof actionCallback === 'function' && actions) {
+    const actionBtn = document.createElement('button');
+    actionBtn.type = 'button';
+    actionBtn.className = 'toast-action';
+    actionBtn.textContent = actionLabel;
+    actionBtn.addEventListener('click', () => {
+      actionCallback();
+      toast.remove();
+    });
+    actions.appendChild(actionBtn);
+  }
 
   container.appendChild(toast);
 
@@ -2140,9 +3142,11 @@ function showToast(type, title, message) {
   }, 10);
 
   setTimeout(() => {
-    toast.classList.remove('show');
-    setTimeout(() => toast.remove(), 400);
-  }, 3500);
+    if (document.body.contains(toast)) {
+      toast.classList.remove('show');
+      setTimeout(() => toast.remove(), 400);
+    }
+  }, 4500);
 }
 
 // ============================================
@@ -2197,36 +3201,74 @@ function toggleItemSelection(id) {
   
   saveCart(cart);
   renderCart();
+  updateCartSummary();
+}
+
+function deleteSelectedItems() {
+  let cart = getCart();
+  const selected = cart.filter(item => item.selected);
+  if (selected.length === 0) {
+    showToast('error', 'No Items Selected', 'Please select items before deleting');
+    return;
+  }
+  cart = cart.filter(item => !item.selected);
+  saveCart(cart);
+  renderCart();
+  updateCartSummary();
+  showToast('success', 'Deleted Selected Items', `${selected.length} item(s) were deleted`);
 }
 
 function updateQuantity(id, type) {
   let cart = getCart();
-  
-  cart = cart.map(item => {
-    if (item.id === id) {
-      if (type === 'increase' && item.quantity < 50) {
-        item.quantity++;
-      }
-      if (type === 'decrease' && item.quantity > 1) {
-        item.quantity--;
-      }
-    }
-    return item;
-  });
+  const item = cart.find(i => i.id === id);
+  if (!item) return;
 
-  saveCart(cart);
-  renderCart();
+  if (type === 'increase') {
+    if (item.quantity < 50) {
+      item.quantity++;
+      saveCart(cart);
+      renderCart();
+    }
+  } else if (type === 'decrease') {
+    if (item.quantity > 1) {
+      item.quantity--;
+      saveCart(cart);
+      renderCart();
+    } else {
+      // qty is 1 — remove with undo
+      removeItem(id);
+    }
+  }
 }
 
 function removeItem(id) {
   let cart = getCart();
   const item = cart.find(i => i.id === id);
+  if (!item) return;
   
-  cart = cart.filter(item => item.id !== id);
+  // Store removed item with full state including selected
+  lastRemovedItem = { ...item };
+  
+  cart = cart.filter(i => i.id !== id);
   saveCart(cart);
   renderCart();
-  
-  showToast('success', 'Item Removed', `${item.name} removed from cart`);
+
+  showToast(
+    'success',
+    'Item Removed',
+    `${item.name} was removed`,
+    'Undo',
+    () => {
+      if (lastRemovedItem) {
+        const restoredCart = getCart();
+        restoredCart.push({ ...lastRemovedItem });
+        saveCart(restoredCart);
+        renderCart();
+        showToast('success', 'Restored', `${lastRemovedItem.name} has been restored`);
+        lastRemovedItem = null;
+      }
+    }
+  );
 }
 
 function renderCart() {
@@ -2245,10 +3287,17 @@ function renderCart() {
   emptyCart.style.display = 'none';
   cartContent.style.display = 'grid';
 
-  // Check if all items are selected
-  const allSelected = cart.every(item => item.selected);
+  // Sync Select All checkbox state
+  const allSelected = cart.length > 0 && cart.every(item => item.selected);
   selectAll.checked = allSelected;
 
+  // Show/hide bulk actions based on Select All state
+  const bulkActions = $('bulkActions');
+  if (bulkActions) {
+    bulkActions.style.display = allSelected ? 'flex' : 'none';
+  }
+
+  // Always render all items — no visibility filter
   itemsList.innerHTML = cart.map(item => `
     <div class="cart-item">
       <div class="cart-item-checkbox">
@@ -2268,7 +3317,7 @@ function renderCart() {
       </div>
       <div class="cart-item-actions">
         <div class="quantity-controls">
-          <button onclick="updateQuantity(${item.id}, 'decrease')">
+          <button onclick="updateQuantity(${item.id}, 'decrease')" title="${item.quantity === 1 ? 'Remove item' : 'Decrease'}">
             <i class="fa-solid fa-minus"></i>
           </button>
           <span>${item.quantity}</span>
@@ -2284,16 +3333,84 @@ function renderCart() {
     </div>
   `).join('');
 
-  // Update summary
+  // Update summary counts
   const selectedItems = cart.filter(item => item.selected);
-  const total = calculateTotal(cart);
+  const subtotal = selectedItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
   const selectedCount = selectedItems.reduce((sum, item) => sum + item.quantity, 0);
   
-  $('subtotalAmount').textContent = formatPrice(total);
-  $('totalAmount').textContent = formatPrice(total);
+  // Render selected items list in order summary
+  const summaryList = $('selectedItemsList');
+  if (summaryList) {
+    if (selectedItems.length === 0) {
+      summaryList.innerHTML = '<p style="color: var(--text-muted); font-size: 0.9rem;">No items selected</p>';
+    } else {
+      summaryList.innerHTML = selectedItems.map(item => `
+        <div class="summary-item-card">
+          <div class="summary-item-thumb">
+            <img src="${item.image}" alt="${item.name}">
+          </div>
+          <div class="summary-item-details">
+            <div class="summary-item-title">${item.name}</div>
+            <div class="summary-item-meta">
+              <span>${item.type}</span>
+              <span>Size: ${item.size}</span>
+            </div>
+          </div>
+          <div class="summary-item-side">
+            <span class="summary-item-badge">Qty ${item.quantity}</span>
+            <span class="summary-item-price">${formatPrice(item.price * item.quantity)}</span>
+          </div>
+        </div>
+      `).join('');
+    }
+  }
+  
+  $('subtotalAmount').textContent = formatPrice(subtotal);
   $('totalItems').textContent = selectedCount;
   $('selectedCount').textContent = selectedItems.length;
+  updateCartSummary();
+  
+  // Update bulk action buttons state
+  const checkoutBtn = $('checkoutSelectedBtn');
+  const deleteBtn = $('deleteSelectedBtn');
+  if (checkoutBtn) checkoutBtn.disabled = selectedItems.length === 0;
+  if (deleteBtn) deleteBtn.disabled = selectedItems.length === 0;
 }
+
+function updateCartSummary() {
+  const cart = getCart();
+  const selectedItems = cart.filter(item => item.selected);
+  const subtotal = selectedItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  let shippingValue = destinationType && deliveryType ? shippingFee : 0;
+  if (voucherType === 'freeship') shippingValue = 0;
+
+  const taxValue = subtotal * TAX_RATE;
+  const discountValue = voucherType === 'percentage' ? subtotal * (voucherDiscount / 100) : 0;
+  const total = subtotal + shippingValue + taxValue - discountValue;
+
+  // Update main cart summary
+  const subtotalEl = $('subtotalAmount');
+  const shippingEl = $('shippingAmount');
+  const taxEl = $('taxAmount');
+  const totalEl = $('totalAmount');
+  const discountRowEl = $('discountRow');
+  const discountAmountEl = $('discountAmount');
+  
+  if (subtotalEl) subtotalEl.textContent = formatPrice(subtotal);
+  if (shippingEl) shippingEl.textContent = formatPrice(shippingValue);
+  if (taxEl) taxEl.textContent = formatPrice(taxValue);
+  if (totalEl) totalEl.textContent = formatPrice(total);
+
+  if (discountRowEl) {
+    if (discountValue > 0) {
+      discountRowEl.style.display = 'flex';
+      if (discountAmountEl) discountAmountEl.textContent = `-${formatPrice(discountValue)}`;
+    } else {
+      discountRowEl.style.display = 'none';
+    }
+  }
+}
+
 
 // ============================================
 // CHECKOUT SYSTEM
@@ -2307,9 +3424,15 @@ let voucherType = null;
 let voucherCode = null;
 let orderData = {};
 
+// Shipping upgrade variables
+let destinationType = null; // 'national' or 'international'
+let deliveryType = null; // 'standard' or 'express'
+let shippingSelectedRegion = ''; // for shipping region selector (separate from address region)
+let destinationTypeLocked = false;
+
 // Location data storage
-cityData = {};
-barangayData = {};
+let cityData = [];
+let barangayData = [];
 
 function openCheckout() {
   const cart = getCart();
@@ -2323,6 +3446,64 @@ function openCheckout() {
   currentStep = 1;
   showStep(1);
   $('checkoutModal').classList.add('active');
+}
+
+function renderCheckoutItems() {
+  const cart = getCart();
+  const selectedItems = cart.filter(item => item.selected);
+  const container = $('checkoutItemsList');
+  if (!container) return;
+
+  if (selectedItems.length === 0) {
+    container.innerHTML = '<p style="color: var(--text-muted);">No items selected.</p>';
+    return;
+  }
+
+  container.innerHTML = selectedItems.map(item => `
+    <div style="display:flex; justify-content:space-between; align-items:center; padding:12px 16px; background:var(--bg-alt); border-radius:var(--radius-sm); border:1px solid var(--border);">
+      <div>
+        <div style="font-weight:700; font-size:0.95rem;">${item.name}</div>
+        <div style="font-size:0.82rem; color:var(--text-muted); margin-top:4px;">
+          ${item.type} &nbsp;·&nbsp; Size: ${item.size} &nbsp;·&nbsp; Qty: ${item.quantity}
+        </div>
+      </div>
+      <div style="font-weight:700; color:var(--navy); font-size:0.95rem;">${formatPrice(item.price * item.quantity)}</div>
+    </div>
+  `).join('');
+}
+
+function updateCheckoutSummary() {
+  const cart = getCart();
+  const selectedItems = cart.filter(item => item.selected);
+  const subtotal = selectedItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+  let discount = 0;
+  if (voucherType === 'percentage') discount = subtotal * (voucherDiscount / 100);
+
+  let shipping = 0;
+  if (deliveryType && destinationType) shipping = shippingFee;
+  if (voucherType === 'freeship') shipping = 0;
+
+  const total = subtotal - discount + shipping;
+
+  const subtotalEl = $('checkoutSubtotal');
+  const shippingEl = $('checkoutShipping');
+  const totalEl = $('checkoutTotal');
+  const discountRowEl = $('discountRow');
+  const discountAmountEl = $('discountAmount');
+
+  if (subtotalEl) subtotalEl.textContent = formatPrice(subtotal);
+  if (shippingEl) shippingEl.textContent = shipping > 0 ? formatPrice(shipping) : (deliveryType ? formatPrice(0) : '—');
+  if (totalEl) totalEl.textContent = formatPrice(total);
+
+  if (discountRowEl) {
+    if (discount > 0) {
+      discountRowEl.style.display = 'flex';
+      if (discountAmountEl) discountAmountEl.textContent = `-${formatPrice(discount)}`;
+    } else {
+      discountRowEl.style.display = 'none';
+    }
+  }
 }
 
 function closeCheckout() {
@@ -2351,6 +3532,12 @@ function goToStep2() {
   const email = $('customerEmail').value.trim();
   const phoneCountry = $('phoneCountry').value;
   const phone = $('customerPhone').value.trim();
+
+  // Validate address fields
+  const country = $('country').value;
+  const city = $('cityValue').value;
+  const barangay = $('barangayValue').value;
+  const street = $('streetAddress').value.trim();
 
   let hasError = false;
 
@@ -2387,6 +3574,30 @@ function goToStep2() {
     hasError = true;
   }
 
+  if (!country) {
+    $('countryError').textContent = 'Please select a country';
+    $('countryError').classList.add('show');
+    hasError = true;
+  }
+
+  if (!city) {
+    $('cityError').textContent = 'Please select a city';
+    $('cityError').classList.add('show');
+    hasError = true;
+  }
+
+  if (country === 'PH' && !barangay) {
+    $('barangayError').textContent = 'Please select a barangay';
+    $('barangayError').classList.add('show');
+    hasError = true;
+  }
+
+  if (!street) {
+    $('addressError').textContent = 'Please enter your street address';
+    $('addressError').classList.add('show');
+    hasError = true;
+  }
+
   if (hasError) {
     showToast('error', 'Validation Error', 'Please fill in all required fields correctly');
     return;
@@ -2398,6 +3609,30 @@ function goToStep2() {
   orderData.email = email;
   orderData.phoneCountry = phoneCountry;
   orderData.phone = phone;
+
+  // Store address data
+  orderData.country = country;
+  orderData.city = city;
+  orderData.barangay = barangay;
+  orderData.street = street;
+  orderData.postal = $('postalCode').value.trim();
+
+  // Auto-set destination based on country
+  if (country === 'PH') {
+    selectDestination('national');
+    destinationTypeLocked = true;
+    updateDestinationLockStyles();
+  } else {
+    selectDestination('international');
+    destinationTypeLocked = true;
+    updateDestinationLockStyles();
+  }
+
+  // Render cart items in step 2
+  renderCheckoutItems();
+
+  // Sync checkout subtotal/total
+  updateCheckoutSummary();
 
   showStep(2);
 }
@@ -2411,7 +3646,7 @@ function validatePhone(phone, country) {
   
   if (!digitsOnly) return false;
   
-  if (country === 'PH' && len !== 11) return false;
+  if (country === 'Philippines' && len !== 11) return false;
   if (country === 'USA' && len !== 10) return false;
   if (country === 'UK' && (len < 10 || len > 11)) return false;
   
@@ -2422,9 +3657,13 @@ function validatePhone(phone, country) {
 $('customerPhone')?.addEventListener('input', (e) => {
   const phone = e.target.value;
   const country = $('phoneCountry').value;
+  const cleaned = phone.replace(/\D/g, '');
   
-  // Remove non-digits
-  e.target.value = phone.replace(/\D/g, '');
+  if (phone !== cleaned) {
+    showToast('error', 'Input should contain numbers only', 'Please use digits only for the phone number');
+  }
+
+  e.target.value = cleaned;
   
   // Limit length based on country
   const maxLengths = {
@@ -2443,15 +3682,125 @@ $('phoneCountry')?.addEventListener('change', () => {
   $('phoneError').classList.remove('show');
 });
 
+// Real-time name validation (letters + spaces only, no numbers/symbols)
+function validateNameInput(value) {
+  return /^[A-Za-zÀ-ÖØ-öø-ÿ\s\-']+$/.test(value);
+}
+
+$('firstName')?.addEventListener('input', (e) => {
+  // Remove invalid chars on the fly
+  const clean = e.target.value.replace(/[^A-Za-zÀ-ÖØ-öø-ÿ\s\-']/g, '');
+  if (e.target.value !== clean) {
+    e.target.value = clean;
+    showToast('error', 'Input should contain letters only', 'First name can only include letters and spaces');
+  }
+  
+  const err = $('firstNameError');
+  if (e.target.value.trim() && !validateNameInput(e.target.value.trim())) {
+    err.textContent = 'First name: letters and spaces only';
+    err.classList.add('show');
+  } else {
+    err.classList.remove('show');
+  }
+});
+
+$('lastName')?.addEventListener('input', (e) => {
+  const clean = e.target.value.replace(/[^A-Za-zÀ-ÖØ-öø-ÿ\s\-']/g, '');
+  if (e.target.value !== clean) {
+    e.target.value = clean;
+    showToast('error', 'Input should contain letters only', 'Last name can only include letters and spaces');
+  }
+  
+  const err = $('lastNameError');
+  if (e.target.value.trim() && !validateNameInput(e.target.value.trim())) {
+    err.textContent = 'Last name: letters and spaces only';
+    err.classList.add('show');
+  } else {
+    err.classList.remove('show');
+  }
+});
+
+$('agreePolicy')?.addEventListener('change', () => {
+  const placeOrderBtn = $('placeOrderBtn');
+  if (placeOrderBtn) {
+    placeOrderBtn.disabled = !$('agreePolicy').checked;
+  }
+});
+
+// Show toast if checkout button is clicked while agree is unchecked (belt-and-suspenders)
+$('placeOrderBtn')?.addEventListener('click', (e) => {
+  if (!$('agreePolicy')?.checked) {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    showToast('error', 'Agreement Required', 'Please agree before proceeding');
+  }
+}, true);
+
+const megaItems = $$('.nav-item.has-mega');
+megaItems.forEach(item => {
+  const btn = item.querySelector('.nav-link');
+  const menu = item.querySelector('.mega-menu');
+
+  btn?.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const isOpen = item.classList.toggle('nav-open');
+    btn.setAttribute('aria-expanded', String(isOpen));
+    menu?.setAttribute('aria-hidden', String(!isOpen));
+
+    megaItems.forEach(other => {
+      if (other !== item) {
+        other.classList.remove('nav-open');
+        other.querySelector('.nav-link')?.setAttribute('aria-expanded', 'false');
+        other.querySelector('.mega-menu')?.setAttribute('aria-hidden', 'true');
+      }
+    });
+  });
+});
+
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('.nav-item.has-mega') && !e.target.closest('.hamburger')) {
+    megaItems.forEach(item => {
+      item.classList.remove('nav-open');
+      item.querySelector('.nav-link')?.setAttribute('aria-expanded','false');
+      item.querySelector('.mega-menu')?.setAttribute('aria-hidden','true');
+    });
+  }
+});
+
+$('hamburger')?.addEventListener('click', () => {
+  const isOpen = $('mainNav').classList.toggle('open');
+  $('hamburger').classList.toggle('open', isOpen);
+  $('hamburger').setAttribute('aria-expanded', String(isOpen));
+});
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    megaItems.forEach(item => {
+      item.classList.remove('nav-open');
+      item.querySelector('.nav-link')?.setAttribute('aria-expanded','false');
+      item.querySelector('.mega-menu')?.setAttribute('aria-hidden','true');
+    });
+    $('mainNav')?.classList.remove('open');
+    $('hamburger')?.classList.remove('open');
+    $('hamburger')?.setAttribute('aria-expanded', 'false');
+  }
+});
+
 // ============================================
-// SEARCHABLE LOCATION SYSTEM (UPGRADED)
+// SEARCHABLE LOCATION SYSTEM (PH JSON ALIGNED)
 // ============================================
 
 // Global state for location data
 let locationConfig = null;
-cityData = [];
-barangayData = [];
 let selectedCountryConfig = null;
+let allPhCities = [];     // full ph_cities.json array
+let allPhBarangays = [];  // full ph_barangays.json array (lazy-loaded)
+let selectedCityObj = null;
+let selectedBrgyObj = null;
+let selectedRegion = '';
+let regionData = [];      // for PH regions
 
 /**
  * Initialize the location system by loading country.json
@@ -2467,76 +3816,195 @@ async function initLocationSystem() {
         
         const countrySelect = $('country');
         if (countrySelect) {
-            // Preserve the first "Select country" option
             const firstOption = countrySelect.options[0];
             countrySelect.innerHTML = '';
             countrySelect.appendChild(firstOption);
             
             locationConfig.forEach(country => {
                 const option = document.createElement('option');
-                option.value = country.code; // Use code (PH, US, UK) as value
+                option.value = country.code;
                 option.textContent = country.name;
                 countrySelect.appendChild(option);
             });
         }
     } catch (error) {
         console.error('Location System Init Error:', error);
-        // We don't show toast here to avoid annoying the user on page load
     }
 }
 
 /**
- * Handle country change: load cities and toggle field visibility
+ * Handle country change
  */
 async function loadCountryData() {
     const countryCode = $('country').value;
     const citySearch = $('citySearch');
     const cityValue = $('cityValue');
+    const cityCodeValue = $('cityCodeValue');
     const barangayGroup = $('barangayGroup');
+    const regionGroup = $('regionGroup');
     const barangaySearch = $('barangaySearch');
     const barangayValue = $('barangayValue');
+    const barangayCodeValue = $('barangayCodeValue');
     
-    // Reset fields
+    // Reset all fields
     citySearch.value = '';
     cityValue.value = '';
+    if (cityCodeValue) cityCodeValue.value = '';
     if (barangaySearch) barangaySearch.value = '';
     if (barangayValue) barangayValue.value = '';
+    if (barangayCodeValue) barangayCodeValue.value = '';
+    if ($('regionSelect')) $('regionSelect').value = '';
+    if ($('regionSearch')) $('regionSearch').value = '';
+    if ($('regionValue')) $('regionValue').value = '';
+    if ($('postalCode')) $('postalCode').value = '';
     cityData = [];
     barangayData = [];
+    allPhCities = [];
+    selectedCityObj = null;
+    selectedBrgyObj = null;
+    selectedRegion = '';
+    regionData = [];
+    
+    // Reset shipping selections
+    destinationType = null;
+    deliveryType = null;
+    selectedShippingMethod = null;
+    shippingFee = 0;
+    shippingSelectedRegion = '';
+    destinationTypeLocked = false;
+    $('destNational').classList.remove('selected');
+    $('destInternational').classList.remove('selected');
+    $('deliveryTypeGroup').style.display = 'none';
+    $('shippingOptionsList').innerHTML = '';
+    updateDestinationLockStyles();
     
     if (!countryCode) {
         barangayGroup.style.display = 'none';
+        if (regionGroup) regionGroup.style.display = 'none';
+        if ($('cityDropdown')) $('cityDropdown').classList.remove('active');
+        if ($('barangayDropdown')) $('barangayDropdown').classList.remove('active');
         return;
     }
 
-    selectedCountryConfig = locationConfig.find(c => c.code === countryCode);
+    selectedCountryConfig = locationConfig ? locationConfig.find(c => c.code === countryCode) : null;
     
-    if (!selectedCountryConfig) return;
-
-    // Update labels based on country format
+    // Update labels
     const cityLabel = $('cityLabel');
-    if (cityLabel && selectedCountryConfig.addressFormat.city) {
+    if (cityLabel && selectedCountryConfig && selectedCountryConfig.addressFormat && selectedCountryConfig.addressFormat.city) {
         cityLabel.textContent = selectedCountryConfig.addressFormat.city + ' *';
+    } else if (cityLabel) {
+        cityLabel.textContent = 'City *';
     }
 
     // Toggle Barangay field visibility
-    if (selectedCountryConfig.hasBarangay) {
+    if (selectedCountryConfig && selectedCountryConfig.hasBarangay) {
         barangayGroup.style.display = 'block';
     } else {
         barangayGroup.style.display = 'none';
     }
 
-    try {
-        // Load cities for the selected country
-        const response = await fetch(selectedCountryConfig.citySource);
-        if (!response.ok) throw new Error(`Failed to load ${selectedCountryConfig.citySource}`);
-        
-        const data = await response.json();
-        cityData = data.cities; // Standardized to .cities array
-        
-    } catch (error) {
-        showToast('error', 'Load Error', 'Unable to load cities');
-        console.error('City Load Error:', error);
+    // For PH: auto-assign national shipping and load region selector
+    if (countryCode === 'PH') {
+        destinationTypeLocked = true;
+        selectDestination('national');
+        updateDestinationLockStyles();
+        if (regionGroup) regionGroup.style.display = 'block';
+        try {
+            const citySource = selectedCountryConfig ? selectedCountryConfig.citySource : 'ph_cities.json';
+            const response = await fetch(citySource);
+            if (!response.ok) throw new Error('Failed to load cities');
+            const rawData = await response.json();
+
+            // Support both array format and {cities:[]} format
+            allPhCities = Array.isArray(rawData) ? rawData : (rawData.cities || []);
+
+            // Populate Region data
+            const regions = [...new Set(allPhCities.map(c => c.regDesc).filter(Boolean))].sort();
+            regionData = regions;
+            
+            // Reset region search
+            if ($('regionSearch')) $('regionSearch').value = '';
+            if ($('regionDropdown')) $('regionDropdown').classList.remove('active');
+        } catch (error) {
+            showToast('error', 'Load Error', 'Unable to load city data');
+            console.error('City Load Error:', error);
+        }
+    } else if (countryCode === 'US' || countryCode === 'UK') {
+        destinationTypeLocked = true;
+        selectDestination('international');
+        updateDestinationLockStyles();
+        if (regionGroup) regionGroup.style.display = 'none';
+        if (selectedCountryConfig && selectedCountryConfig.citySource) {
+            try {
+                const response = await fetch(selectedCountryConfig.citySource);
+                if (!response.ok) throw new Error('Failed to load cities');
+                const rawData = await response.json();
+                cityData = Array.isArray(rawData) ? rawData : (rawData.cities || []);
+            } catch (error) {
+                showToast('error', 'Load Error', 'Unable to load cities');
+                console.error('City Load Error:', error);
+            }
+        }
+    } else {
+        destinationTypeLocked = false;
+        updateDestinationLockStyles();
+        if (regionGroup) regionGroup.style.display = 'none';
+        // Non-PH: load cities normally
+        if (selectedCountryConfig && selectedCountryConfig.citySource) {
+            try {
+                const response = await fetch(selectedCountryConfig.citySource);
+                if (!response.ok) throw new Error('Failed to load cities');
+                const rawData = await response.json();
+                cityData = Array.isArray(rawData) ? rawData : (rawData.cities || []);
+            } catch (error) {
+                showToast('error', 'Load Error', 'Unable to load cities');
+                console.error('City Load Error:', error);
+            }
+        }
+    }
+}
+
+/**
+ * Load cities for selected PH region
+ */
+function loadCitiesForRegion() {
+    const regionSelect = $('regionSearch');
+    selectedRegion = regionSelect ? regionSelect.value : '';
+    
+    // Reset city + barangay fields
+    $('citySearch').value = '';
+    $('cityValue').value = '';
+    if ($('cityCodeValue')) $('cityCodeValue').value = '';
+    if ($('barangaySearch')) $('barangaySearch').value = '';
+    if ($('barangayValue')) $('barangayValue').value = '';
+    if ($('barangayCodeValue')) $('barangayCodeValue').value = '';
+    if ($('postalCode')) $('postalCode').value = '';
+    selectedCityObj = null;
+    selectedBrgyObj = null;
+    
+    if ($('regionValue')) $('regionValue').value = selectedRegion;
+
+    const cityDropdown = $('cityDropdown');
+    if (cityDropdown) {
+        cityDropdown.innerHTML = '';
+        cityDropdown.classList.remove('active');
+    }
+    const barangayDropdown = $('barangayDropdown');
+    if (barangayDropdown) {
+        barangayDropdown.innerHTML = '';
+        barangayDropdown.classList.remove('active');
+    }
+    
+    // Filter cities by region
+    cityData = selectedRegion ? allPhCities.filter(c => c.regDesc === selectedRegion) : [];
+
+    if (!selectedRegion && cityDropdown) {
+        cityDropdown.innerHTML = '<div class="no-results">Select a region first to show cities.</div>';
+    }
+    
+    if (destinationType) {
+      renderDeliveryOptions();
+      updateCartSummary();
     }
 }
 
@@ -2546,24 +4014,34 @@ async function loadCountryData() {
 $('citySearch')?.addEventListener('input', (e) => {
     const query = e.target.value.toLowerCase().trim();
     const dropdown = $('cityDropdown');
-    
-    if (!query || cityData.length === 0) {
+
+    if (!dropdown) return;
+    if (!query) {
         dropdown.classList.remove('active');
         return;
     }
 
+    if (cityData.length === 0) {
+        const message = selectedCountryConfig?.code === 'PH' && !selectedRegion
+            ? 'Select a region first to search cities.'
+            : 'No cities are available yet.';
+        dropdown.innerHTML = `<div class="no-results">${message}</div>`;
+        dropdown.classList.add('active');
+        return;
+    }
+
     const filtered = cityData.filter(city => {
-        const name = city.citymunDesc || city.name;
+        const name = city.citymunDesc || city.name || '';
         return name.toLowerCase().includes(query);
-    }).slice(0, 50); // Limit results for performance
+    }).slice(0, 50);
 
     if (filtered.length > 0) {
         dropdown.innerHTML = filtered.map(city => {
-            const name = city.citymunDesc || city.name;
-            const sub = city.regDesc || city.state || city.region || '';
+            const name = city.citymunDesc || city.name || '';
             const code = city.citymunCode || '';
-            return `<div class="search-dropdown-item" onclick="selectCity('${name}', '${code}')">
-                <strong>${name}</strong> ${sub ? `<small style="opacity:0.7; margin-left:8px;">${sub}</small>` : ''}
+            const reg = city.regDesc || '';
+            return `<div class="search-dropdown-item" onclick="selectCity('${name.replace(/'/g, "\\'")}', '${code}', '${reg.replace(/'/g, "\\'")}')">
+                <strong>${name}</strong>${reg ? `<small style="opacity:0.7; margin-left:8px;">${reg}</small>` : ''}
             </div>`;
         }).join('');
         dropdown.classList.add('active');
@@ -2574,21 +4052,94 @@ $('citySearch')?.addEventListener('input', (e) => {
 });
 
 /**
+ * Search and filter regions as user types
+ */
+$('regionSearch')?.addEventListener('input', (e) => {
+    const query = e.target.value.toLowerCase().trim();
+    const dropdown = $('regionDropdown');
+
+    if (!dropdown) return;
+    if (!query) {
+        dropdown.classList.remove('active');
+        return;
+    }
+
+    if (regionData.length === 0) {
+        dropdown.innerHTML = '<div class="no-results">No regions available</div>';
+        dropdown.classList.add('active');
+        return;
+    }
+
+    const filtered = regionData.filter(region => region.toLowerCase().includes(query)).slice(0, 50);
+
+    if (filtered.length > 0) {
+        dropdown.innerHTML = filtered.map(region => `<div class="search-dropdown-item" onclick="selectRegion('${region.replace(/'/g, "\\'")}')">${region}</div>`).join('');
+        dropdown.classList.add('active');
+    } else {
+        dropdown.innerHTML = '<div class="no-results">No regions found</div>';
+        dropdown.classList.add('active');
+    }
+});
+
+/**
  * Select a city from the dropdown
  */
-async function selectCity(name, code) {
+async function selectCity(name, code, regDesc) {
     const citySearch = $('citySearch');
     const cityValue = $('cityValue');
+    const cityCodeValue = $('cityCodeValue');
     const dropdown = $('cityDropdown');
     
     citySearch.value = name;
     cityValue.value = name;
+    if (cityCodeValue) cityCodeValue.value = code;
     dropdown.classList.remove('active');
     
+    // Store selected city object
+    selectedCityObj = cityData.find(c => (c.citymunCode || '') === code) || { citymunDesc: name, citymunCode: code, regDesc: regDesc };
+    
+    // Auto-fill postal code from city (read-only)
+    if (selectedCityObj && selectedCityObj.postalCode) {
+        if ($('postalCode')) $('postalCode').value = selectedCityObj.postalCode;
+        if ($('postalValue')) $('postalValue').value = selectedCityObj.postalCode;
+    } else {
+        if ($('postalCode')) $('postalCode').value = '';
+    }
+
+    // Update region
+    selectedRegion = regDesc;
+    if ($('regionValue')) $('regionValue').value = regDesc || '';
+    
+    // Re-render delivery options if destination selected
+    if (destinationType) {
+        renderDeliveryOptions();
+        updateCartSummary();
+    }
+
     // If country has barangays (like PH), load them based on city code
     if (selectedCountryConfig && selectedCountryConfig.hasBarangay && code) {
+        // Reset barangay
+        if ($('barangaySearch')) $('barangaySearch').value = '';
+        if ($('barangayValue')) $('barangayValue').value = '';
+        if ($('barangayCodeValue')) $('barangayCodeValue').value = '';
+        selectedBrgyObj = null;
         await loadBarangayData(code);
     }
+}
+
+/**
+ * Select a region from the dropdown
+ */
+function selectRegion(name) {
+    const regionSearch = $('regionSearch');
+    const dropdown = $('regionDropdown');
+    
+    regionSearch.value = name;
+    selectedRegion = name;
+    if ($('regionValue')) $('regionValue').value = name;
+    dropdown.classList.remove('active');
+    
+    loadCitiesForRegion();
 }
 
 /**
@@ -2596,16 +4147,27 @@ async function selectCity(name, code) {
  */
 async function loadBarangayData(citymunCode) {
     try {
-        const response = await fetch(selectedCountryConfig.barangaySource);
-        if (!response.ok) throw new Error('Failed to load barangay data');
+        const brgySource = selectedCountryConfig ? selectedCountryConfig.barangaySource : 'ph_barangays.json';
         
-        const data = await response.json();
+        // If we haven't loaded all barangays yet, load them now
+        if (allPhBarangays.length === 0) {
+            const response = await fetch(brgySource);
+            if (!response.ok) throw new Error('Failed to load barangay data');
+            const rawData = await response.json();
+            allPhBarangays = Array.isArray(rawData) ? rawData : (rawData.barangays || []);
+        }
+        
         // Filter barangays by citymunCode
-        barangayData = data.barangays.filter(b => b.citymunCode === citymunCode);
+        barangayData = allPhBarangays.filter(b => b.citymunCode === citymunCode);
         
-        // Reset barangay fields
-        $('barangaySearch').value = '';
-        $('barangayValue').value = '';
+        // Reset barangay fields and dropdown state
+        if ($('barangaySearch')) $('barangaySearch').value = '';
+        if ($('barangayValue')) $('barangayValue').value = '';
+        const barangayDropdown = $('barangayDropdown');
+        if (barangayDropdown) {
+            barangayDropdown.innerHTML = '';
+            barangayDropdown.classList.remove('active');
+        }
         
     } catch (error) {
         showToast('error', 'Load Error', 'Unable to load barangays');
@@ -2617,21 +4179,33 @@ async function loadBarangayData(citymunCode) {
  * Search and filter barangays as user types
  */
 $('barangaySearch')?.addEventListener('input', (e) => {
-    const query = e.target.value.toLowerCase().trim();
+    const query = e.target.value.toLowerCase().trim().replace(/brgy/gi, 'Barangay');
     const dropdown = $('barangayDropdown');
-    
-    if (!query || barangayData.length === 0) {
+
+    if (!dropdown) return;
+    if (!query) {
         dropdown.classList.remove('active');
         return;
     }
 
+    if (barangayData.length === 0) {
+        const message = selectedCityObj?.citymunCode
+            ? 'No barangays found for the selected city.'
+            : 'Select a city first to search barangays.';
+        dropdown.innerHTML = `<div class="no-results">${message}</div>`;
+        dropdown.classList.add('active');
+        return;
+    }
+
     const filtered = barangayData.filter(brgy => 
-        brgy.brgyDesc.toLowerCase().includes(query)
+        (brgy.brgyDesc || '').toLowerCase().includes(query)
     ).slice(0, 50);
 
     if (filtered.length > 0) {
         dropdown.innerHTML = filtered.map(brgy => 
-            `<div class="search-dropdown-item" onclick="selectBarangay('${brgy.brgyDesc}')">${brgy.brgyDesc}</div>`
+            `<div class="search-dropdown-item" onclick="selectBarangay('${(brgy.brgyDesc || '').replace(/'/g, "\\'")}', '${(brgy.brgyCode || '').replace(/'/g, "\\'")}')">
+                ${brgy.brgyDesc}
+            </div>`
         ).join('');
         dropdown.classList.add('active');
     } else {
@@ -2643,10 +4217,19 @@ $('barangaySearch')?.addEventListener('input', (e) => {
 /**
  * Select a barangay from the dropdown
  */
-function selectBarangay(name) {
+function selectBarangay(name, code) {
     $('barangaySearch').value = name;
     $('barangayValue').value = name;
+    if ($('barangayCodeValue')) $('barangayCodeValue').value = code;
     $('barangayDropdown').classList.remove('active');
+    
+    // Store full barangay object
+    selectedBrgyObj = barangayData.find(b => b.brgyCode === code) || { brgyDesc: name, brgyCode: code };
+    
+    // Update postal from barangay if city didn't provide one
+    if (!$('postalCode').value && selectedBrgyObj && selectedBrgyObj.postalCode) {
+        $('postalCode').value = selectedBrgyObj.postalCode;
+    }
 }
 
 /**
@@ -2670,25 +4253,37 @@ function validateLocationInput() {
 
     if (!country) return false;
 
+    let isValid = true;
+
     // Check if city exists in loaded data
-    const validCity = cityData.find(c => (c.citymunDesc || c.name).toLowerCase() === cityInput.toLowerCase());
+    const validCity = cityData.find(c => (c.citymunDesc || c.name || '').toLowerCase() === cityInput.toLowerCase());
     if (validCity) {
         cityVal.value = validCity.citymunDesc || validCity.name;
+        if (!selectedRegion && validCity.regDesc) {
+            selectedRegion = validCity.regDesc;
+            if ($('regionValue')) $('regionValue').value = selectedRegion;
+        }
     } else {
         cityVal.value = '';
+        isValid = false;
     }
 
     // Check if barangay exists if required
     if (selectedCountryConfig?.hasBarangay) {
-        const validBrgy = barangayData.find(b => b.brgyDesc.toLowerCase() === brgyInput.toLowerCase());
+        const validBrgy = barangayData.find(b => (b.brgyDesc || '').toLowerCase() === (brgyInput || '').toLowerCase());
         if (validBrgy) {
             brgyVal.value = validBrgy.brgyDesc;
         } else {
             brgyVal.value = '';
+            isValid = false;
         }
     }
 
-    return true;
+    if (selectedCountryConfig?.code === 'PH' && !selectedRegion) {
+        isValid = false;
+    }
+
+    return isValid;
 }
 
 // Initialize on load
@@ -2698,6 +4293,127 @@ document.addEventListener('DOMContentLoaded', initLocationSystem);
 // ============================================
 // SHIPPING & VOUCHER SYSTEM
 // ============================================
+
+function updateDestinationLockStyles() {
+    const national = $('destNational');
+    const international = $('destInternational');
+    if (destinationTypeLocked) {
+        if (national) national.classList.toggle('locked', destinationType !== 'national');
+        if (international) international.classList.toggle('locked', destinationType !== 'international');
+    } else {
+        if (national) national.classList.remove('locked');
+        if (international) international.classList.remove('locked');
+    }
+}
+
+function selectDestination(type) {
+    if (destinationTypeLocked && destinationType && type !== destinationType) return;
+    destinationType = type;
+    
+    // Update UI
+    $('destNational').classList.toggle('selected', type === 'national');
+    $('destInternational').classList.toggle('selected', type === 'international');
+    updateDestinationLockStyles();
+    
+    // Show delivery type options
+    $('deliveryTypeGroup').style.display = 'block';
+    
+    // Reset delivery type
+    deliveryType = null;
+    selectedShippingMethod = null;
+    shippingFee = 0;
+    
+    // Render delivery options
+    renderDeliveryOptions();
+    updateCartSummary();
+    updateCheckoutSummary();
+    
+    // Hide shipping error
+    $('shippingError').classList.remove('show');
+}
+
+function renderDeliveryOptions() {
+    const container = $('shippingOptionsList');
+    if (!destinationType) {
+        container.innerHTML = '';
+        return;
+    }
+    
+    const options = [
+        { type: 'standard', label: 'Standard Delivery', time: '4–7 days' },
+        { type: 'express', label: 'Express Delivery', time: '1–3 days' }
+    ];
+    
+    container.innerHTML = options.map(option => {
+        const baseFee = calculateBaseShippingFee();
+        const expressFee = option.type === 'express' ? calculateExpressFee() : 0;
+        const totalFee = baseFee + expressFee;
+        const surchargeText = option.type === 'express'
+            ? `+${formatPrice(calculateExpressFee())}`
+            : 'No extra fee';
+        
+        return `
+            <div class="shipping-option" data-method="${destinationType}-${option.type}" data-price="${totalFee}" onclick="selectDelivery(this, '${option.type}')">
+                <div class="shipping-option-title">
+                    <i class="fa-solid fa-truck"></i> ${option.label}
+                </div>
+                <div class="shipping-option-price">${formatPrice(totalFee)}</div>
+                <div class="shipping-option-time">${option.time}</div>
+                <div class="shipping-option-note">${surchargeText}</div>
+            </div>
+        `;
+    }).join('');
+}
+
+function onShippingRegionChange() {
+    const rSel = $('shippingRegionSelect');
+    shippingSelectedRegion = rSel ? rSel.value : '';
+    // Re-render delivery options with new region's base fee
+    renderDeliveryOptions();
+    updateCartSummary();
+    if ($('shippingRegionError')) $('shippingRegionError').classList.remove('show');
+}
+
+function calculateBaseShippingFee() {
+    if (!destinationType) return 0;
+    // Simplified: PH = ₱100, International = ₱200
+    return destinationType === 'international' ? 200 : 100;
+}
+
+function calculateExpressFee() {
+    // Express adds ₱200 (converted to current currency)
+    return 200;
+}
+
+function updateShippingRatesDisplay() {
+    // Legacy rate display elements removed; delivery options re-render handles updates
+    renderDeliveryOptions && renderDeliveryOptions();
+}
+
+function selectDelivery(element, type) {
+    deliveryType = type;
+
+    // Update UI
+    $$('#shippingOptionsList .shipping-option').forEach(opt => opt.classList.remove('selected'));
+    element.classList.add('selected');
+
+    // Calculate total shipping fee
+    const baseFee = calculateBaseShippingFee();
+    const expressFee = type === 'express' ? calculateExpressFee() : 0;
+    shippingFee = baseFee + expressFee;
+
+    // Update selected shipping method
+    selectedShippingMethod = `${destinationType}-${type}`;
+
+    // Update display
+    updateShippingDisplay();
+    updateCartSummary();
+    updateCheckoutSummary();
+
+    // Hide error
+    $('shippingError').classList.remove('show');
+}
+
 function selectShipping(method, fee) {
   selectedShippingMethod = method;
   shippingFee = fee;
@@ -2733,6 +4449,8 @@ function applyVoucher() {
     $('voucherName').textContent = 'CSSP10 (10% off)';
     $('voucherApplied').classList.add('active');
     showToast('success', 'Voucher Applied', '10% discount applied to your order');
+    updateCartSummary();
+    updateCheckoutSummary();
   } else if (code === 'FREESHIP') {
     voucherType = 'freeship';
     voucherDiscount = 0;
@@ -2740,6 +4458,8 @@ function applyVoucher() {
     $('voucherName').textContent = 'FREESHIP';
     $('voucherApplied').classList.add('active');
     showToast('success', 'Voucher Applied', 'Free shipping applied to your order');
+    updateCartSummary();
+    updateCheckoutSummary();
   } else {
     showToast('error', 'Invalid Voucher', 'This voucher code is not valid');
   }
@@ -2752,6 +4472,8 @@ function removeVoucher() {
   $('voucherCode').value = '';
   $('voucherApplied').classList.remove('active');
   showToast('success', 'Voucher Removed', 'Discount code removed');
+  updateCartSummary();
+  updateCheckoutSummary();
 }
 
 // ============================================
@@ -2781,49 +4503,30 @@ function toggleCardVisibility() {
 }
 
 async function processPayment() {
-  // Validate searchable inputs match list
-  validateLocationInput();
-
-  // Validate shipping info
-  const country = $('country').value;
-  const city = $('cityValue').value;
-  const barangay = $('barangayValue').value;
-  const street = $('streetAddress').value.trim();
-  const postal = $('postalCode').value.trim();
-
   let hasError = false;
 
   // Reset errors
   $$('.error-text').forEach(el => el.classList.remove('show'));
 
-  if (!country) {
-    $('countryError').textContent = 'Please select a country';
-    $('countryError').classList.add('show');
-    hasError = true;
-  }
-
-  if (!city) {
-    $('cityError').textContent = 'Please select a city';
-    $('cityError').classList.add('show');
-    hasError = true;
-  }
-
-  if (country === 'PH' && !barangay) {
-    $('barangayError').textContent = 'Please select a barangay';
-    $('barangayError').classList.add('show');
-    hasError = true;
-  }
-
-  if (!street) {
-    $('addressError').textContent = 'Please enter your street address';
-    $('addressError').classList.add('show');
-    hasError = true;
-  }
-
-  if (!selectedShippingMethod) {
-    $('shippingError').textContent = 'Please select a shipping method';
+  if (!destinationType) {
+    $('shippingError').textContent = 'Please select a destination';
     $('shippingError').classList.add('show');
     hasError = true;
+  }
+
+  if (!deliveryType) {
+    $('shippingError').textContent = 'Please select a delivery type';
+    $('shippingError').classList.add('show');
+    hasError = true;
+  }
+
+  const agreed = $('agreePolicy')?.checked;
+  if (!agreed) {
+    $('agreeError').textContent = 'You must agree to the shipping policy, terms and privacy policy';
+    $('agreeError').classList.add('show');
+    hasError = true;
+  } else {
+    $('agreeError').classList.remove('show');
   }
 
   if (!selectedPaymentMethod) {
@@ -2837,13 +4540,11 @@ async function processPayment() {
     return;
   }
 
-  // Store address data
-  orderData.country = country;
-  orderData.city = city;
-  orderData.barangay = barangay;
-  orderData.street = street;
-  orderData.postal = postal;
+  // Store shipping data
+  orderData.destinationType = destinationType;
+  orderData.deliveryType = deliveryType;
   orderData.shippingMethod = selectedShippingMethod;
+  orderData.shippingFee = shippingFee;
   orderData.paymentMethod = selectedPaymentMethod;
 
   // Process based on payment method
@@ -2916,15 +4617,21 @@ function completeOrder() {
 function populateReceipt() {
   const receipt = $('receiptDetails');
   
+  // Items HTML - include category, size, qty, unit price, subtotal
   let itemsHTML = orderData.items.map(item => `
-    <div class="receipt-row">
-      <span>${item.name} (x${item.quantity})</span>
-      <span>${formatPrice(item.price * item.quantity)}</span>
+    <div class="receipt-row" style="flex-direction:column; align-items:flex-start; gap:4px;">
+      <div style="width:100%; display:flex; justify-content:space-between; font-weight:700;">
+        <span>${item.name}</span>
+        <span>${formatPrice(item.price * item.quantity)}</span>
+      </div>
+      <div style="font-size:0.82rem; color:var(--text-muted);">
+        Category: ${item.type} &nbsp;·&nbsp; Size: ${item.size} &nbsp;·&nbsp; Qty: ${item.quantity} &nbsp;·&nbsp; Unit: ${formatPrice(item.price)}
+      </div>
     </div>
   `).join('');
   
   let barangayRow = '';
-  if (orderData.country === 'PH') {
+  if (orderData.country === 'PH' && orderData.barangay) {
     barangayRow = `
       <div class="receipt-row">
         <span>Barangay:</span>
@@ -2937,15 +4644,17 @@ function populateReceipt() {
   if (orderData.discount > 0) {
     discountRow = `
       <div class="receipt-row">
-        <span>Discount (${orderData.voucher}):</span>
+        <span>Voucher Discount (${orderData.voucher}):</span>
         <span style="color: var(--green)">-${formatPrice(orderData.discount)}</span>
       </div>
     `;
   }
+
+  const deliveryLabel = orderData.deliveryType === 'express' ? 'Express (1–3 days)' : 'Standard (4–7 days)';
   
   receipt.innerHTML = `
     <div class="receipt-section">
-      <h4>Customer Information</h4>
+      <h4><i class="fa-solid fa-user" style="margin-right:8px;"></i>Customer Details</h4>
       <div class="receipt-row">
         <span>Name:</span>
         <span>${orderData.firstName} ${orderData.lastName}</span>
@@ -2956,12 +4665,12 @@ function populateReceipt() {
       </div>
       <div class="receipt-row">
         <span>Phone:</span>
-        <span>${orderData.phoneCountry} - ${orderData.phone}</span>
+        <span>${orderData.phoneCountry} – ${orderData.phone}</span>
       </div>
     </div>
     
     <div class="receipt-section">
-      <h4>Shipping Address</h4>
+      <h4><i class="fa-solid fa-location-dot" style="margin-right:8px;"></i>Shipping Address</h4>
       <div class="receipt-row">
         <span>Country:</span>
         <span>${orderData.country}</span>
@@ -2975,35 +4684,48 @@ function populateReceipt() {
         <span>Street:</span>
         <span>${orderData.street}</span>
       </div>
+      ${orderData.postal ? `<div class="receipt-row"><span>Postal:</span><span>${orderData.postal}</span></div>` : ''}
+    </div>
+    
+    <div class="receipt-section">
+      <h4><i class="fa-solid fa-box-open" style="margin-right:8px;"></i>Order Details</h4>
+      ${itemsHTML}
+    </div>
+
+    <div class="receipt-section">
+      <h4><i class="fa-solid fa-truck" style="margin-right:8px;"></i>Shipping Info</h4>
       <div class="receipt-row">
-        <span>Postal:</span>
-        <span>${orderData.postal}</span>
+        <span>Delivery Type:</span>
+        <span>${deliveryLabel}</span>
+      </div>
+      <div class="receipt-row">
+        <span>Shipping Fee:</span>
+        <span>${formatPrice(orderData.shippingFee)}</span>
       </div>
     </div>
     
     <div class="receipt-section">
-      <h4>Order Summary</h4>
-      ${itemsHTML}
-      <div class="receipt-row" style="margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border);">
+      <h4><i class="fa-solid fa-receipt" style="margin-right:8px;"></i>Payment Summary</h4>
+      <div class="receipt-row">
         <span>Subtotal:</span>
         <span>${formatPrice(orderData.subtotal)}</span>
       </div>
+      ${discountRow}
       <div class="receipt-row">
-        <span>Shipping (${orderData.shippingMethod}):</span>
+        <span>Shipping:</span>
         <span>${formatPrice(orderData.shippingFee)}</span>
       </div>
-      ${discountRow}
       <div class="receipt-row total">
-        <span>Total:</span>
+        <span>Total Paid:</span>
         <span>${formatPrice(orderData.total)}</span>
       </div>
     </div>
     
     <div class="receipt-section">
-      <h4>Payment Method</h4>
+      <h4><i class="fa-solid fa-credit-card" style="margin-right:8px;"></i>Payment Method</h4>
       <div class="receipt-row">
         <span>${orderData.paymentMethod === 'card' ? 'Credit Card' : 'PayPal'}</span>
-        <span><i class="fa-solid fa-check-circle" style="color: var(--green);"></i></span>
+        <span><i class="fa-solid fa-check-circle" style="color: var(--green);"></i> Confirmed</span>
       </div>
     </div>
   `;
@@ -3039,22 +4761,21 @@ function showPayPalLogin() {
   });
 }
 
-function startTrackingAnimation() {
+function startTrackingAnimation(stage = 2) {
   const steps = ['track1', 'track2', 'track3', 'track4'];
   const progress = $('trackingProgress');
-  
-  let current = 0;
-  
-  function animateStep() {
-    if (current < steps.length) {
-      $(steps[current]).classList.add('active');
-      progress.style.width = `${(current / (steps.length - 1)) * 100}%`;
-      current++;
-      setTimeout(animateStep, 800);
-    }
+  const target = Math.min(Math.max(stage, 1), steps.length);
+
+  steps.forEach((stepId, index) => {
+    const step = $(stepId);
+    if (!step) return;
+    step.classList.toggle('active', index < target);
+  });
+
+  if (progress) {
+    const width = target > 1 ? ((target - 1) / (steps.length - 1)) * 100 : 0;
+    progress.style.width = `${width}%`;
   }
-  
-  setTimeout(animateStep, 500);
 }
 
 // ============================================
@@ -3063,6 +4784,14 @@ function startTrackingAnimation() {
 function downloadReceipt() {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
+  
+  // Helper function for PDF-safe price formatting
+  function formatPriceForPDF(amount) {
+    if (currentCurrency === 'PHP') {
+      return `PHP ${amount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    }
+    return formatPrice(amount);
+  }
   
   // Header
   doc.setFontSize(20);
@@ -3119,28 +4848,28 @@ function downloadReceipt() {
   y += 8;
   orderData.items.forEach(item => {
     doc.text(`${item.name} (x${item.quantity})`, 20, y);
-    doc.text(formatPrice(item.price * item.quantity), 170, y);
+    doc.text(formatPriceForPDF(item.price * item.quantity), 170, y, { align: 'right' });
     y += 6;
   });
   
   // Totals
   y += 6;
   doc.text('Subtotal:', 20, y);
-  doc.text(formatPrice(orderData.subtotal), 170, y);
+  doc.text(formatPriceForPDF(orderData.subtotal), 170, y, { align: 'right' });
   y += 6;
   doc.text(`Shipping (${orderData.shippingMethod}):`, 20, y);
-  doc.text(formatPrice(orderData.shippingFee), 170, y);
+  doc.text(formatPriceForPDF(orderData.shippingFee), 170, y, { align: 'right' });
   
   if (orderData.discount > 0) {
     y += 6;
     doc.text(`Discount (${orderData.voucher}):`, 20, y);
-    doc.text(`-${formatPrice(orderData.discount)}`, 170, y);
+    doc.text(`-${formatPriceForPDF(orderData.discount)}`, 170, y, { align: 'right' });
   }
   
   y += 8;
   doc.setFont(undefined, 'bold');
   doc.text('Total:', 20, y);
-  doc.text(formatPrice(orderData.total), 170, y);
+  doc.text(formatPriceForPDF(orderData.total), 170, y, { align: 'right' });
   
   // Payment Method
   y += 12;
@@ -3185,12 +4914,24 @@ function resetCheckoutForm() {
   voucherType = null;
   voucherDiscount = 0;
   voucherCode = null;
+  destinationType = null;
+  deliveryType = null;
+  shippingSelectedRegion = '';
+  destinationTypeLocked = false;
+  
+  if ($('regionSearch')) $('regionSearch').value = '';
+  if ($('regionGroup')) $('regionGroup').style.display = 'none';
   
   $$('.payment-method').forEach(pm => pm.classList.remove('selected'));
   $$('.shipping-option').forEach(so => so.classList.remove('selected'));
   $('cardFields').classList.remove('active');
   $('voucherApplied').classList.remove('active');
   $('voucherCode').value = '';
+  
+  if ($('destNational')) $('destNational').classList.remove('selected', 'locked');
+  if ($('destInternational')) $('destInternational').classList.remove('selected', 'locked');
+  if ($('deliveryTypeGroup')) $('deliveryTypeGroup').style.display = 'none';
+  if ($('shippingOptionsList')) $('shippingOptionsList').innerHTML = '';
   
   $('cardName').value = '';
   $('cardNumber').value = '';
@@ -3218,7 +4959,5 @@ updateCartBadge();
 updateCurrencyDisplay();
 renderCart();
         </script>
-    </body>
-</html>
     </body>
 </html>
