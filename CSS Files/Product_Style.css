@@ -43,6 +43,8 @@
   --radius:      16px;
   --radius-sm:   8px;
   --transition:  0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --item:        #c0ddff;
+  --item-text:   #000000;
 }
 
 /* dark mode – triggered by [data-theme="dark"] on <html> */
@@ -55,6 +57,8 @@
   --border:      #2a4060;
   --shadow:      0 4px 24px rgba(0,0,0,0.35);
   --shadow-lg:   0 12px 48px rgba(0,0,0,0.55);
+  --item:        #f8ffc0;
+  --item-text:   #ffffff;
 }
 
 *, *::before, *::after { 
@@ -1252,7 +1256,7 @@ body > * {
 }
 
 .modal-features {
-  margin: 10px 0 18px;
+  margin: 10px 0 10px;
   display: flex;
   flex-direction: column;
   gap: 5px;
@@ -1300,15 +1304,110 @@ body > * {
   border: none;
   border-radius: 30px;
   background: var(--navy);
-  color: white;
+  color: var(--yellow);
   text-transform: uppercase;
   font-weight: bold;
   cursor: pointer;
+  border: 2px solid var(--yellow);
+}
+
+.modal-actions button:hover {
+  background: var(--yellow);
+  color: var(--navy);
+  border: 2px solid var(--navy);
 }
 
 [data-theme="dark"] .modal-actions button {
   background: var(--yellow);
   color: var(--navy);
+  border: 2px solid var(--navy);
+}
+
+[data-theme="dark"] .modal-actions button:hover {
+  background: var(--navy);
+  color: var(--yellow);
+  border: 2px solid var(--yellow);
+}
+
+.modal-care, .modal-material {
+  margin-top: 6px;
+  padding-top: 6px;
+}
+
+ .modal-care h4, .modal-material h4 {
+  font-family: 'Creato Display', sans-serif;
+  text-transform: uppercase;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+
+.care-item, .material-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 8px;
+  border-radius: 8px;
+  font-size: 13px;
+  color: var(--item-text);
+  transition: 0.2s ease;
+}
+
+.care-item i, .material-item i {
+  width: 18px;
+  text-align: center;
+  color: var(--navy);
+  font-size: 14px;
+}
+
+[data-theme="dark"] .care-item i, [data-theme="dark"] .material-item i {
+  color: var(--yellow);
+}
+
+.care-item:hover, .material-item:hover{
+  background: var(--item);
+  color: black;
+}
+
+[data-theme="dark"] .care-item:hover i, [data-theme="dark"] .material-item:hover i {
+  color: var(--navy);
+}
+
+#modalMaterial {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-top: 10px;
+}
+
+#modalCare {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.care-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 10px 12px;
+  border: 1.5px solid #ccc;
+  border-radius: 999px; /* makes it pill-shaped */
+
+  font-size: 13px;
+  background: transparent;
+  transition: 0.2s ease;
+}
+
+@media (max-width: 600px) {
+  #modalMaterial,
+  #modalCare {
+    grid-template-columns: 1fr;
+  }
 }
 
 .size-notif {
