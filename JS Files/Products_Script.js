@@ -203,7 +203,10 @@ $$('#currencyDropdown li').forEach(item => {
       const base = parseFloat(el.dataset.base || "0");
       const { symbol, rate } = rates[chosen];
 
-      el.textContent = symbol + (base * rate).toFixed(2);
+      el.textContent = symbol + (base * rate).toLocaleString(undefined, {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
     });
   });
 });
@@ -334,6 +337,19 @@ function openCartModal(btn) {
   const type = card.dataset.type;
   const price = card.dataset.price;
 
+  const priceEl = document.getElementById("modalProductPrice");
+
+  if (priceEl) {
+    const base = parseFloat(price);
+    
+    const { symbol, rate } = rates[currentCurrency] || { symbol: "₱", rate: 1 };
+
+    priceEl.textContent = symbol + (base * rate).toLocaleString(undefined, {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
+  }
+
   const front = card.dataset.front;
   const back = card.dataset.back;
   const extra1 = card.dataset.extra1;
@@ -347,6 +363,170 @@ function openCartModal(btn) {
   };
 
   document.getElementById("modalProductName").textContent = name;
+
+  const featuresBox = document.getElementById("modalFeatures");
+
+  if (featuresBox) {
+    let features = [];
+
+    if (name.includes("Coverall")) {
+      features = [
+        "Reflectorized Safety Design",
+        "Heavy Duty Cotton Twill",
+        "Trusted for Deck Operations"
+      ];
+    }
+
+    else if (
+      name.includes("Chef's Polo Long Sleeve") ||
+      name.includes("Kitchen Crew Polo")
+    ) {
+      features = [
+        "Heatproof Uniform for Cooking Environments",
+        "Breathable Fabric for Hot Kitchens",
+        "Comfortable Fit for Long Shifts"
+      ];
+    }
+
+    else if (
+      name.includes("Chef's Pants") ||
+      name.includes("Checkered Pants")
+    ) {
+      features = [
+        "Heat-Resistant Fabric for High Heat Kitchens",
+        "Protective Design for Safety in Cooking",
+        "Reinforced Stitching for Durability"
+      ];
+    }
+
+    else if (
+      name.includes("Winter Jacket") ||
+      name.includes("Ordinary Jacket")
+    ) {
+
+      features = [
+        "Reflectorized Design for Night Visibility",
+        "Wind-Resistant Outer Layer",
+        "Durable Stitching for Long-Term Use"
+      ];
+
+      if (name.includes("Winter Jacket")) {
+        features[1] = "Insulated + Wind-Resistant Protection for Cold Weather";
+      }
+
+      else if (name.includes("Ordinary Jacket")) {
+        features[1] = "Lightweight Wind-Resistant Protection for Daily Wear";
+      }
+    }
+
+    else if (name.includes("MG Safety (High Cut)")) {
+      features = [
+        "Steel Toe Cap Protection",
+        "High-Cut Design for Ankle Support",
+        "Puncture-Resistant Midsole"
+      ];
+    }
+
+    else if (
+      name.includes("Rockwinner") ||
+      name.includes("MG Safety (Low Cut)")
+    ) {
+      features = [
+        "Low-Cut Design for Lightweight Movement",
+        "Steel Toe Protection",
+        "Slip-Resistant Outsole for Stable Grip"
+      ];
+    }
+
+    featuresBox.innerHTML = features.map(item => `
+      <div class="feature-item">
+        <i class="fa-solid fa-circle-check"></i> ${item}
+      </div>
+    `).join("");
+  }
+
+  const materialBox = document.getElementById("modalMaterial");
+  const material = card.dataset.material;
+
+  if (materialBox) {
+    materialBox.innerHTML = material
+      ? material.split(",").map(item => `
+          <div class="care-item">
+            <i class="fa-solid fa-layer-group"></i>
+            <span>${item.trim()}</span>
+          </div>
+        `).join("")
+      : `<div class="care-item">
+          <i class="fa-solid fa-circle-exclamation"></i>
+          <span>No material info available.</span>
+        </div>`;
+  }
+
+  const careBox = document.getElementById("modalCare");
+
+  let care = [];
+
+  if (name.includes("Coverall")) {
+    care = [
+      "Machine wash cold",
+      "Do not bleach",
+      "Tumble dry low",
+      "Iron on medium heat if needed"
+    ];
+  }
+
+  else if (name.includes("Chef") || name.includes("Kitchen")) {
+    care = [
+      "Wash after every use",
+      "Use mild detergent",
+      "Do not use harsh bleach",
+      "Air dry recommended"
+    ];
+  }
+
+  else if (name.includes("Jacket")) {
+    care = [
+      "Dry clean recommended",
+      "Do not wring",
+      "Hang dry only",
+      "Avoid high heat ironing"
+    ];
+  }
+
+  else if (name.includes("MG Safety") || name.includes("Rockwinner")) {
+    care = [
+      "Wipe with damp cloth",
+      "Do not machine wash",
+      "Air dry only",
+      "Keep away from direct heat"
+    ];
+  }
+
+  if (careBox) {
+    const careIcons = {
+      wash: "fa-solid fa-soap",
+      dry: "fa-solid fa-wind",
+      iron: "fa-solid fa-temperature-high",
+      bleach: "fa-solid fa-flask",
+      warning: "fa-solid fa-triangle-exclamation"
+    };
+
+    careBox.innerHTML = care.map(item => {
+      let icon = careIcons.warning;
+
+      if (item.toLowerCase().includes("wash")) icon = careIcons.wash;
+      else if (item.toLowerCase().includes("dry")) icon = careIcons.dry;
+      else if (item.toLowerCase().includes("iron")) icon = careIcons.iron;
+      else if (item.toLowerCase().includes("bleach")) icon = careIcons.bleach;
+
+      return `
+        <div class="care-item">
+          <i class="${icon}"></i>
+          <span>${item}</span>
+        </div>
+      `;
+    }).join("");
+  }
 
   const sizeSelect = document.getElementById("modalSize");
   sizeSelect.innerHTML = `<option value="" disabled selected>Select size</option>`;
@@ -363,11 +543,6 @@ function openCartModal(btn) {
 
   if (type === "Shoes") {
     sizeSelect.innerHTML += `
-      <option value="36">36</option>
-      <option value="37">37</option>
-      <option value="38">38</option>
-      <option value="39">39</option>
-      <option value="40">40</option>
       <option value="41">41</option>
       <option value="42">42</option>
       <option value="43">43</option>
@@ -377,10 +552,11 @@ function openCartModal(btn) {
   }
 
   images = [];
-  if (front) images.push(front);
-  if (back) images.push(back);
   if (extra1) images.push(extra1);
   if (extra2) images.push(extra2);
+  if (front) images.push(front);
+  if (back) images.push(back);
+  
 
   if (images.length === 0) {
     const img = card.querySelector("img");
@@ -439,16 +615,38 @@ function confirmAddToCart() {
   if (qtyNotif) qtyNotif.style.display = "none";
 
   if (size == "") {
-    sizeNotif.textContent = "⚠ Please select a size.";
+    sizeNotif.textContent = "⚠ Please select a size before adding to cart.";
     sizeNotif.style.display = "block";
-    showToast('error', 'Missing Size', 'Please select a size');
+
+      setTimeout(() => {
+        sizeNotif.style.display = "none";
+      }, 2000);
+      
+    shakeModal();
     hasError = true;
   }
 
   if (qty <= 0) {
     qtyNotif.textContent = "⚠ Quantity must be at least 1.";
     qtyNotif.style.display = "block";
-    showToast('error', 'Invalid Quantity', 'Quantity must be at least 1');
+
+      setTimeout(() => {
+        qtyNotif.style.display = "none";
+      }, 2000);
+
+    shakeModal();
+    hasError = true;
+  } 
+
+  else if (qty > 50) {
+    qtyNotif.textContent = "⚠ Maximum order per product is 50 pieces only. For bulk orders, please proceed to the Contact Page to get in touch with our team.";
+    qtyNotif.style.display = "block";
+
+      setTimeout(() => {
+        qtyNotif.style.display = "none";
+      }, 2000);
+        
+    shakeModal();
     hasError = true;
   }
 
