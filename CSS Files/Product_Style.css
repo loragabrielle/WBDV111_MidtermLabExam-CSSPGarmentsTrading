@@ -1234,6 +1234,11 @@ body > * {
 .form-group label {
   margin-bottom: 6px;
   font-weight: 600;
+  font-family: 'Creato Display', sans-serif;
+  text-transform: uppercase;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
 }
 
 @media (max-width: 768px) {
