@@ -1209,6 +1209,7 @@ body > * {
   display: block;
 }
 
+
 /* right side (for details) */
 .modal-right {
   padding: 25px;
@@ -1218,6 +1219,28 @@ body > * {
   position: relative;
 }
 
+.modal-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .modal-form-row {
+    grid-template-columns: 1fr;
+  }
+}
 
 /* close button */
 .modal-close {
@@ -1225,12 +1248,23 @@ body > * {
   top: 15px;
   right: 15px;
   border: none;
-  background: #eee;
+  background: transparent;
   border-radius: 50%;
   width: 35px;
   height: 35px;
   cursor: pointer;
   font-size: 16px;
+}
+
+.modal-close {
+  font-size: 1.5rem;
+  color: var(--text-muted);
+  transition: var(--transition);
+}
+
+.modal-close:hover {
+  color: var(--red);
+  transform: rotate(90deg);
 }
 
 .modal-right {
@@ -1296,7 +1330,7 @@ body > * {
   width: 100%;
   display: flex;
   justify-content: center; 
-  margin-top: auto; 
+  margin-top: 10px; 
 }
 
 .modal-actions button {
