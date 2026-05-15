@@ -1410,6 +1410,136 @@ body > * {
   }
 }
 
+
+/* Toast notification - PREMIUM POSITIONING */
+#toastContainer {
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 480px;
+  width: 90%;
+}
+
+.toast {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px 20px;
+  background: var(--surface);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-100px);
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.toast.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.toast.success {
+  border-left: 4px solid var(--green);
+}
+
+.toast.error {
+  border-left: 4px solid var(--red);
+}
+
+/* TOAST SYSTEM - warning type */
+.toast.warning {
+  border-left: 4px solid var(--yellow);
+}
+
+.toast.warning .toast-icon {
+  background: var(--yellow);
+  color: var(--navy);
+}
+
+.toast-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.toast.success .toast-icon {
+  background: var(--green);
+  color: var(--white);
+}
+
+.toast.error .toast-icon {
+  background: var(--red);
+  color: var(--white);
+}
+
+/* SHIPPING - region selector */
+#shippingRegionGroup select {
+  height: 48px;
+}
+
+.toast-content {
+  flex: 1;
+}
+
+.toast-title {
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin-bottom: 4px;
+  color: var(--text);
+}
+
+.toast-message {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.toast-close {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  transition: var(--transition);
+  flex-shrink: 0;
+}
+
+.toast-close:hover {
+  color: var(--text);
+}
+
+.toast-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.toast-action {
+  padding: 8px 12px;
+  background: var(--navy);
+  color: var(--yellow);
+  border-radius: 999px;
+  font-weight: 700;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.toast-action:hover {
+  background: var(--yellow);
+  color: var(--navy);
+}
+
+
 .size-notif {
   display: none;
   padding: 10px 12px;
@@ -1536,6 +1666,10 @@ body > * {
   justify-content: center;
   background: rgba(0,0,0,0.4);
   z-index: 10000;
+}
+
+.success-modal {
+  z-index: 999999;
 }
 
 .success-modal.active {
@@ -1878,6 +2012,10 @@ body > * {
 
   .hero-title { 
     font-size: 3rem; 
+  }
+
+  #toastContainer {
+    width: 95%;
   }
 }
 
