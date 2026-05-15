@@ -1396,7 +1396,7 @@ body > * {
 
   padding: 10px 12px;
   border: 1.5px solid var(--text-muted);
-  border-radius: 999px; /* makes it pill-shaped */
+  border-radius: 999px;
 
   font-size: 13px;
   background: transparent;
