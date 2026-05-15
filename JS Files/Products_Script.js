@@ -606,46 +606,34 @@ function confirmAddToCart() {
   let size = document.getElementById("modalSize").value;
   let qty = Number(document.getElementById("modalQty").value);
 
-  let sizeNotif = document.getElementById("sizeNotif");
-  let qtyNotif = document.getElementById("qtyNotif");
-
   let hasError = false;
 
-  if (sizeNotif) sizeNotif.style.display = "none";
-  if (qtyNotif) qtyNotif.style.display = "none";
-
   if (size == "") {
-    sizeNotif.textContent = "⚠ Please select a size before adding to cart.";
-    sizeNotif.style.display = "block";
-
-      setTimeout(() => {
-        sizeNotif.style.display = "none";
-      }, 2000);
-      
+    showToast(
+      "error",
+      "No Size Selected",
+      "Please select a size before adding to cart."
+    );
     shakeModal();
     hasError = true;
   }
 
   if (qty <= 0) {
-    qtyNotif.textContent = "⚠ Quantity must be at least 1.";
-    qtyNotif.style.display = "block";
-
-      setTimeout(() => {
-        qtyNotif.style.display = "none";
-      }, 2000);
-
+    showToast(
+      "warning",
+      "Invalid Quantity",
+      "Quantity must be at least 1."
+    );
     shakeModal();
     hasError = true;
   } 
 
   else if (qty > 50) {
-    qtyNotif.textContent = "⚠ Maximum order per product is 50 pieces only. For bulk orders, please proceed to the Contact Page to get in touch with our team.";
-    qtyNotif.style.display = "block";
-
-      setTimeout(() => {
-        qtyNotif.style.display = "none";
-      }, 2000);
-        
+    showToast(
+      "warning",
+      "Bulk Order Limit",
+      "Maximum order per product is 50 pieces only. For bulk orders, please proceed to the Contact Page to get in touch with our team."
+    );
     shakeModal();
     hasError = true;
   }
@@ -664,10 +652,45 @@ function confirmAddToCart() {
   saveCart(cartItem);
 
   closeCartModal();
-  showToast('success', 'Added to Cart!', `${qty}x ${currentProductData.name} (${size})`);
   showSuccessModal();
-} 
+}
 
+function showToast(type, title, message) {
+  const container = document.getElementById("toastContainer");
+  if (!container) return;
+
+  const toast = document.createElement("div");
+  toast.className = `toast ${type}`;
+
+  const icon =
+    type === "success"
+      ? "fa-check"
+      : type === "error"
+      ? "fa-xmark"
+      : "fa-triangle-exclamation";
+
+  toast.innerHTML = `
+    <div class="toast-icon">
+      <i class="fa-solid ${icon}"></i>
+    </div>
+    <div class="toast-content">
+      <div class="toast-title">${title}</div>
+      <div class="toast-message">${message}</div>
+    </div>
+    <button class="toast-close" onclick="this.parentElement.remove()">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  `;
+
+  container.appendChild(toast);
+
+  setTimeout(() => toast.classList.add("show"), 10);
+
+  setTimeout(() => {
+    toast.classList.remove("show");
+    setTimeout(() => toast.remove(), 300);
+  }, 3000);
+}
 
 function showSuccessModal() {
     const modal = document.getElementById("successModal");
