@@ -293,14 +293,64 @@ function getCart() {
   return cart ? JSON.parse(cart) : [];
 }
 
+// function saveCart(cartItem) {
+//  let cart = JSON.parse(localStorage.getItem('cssp-cart')) || [];
+
+//  cart.push(cartItem);
+
+// localStorage.setItem('cssp-cart', JSON.stringify(cart));
+
+//  updateCartBadge();
+// }
+
 function saveCart(cartItem) {
   let cart = JSON.parse(localStorage.getItem('cssp-cart')) || [];
 
-  cart.push(cartItem);
+  const existingItem = cart.find(item =>
+    item.name === cartItem.name &&
+    item.size === cartItem.size
+  );
+
+  if (existingItem) {
+
+    const newTotal = existingItem.quantity + cartItem.quantity;
+
+    if (newTotal > 50) {
+
+      showToast(
+        "warning",
+        "Maximum Limit Reached",
+        "You have reached the maximum limit of 50 items for this product. If you wish to order more than 50 pieces, please proceed to our Contact Page to connect with our team."
+      );
+
+      shakeModal();
+      return false;
+    }
+
+    existingItem.quantity = newTotal;
+  }
+
+  else {
+    if (cartItem.quantity > 50) {
+
+      showToast(
+        "warning",
+        "Bulk Order Limit",
+        "Maximum order per product is 50 pieces only. For bulk orders, please proceed to the Contact Page to get in touch with our team."
+      );
+
+      shakeModal();
+      return false;
+    }
+
+    cart.push(cartItem);
+  }
 
   localStorage.setItem('cssp-cart', JSON.stringify(cart));
 
   updateCartBadge();
+
+  return true;
 }
 
 function updateCartBadge() {
@@ -317,16 +367,12 @@ function updateCartBadge() {
   }
 }
 
-
-// Initialize cart badge on page load
 updateCartBadge();
 
-// global variables for modal image switching
 let images = [];
 let index = 0;
 let currentProductData = null;
 
-// opens the cart modal and puts the correct product info 
 function openCartModal(btn) {
   if (!btn) return;
 
@@ -601,14 +647,17 @@ function prevImage() {
     document.getElementById("modalImage").src = images[index];
 }
 
-// add to cart confirmation (for size and quantity)
 function confirmAddToCart() {
-  let size = document.getElementById("modalSize").value;
-  let qty = Number(document.getElementById("modalQty").value);
+
+  const size = document.getElementById("modalSize").value;
+  const qty = Number(document.getElementById("modalQty").value);
 
   let hasError = false;
 
-  if (size == "") {
+  // BASIC VALIDATION FIRST (IMPORTANT)
+  if (!currentProductData) return;
+
+  if (size === "") {
     showToast(
       "error",
       "No Size Selected",
@@ -626,33 +675,60 @@ function confirmAddToCart() {
     );
     shakeModal();
     hasError = true;
-  } 
-
-  else if (qty > 50) {
-    showToast(
-      "warning",
-      "Bulk Order Limit",
-      "Maximum order per product is 50 pieces only. For bulk orders, please proceed to the Contact Page to get in touch with our team."
-    );
-    shakeModal();
-    hasError = true;
   }
 
   if (hasError) return;
+
+  const cart = getCart();
+
+  const existingQty = cart
+    .filter(item =>
+      item.name === currentProductData.name &&
+      item.size === size
+    )
+    .reduce((total, item) => total + item.quantity, 0);
+
+  const totalQty = existingQty + qty;
+  const remaining = 50 - existingQty;
+
+  if (qty > 50) {
+    showToast(
+      "warning",
+      "Bulk Order Limit",
+      "Maximum order per product is 50 pieces only. For bulk orders, please proceed to the Contact Page."
+    );
+    shakeModal();
+    return;
+  }
+
+  if (totalQty > 50) {
+    showToast(
+      "warning",
+      "Maximum Limit Reached",
+      `You already have ${existingQty} item(s) of this product in your cart. You can only add ${remaining} more piece(s). Adding ${qty} more would exceed the limit of 50.`
+    );
+    shakeModal();
+    return;
+  }
 
   const cartItem = {
     id: Date.now(),
     name: currentProductData.name,
     price: currentProductData.price,
     image: currentProductData.image,
-    size: size,
+    size,
     quantity: qty
   };
 
-  saveCart(cartItem);
+  const added = saveCart(cartItem);
 
-  closeCartModal();
-  showSuccessModal();
+    if (added) {
+    showSuccessModal();
+
+    setTimeout(() => {
+      closeCartModal();
+    }, 2000);
+  }
 }
 
 function showToast(type, title, message) {
