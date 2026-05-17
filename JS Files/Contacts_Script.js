@@ -159,45 +159,66 @@ $('themeToggle').addEventListener('click', () => {
 });
 
 
-/* ── CURRENCY SWITCHER ────────────────────────── */
-const rates = { PHP:{symbol:'₱',rate:1}, USD:{symbol:'$',rate:.018}, EUR:{symbol:'€',rate:.016} };
-let currency = 'PHP';
-$('currencyBtn').addEventListener('click', e => {
-  e.stopPropagation();
-  const open = $('currencyDropdown').classList.toggle('open');
-  $('currencyBtn').setAttribute('aria-expanded', String(open));
+// currency system
+const rates = {
+  PHP: { symbol: '₱', rate: 1 },
+  USD: { symbol: '$', rate: 0.018 },
+  GBP: { symbol: '£', rate: 0.014 }
+};
+
+let currentCurrency = 'PHP';
+
+const currencyBtn = $('currencyBtn');
+const currencyDropdown = $('currencyDropdown');
+const activeCurrency = $('activeCurrency');
+const currencySwitcher = $('currencySwitcher');
+
+if (currencyBtn && currencyDropdown) {
+  currencyBtn.addEventListener('click', () => {
+    currencyDropdown.classList.toggle('open');
+  });
+}
+
+// close dropdown outside click
+document.addEventListener('click', (e) => {
+  if (currencySwitcher && !currencySwitcher.contains(e.target)) {
+    currencyDropdown?.classList.remove('open');
+  }
 });
-document.addEventListener('click', () => $('currencyDropdown').classList.remove('open'));
-$$('#currencyDropdown li').forEach(li => {
-  li.addEventListener('click', () => {
-    currency = li.dataset.currency;
-    $('activeCurrency').textContent = currency;
-    $('currencyDropdown').classList.remove('open');
+
+// currency selection
+$$('#currencyDropdown li').forEach(item => {
+  item.addEventListener('click', () => {
+    const chosen = item.dataset.currency;
+    currentCurrency = chosen;
+
+    if (activeCurrency) {
+      activeCurrency.textContent = chosen;
+    }
+
+    currencyDropdown?.classList.remove('open');
+
     $$('.card-price').forEach(el => {
-      const base = parseFloat(el.dataset.base);
-      const {symbol,rate} = rates[currency];
-      el.textContent = symbol + (base*rate).toFixed(2);
+      const base = parseFloat(el.dataset.base || "0");
+      const { symbol, rate } = rates[chosen];
+
+      el.textContent = symbol + (base * rate).toLocaleString(undefined, {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
     });
   });
 });
 
 /* ── CART (LocalStorage) ──────────────────────── */
-function getCart() {
-  const cart = localStorage.getItem('cssp-cart');
-  return cart ? JSON.parse(cart) : [];
-}
-
+function getCart() { return JSON.parse(localStorage.getItem('cssp_cart') || '[]'); }
+function saveCart(c) { localStorage.setItem('cssp_cart', JSON.stringify(c)); }
 function updateCartBadge() {
-  const cart = getCart();
-
-  const totalQty = cart.reduce((sum, item) => {
-    return sum + (Number(item.quantity) || 0);
-  }, 0);
-
-  const badge = document.getElementById('cartBadge');
-  if (badge) badge.textContent = totalQty;
+  const n = getCart().reduce((s,i) => s + i.qty, 0);
+  $('cartBadge').textContent = n;
+  $('cartBadge').style.transform = 'scale(1.5)';
+  setTimeout(() => $('cartBadge').style.transform = '', 200);
 }
-
 updateCartBadge();
 
 $$('.quick-add').forEach(btn => {
