@@ -164,7 +164,7 @@ $('themeToggle').addEventListener('click', () => {
 const rates = {
   PHP: { symbol: '₱', rate: 1 },
   USD: { symbol: '$', rate: 0.018 },
-  EUR: { symbol: '€', rate: 0.016 }
+  GBP: { symbol: '£', rate: 0.014 }
 };
 
 let currentCurrency = 'PHP';
