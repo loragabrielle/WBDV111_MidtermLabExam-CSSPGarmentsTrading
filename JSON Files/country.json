@@ -3,8 +3,8 @@
     {
       "code": "PH",
       "name": "Philippines",
-      "citySource": "ph_cities.json",
-      "barangaySource": "ph_barangays.json",
+      "citySource": "./JSON/ph_cities.json",
+      "barangaySource": "./JSON/ph_barangays.json",
       "hasBarangay": true,
       "phoneDigits": 11,
       "addressFormat": {
@@ -15,7 +15,7 @@
     {
       "code": "US",
       "name": "United States",
-      "citySource": "us_cities.json",
+      "citySource": "./JSON/us_cities.json",
       "hasBarangay": false,
       "phoneDigits": 10,
       "addressFormat": {
@@ -26,7 +26,7 @@
     {
       "code": "UK",
       "name": "United Kingdom",
-      "citySource": "uk_cities.json",
+      "citySource": "./JSON/uk_cities.json",
       "hasBarangay": false,
       "phoneDigits": "10-11",
       "addressFormat": {
