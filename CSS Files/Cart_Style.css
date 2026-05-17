@@ -1,4 +1,4 @@
- /* FONT FROM DAFONT.COM - BEBAS NEUE & CREATO DISPLAY*/
+/* FONT FROM DAFONT.COM - BEBAS NEUE & CREATO DISPLAY*/
 @font-face {
   font-family: 'Bebas Neue Custom';
   src: url(../Fonts/Bebas\ Neue/BebasNeue-Regular.woff2) format('woff2'),
@@ -74,6 +74,7 @@ html {
   scrollbar-color: rgba(26, 58, 92, 0.75) rgba(245, 245, 240, 0.55);
 }
 
+/* (subtle) design scroll bar*/ 
 body::-webkit-scrollbar, html::-webkit-scrollbar {
   width: 12px;
   height: 12px;
@@ -241,7 +242,6 @@ section {
   white-space: nowrap;
   padding: 9px 0;
 }
-
 
 .ticker-track {
   display: inline-flex;
@@ -1291,42 +1291,40 @@ body > * {
 }
 
 @media (max-width: 680px) {
-.cart-item {
+  .cart-item {
     display: grid;
     grid-template-columns: auto 1fr;
     gap: 14px;
     padding: 16px;
     align-items: start;
-  }
-
+   }
+ 
   .cart-hero {
     padding: 48px 20px;
   }
 
   .cart-container {
     width: 100%;
-  max-width: 1200px; /* or whatever your max width is */
-  margin: 0 auto;
-  padding: 0 20px; /* Essential safety margin for tablet sizes */
-  }
+    max-width: 1200px; 
+    margin: 0 auto;
+    padding: 0 20px; 
+   }
 
   .cart-item {
     display: grid;
-    grid-template-columns: auto 1fr; /* Checkbox / Content */
+    grid-template-columns: auto 1fr; 
     gap: 16px;
-    padding: 16px; /* Edge safety padding */
+    padding: 16px; 
     align-items: start;
   }
 
-  /* Keep Checkbox isolated on its own column */
   .cart-checkbox {
     grid-column: 1;
-    grid-row: 1 / span 2; /* Span both text and bottom action block if desired, or keep top-aligned */
+    grid-row: 1 / span 2; 
     margin-top: 4px;
   }
-
-  /* Wrap the image and textual metadata neatly on the right of the checkbox */
-  .cart-item-main {
+ 
+ .cart-item-main {
     grid-column: 2;
     display: flex;
     gap: 12px;
@@ -1334,7 +1332,6 @@ body > * {
     min-width: 0;
   }
 
-  /* Slightly shrink product image for mobile compact views */
   .cart-item-image {
     width: 72px;
     height: 72px;
@@ -1346,7 +1343,6 @@ body > * {
     min-width: 0;
   }
 
-  /* Dynamic Action Row underneath image/details */
   .cart-item-actions {
     grid-column: 2;
     display: flex;
@@ -1356,7 +1352,7 @@ body > * {
     gap: 12px;
     width: 100%;
     margin-top: 10px;
-    border-top: 1px solid rgba(0, 0, 0, 0.04); /* Premium subtle division line */
+    border-top: 1px solid rgba(0, 0, 0, 0.04); 
     padding-top: 10px;
 
      .quantity-controls {
@@ -1374,7 +1370,7 @@ body > * {
     font-weight: 600;
     white-space: nowrap;
   }
-  }
+ }
 }
 
 @media (max-width: 380px) {
@@ -1390,7 +1386,7 @@ body > * {
   }
     
     .cart-item-price {
-      align-self: flex-end; /* Keeps price beautifully tucked on the bottom-right corner */
+      align-self: flex-end; 
     }
   }
 
@@ -1426,7 +1422,7 @@ body > * {
 }
 
 
-/* CART SELECTION HEADER */
+/* cart selection header */
 .cart-header {
   display: flex;
   justify-content: space-between;
@@ -1443,8 +1439,6 @@ body > * {
   align-items: center;
   gap: 12px;
 }
-
-/* cart-checkbox styling is handled above */
 
 .select-all-label {
   font-weight: 600;
@@ -1474,7 +1468,7 @@ body > * {
   display: flex;
   align-items: center;
   gap: 32px;
-  flex-wrap: wrap; /* Safety valve for tablet/mid-screens */
+  flex-wrap: wrap; 
 }
 
 .cart-item:hover {
@@ -1922,10 +1916,7 @@ body > * {
   margin-top: 20px;
 }
 
-/* ============================================
-   CHECKOUT MODAL - PREMIUM FORMS
-   ============================================ */
-
+/* check is out modal */
 .checkout-modal {
   display: none;
   position: fixed;
@@ -2901,9 +2892,7 @@ body > * {
   color: var(--yellow); 
 }
 
-/* ============================================
-   MODAL NOTICE
-   ============================================ */
+/* modal notice */
 .shipping-notice-card {
   background: linear-gradient(135deg, var(--yellow) 0%, #f8e6a0 100%);
   border: 1px solid rgba(244, 208, 63, 0.3);
