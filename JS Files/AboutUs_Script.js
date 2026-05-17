@@ -181,6 +181,25 @@ $$('#currencyDropdown li').forEach(li => {
   });
 });
 
+/* ── CART (LocalStorage) ──────────────────────── */
+function getCart() {
+  const cart = localStorage.getItem('cssp-cart');
+  return cart ? JSON.parse(cart) : [];
+}
+
+function updateCartBadge() {
+  const cart = getCart();
+
+  const totalQty = cart.reduce((sum, item) => {
+    return sum + (Number(item.quantity) || 0);
+  }, 0);
+
+  const badge = document.getElementById('cartBadge');
+  if (badge) badge.textContent = totalQty;
+}
+
+updateCartBadge();
+
 /* ── HISTORY SLIDER ────────────────────────── */
 const yearStrips = $('yearStrips');
 const yearLabels = $$('.year-label');
