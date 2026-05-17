@@ -2193,192 +2193,112 @@ function startTrackingAnimation(stage = 2) {
   }
 }
 
-    function downloadReceipt() {
-    const { jsPDF } = window.jspdf;
-
-    const doc = new jsPDF({
-        orientation: 'portrait',
-        unit: 'mm',
-        format: 'a4'
-    });
-    
-
-    // helper function to check space and add a page safely
-    function checkPageOverflow(currentY, neededSpace) {
-        if (currentY + neededSpace > 270) {
-        doc.addPage();
-        return 20; // Reset y to top of new page
-        }
-        return currentY;
+const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+  
+  // Helper function for PDF-safe price formatting
+  function formatPriceForPDF(amount) {
+    if (currentCurrency === 'PHP') {
+      return `PHP ${amount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
     }
-
-    function formatPriceForPDF(amount) {
-        if (currentCurrency === 'PHP') {
-        return `PHP ${amount.toLocaleString('en-US', {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2
-        })}`;
-        }
-        return formatPrice(amount); // Ensure formatPrice global function exists
-    }
-
-/* main receipt render */
-    function renderReceipt() {
-        let y = 20;
-
-        // header
-        doc.setFont('Poppins-Black', 'normal'); // Using standard safe font
-        doc.setFontSize(20);
-        doc.text('CSSP Garments Trading', 105, y, { align: 'center' });
-
-        y += 8;
-        doc.setFontSize(12);
-        doc.setFont('Poppins-Black', 'normal');
-        doc.text('Order Receipt', 105, y, { align: 'center' });
-
-        // order id
-        y += 15;
-        doc.setFontSize(14);
-        doc.setFont('Poppins-Black', 'normal');
-        doc.text(`Order ID: ${orderData.orderID}`, 20, y);
-
-        // customer info
-        y += 12;
-        doc.setFontSize(12);
-        doc.text('Customer Information:', 20, y);
-
-        doc.setFont('Poppins-Black', 'normal');
-        y += 8;
-        doc.text(`Name: ${orderData.firstName} ${orderData.lastName}`, 20, y);
-        y += 6;
-        doc.text(`Email: ${orderData.email}`, 20, y);
-        y += 6;
-        doc.text(`Phone: ${orderData.phoneCountry} - ${orderData.phone}`, 20, y);
-
-        // shipment details
-        y += 10;
-        doc.setFont('Poppins-Black', 'normal');
-        doc.text('Shipping Address:', 20, y);
-
-        doc.setFont('Poppins-Black', 'normal');
-        y += 8;
-        doc.text(`${orderData.street}`, 20, y);
-        y += 6;
-
-        if (orderData.barangay) {
-        doc.text(`${orderData.barangay}, ${orderData.city}`, 20, y);
-        y += 6;
-        } else {
-        doc.text(`${orderData.city}`, 20, y);
-        y += 6;
-        }
-
-        doc.text(`${orderData.country} ${orderData.postal}`, 20, y);
-
-        // items
-        y += 12;
-        doc.setFont('Poppins-Black', 'normal');
-        doc.text('Order Items:', 20, y);
-
-        doc.setFont('Poppins-Black', 'normal');
-        y += 8;
-
-        orderData.items.forEach(item => {
-        y = checkPageOverflow(y, 6);
-        
-        doc.text(`${item.name} (x${item.quantity})`, 20, y);
-        doc.text(
-            formatPriceForPDF(item.price * item.quantity),
-            190,
-            y,
-            { align: 'right' }
-        );
-        y += 6;
-        });
-
-        // total math
-        y = checkPageOverflow(y, 35); // Ensures room for all totals safely
-
-        y += 4;
-        doc.text('Subtotal:', 20, y);
-        doc.text(formatPriceForPDF(orderData.subtotal), 190, y, { align: 'right' });
-
-        y += 6;
-        doc.text(`Shipping (${orderData.shippingMethod}):`, 20, y);
-        doc.text(formatPriceForPDF(orderData.shippingFee), 190, y, { align: 'right' });
-
-        if (orderData.discount > 0) {
-        y += 6;
-        doc.text(`Discount (${orderData.voucher}):`, 20, y);
-        doc.text(`-${formatPriceForPDF(orderData.discount)}`, 190, y, { align: 'right' });
-        }
-
-        y += 8;
-        doc.setFont('Poppins-Black', 'normal');
-        doc.text('Total:', 20, y);
-        doc.text(formatPriceForPDF(orderData.total), 190, y, { align: 'right' });
-
-        // payment
-        y += 12;
-        doc.setFont('Poppins-Black', 'normal');
-        doc.text('Payment Method:', 20, y);
-
-        const paymentLabel =
-        orderData.paymentMethod === 'card'
-            ? 'Credit / Debit Card'
-            : orderData.paymentMethod === 'cod'
-            ? 'Cash on Delivery (COD)'
-            : orderData.paymentMethod === 'gcash'
-            ? 'GCash'
-            : 'PayPal';
-
-        doc.text(paymentLabel, 70, y);
-
-        // footer (ty)
-        doc.setFontSize(10);
-        doc.setFont('Poppins-Black', 'normal');
-        doc.text(
-        'Thank you for shopping with CSSP Garments Trading!',
-        105,
-        285,
-        { align: 'center' }
-        );
-
-        // download sana gumana 
-        doc.save(`CSSP-Receipt-${orderData.orderID}.pdf`);
-
-        if (typeof showToast === 'function') {
-        showToast('success', 'PDF Downloaded', 'Receipt saved successfully');
-        }
-    }
-
-    // watermark
-    const watermark = new Image();
-    watermark.src = './Assets/logo opacity 50% watermark.png';
-
-    watermark.onload = () => {
-        try {
-        if (typeof doc.setGState === 'function') {
-            doc.setGState({ opacity: 0.15 });
-        }
-
-        doc.addImage(watermark, 'PNG', 55, 40, 100, 100);
-
-        if (typeof doc.setGState === 'function') {
-            doc.setGState({ opacity: 1 });
-        }
-        } catch (err) {
-        console.warn('Watermark layout properties failed:', err);
-        }
-        renderReceipt();
-    };
-
-    watermark.onerror = () => {
-        console.warn('Watermark image failed to load. Downloading without watermark...');
-        renderReceipt();
-    };
-    }
-
+    return formatPrice(amount);
+  }
+  
+  // Header
+  doc.setFontSize(20);
+  doc.setFont(undefined, 'bold');
+  doc.text('CSSP Garments Trading', 105, 20, { align: 'center' });
+  
+  doc.setFontSize(12);
+  doc.setFont(undefined, 'normal');
+  doc.text('Order Receipt', 105, 28, { align: 'center' });
+  
+  // Order ID
+  doc.setFontSize(14);
+  doc.setFont(undefined, 'bold');
+  doc.text(`Order ID: ${orderData.orderID}`, 20, 45);
+  
+  // Customer Info
+  let y = 60;
+  doc.setFontSize(12);
+  doc.setFont(undefined, 'bold');
+  doc.text('Customer Information:', 20, y);
+  
+  doc.setFont(undefined, 'normal');
+  y += 8;
+  doc.text(`Name: ${orderData.firstName} ${orderData.lastName}`, 20, y);
+  y += 6;
+  doc.text(`Email: ${orderData.email}`, 20, y);
+  y += 6;
+  doc.text(`Phone: ${orderData.phoneCountry} - ${orderData.phone}`, 20, y);
+  
+  // Shipping Address
+  y += 12;
+  doc.setFont(undefined, 'bold');
+  doc.text('Shipping Address:', 20, y);
+  
+  doc.setFont(undefined, 'normal');
+  y += 8;
+  doc.text(`${orderData.street}`, 20, y);
+  y += 6;
+  if (orderData.barangay) {
+    doc.text(`${orderData.barangay}, ${orderData.city}`, 20, y);
+    y += 6;
+  } else {
+    doc.text(`${orderData.city}`, 20, y);
+    y += 6;
+  }
+  doc.text(`${orderData.country} ${orderData.postal}`, 20, y);
+  
+  // Order Items
+  y += 12;
+  doc.setFont(undefined, 'bold');
+  doc.text('Order Items:', 20, y);
+  
+  doc.setFont(undefined, 'normal');
+  y += 8;
+  orderData.items.forEach(item => {
+    doc.text(`${item.name} (x${item.quantity})`, 20, y);
+    doc.text(formatPriceForPDF(item.price * item.quantity), 170, y, { align: 'right' });
+    y += 6;
+  });
+  
+  // Totals
+  y += 6;
+  doc.text('Subtotal:', 20, y);
+  doc.text(formatPriceForPDF(orderData.subtotal), 170, y, { align: 'right' });
+  y += 6;
+  doc.text(`Shipping (${orderData.shippingMethod}):`, 20, y);
+  doc.text(formatPriceForPDF(orderData.shippingFee), 170, y, { align: 'right' });
+  
+  if (orderData.discount > 0) {
+    y += 6;
+    doc.text(`Discount (${orderData.voucher}):`, 20, y);
+    doc.text(`-${formatPriceForPDF(orderData.discount)}`, 170, y, { align: 'right' });
+  }
+  
+  y += 8;
+  doc.setFont(undefined, 'bold');
+  doc.text('Total:', 20, y);
+  doc.text(formatPriceForPDF(orderData.total), 170, y, { align: 'right' });
+  
+  // Payment Method
+  y += 12;
+  doc.text('Payment Method:', 20, y);
+  doc.setFont(undefined, 'normal');
+  const paymentLabel = orderData.paymentMethod === 'card' ? 'Credit / Debit Card'
+    : orderData.paymentMethod === 'cod' ? 'Cash on Delivery (COD)'
+    : orderData.paymentMethod === 'gcash' ? 'GCash'
+    : 'Existing payment method(s)';
+  doc.text(paymentLabel, 70, y);
+  
+  // Footer
+  doc.setFontSize(10);
+  doc.text('Thank you for shopping with CSSP Garments Trading!', 105, 280, { align: 'center' });
+  
+  // Save PDF
+  doc.save(`CSSP-Receipt-${orderData.orderID}.pdf`);
+  showToast('success', 'PDF Downloaded', 'Receipt saved successfully');
 
 function finishCheckout() {
   closeCheckout();
@@ -2386,7 +2306,6 @@ function finishCheckout() {
     window.location.href = 'products.html';
   }, 300);
 }
-
 
 function resetCheckoutForm() {
   // Reset all form fields
