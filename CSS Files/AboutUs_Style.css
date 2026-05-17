@@ -181,20 +181,16 @@ h1, h2, h3, h4 {
     padding: 9px 0;
 }
 
-.pre-header:hover .ticker-track {
-    animation-play-state: paused;
-}
-
 .ticker-track {
     display: inline-flex;
     gap: 56px;
-    animation: ticker 30s linear infinite;
+    animation: ticker 28s linear infinite;
 }
 
 .ticker-track span {
     font-size: 0.78rem;
-    font-weight: 600;
-    letter-spacing: 0.06em;
+    font-weight: 700;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     flex-shrink: 0;
 }
@@ -259,9 +255,9 @@ h1, h2, h3, h4 {
 }
 
 .logo-img {
-    width:100%;
-    height:100%;
-    object-fit:contain
+    width: 100%;
+    height: 100%;
+    object-fit: contain
 }
 
 .logo-text {
@@ -505,7 +501,7 @@ h1, h2, h3, h4 {
     width: 17px; 
     height: 17px;
     background: var(--red);
-    color: white;
+    color: var(--white);
     font-size: 0.58rem;
     font-weight: 700;
     border-radius: 50%;
@@ -668,11 +664,6 @@ h1, h2, h3, h4 {
     transition: var(--transition);
 }
 
-.search-bar button:hover {
-    background: var(--yellow);
-    color: var(--navy);
-}
-
 /* LIVE RESULT - SEARCH */
 .search-results {
     position: absolute;
@@ -700,7 +691,7 @@ h1, h2, h3, h4 {
     padding: 10px 16px;
     border-bottom: 1px solid var(--border);
     cursor: pointer;
-    transition: var(--trans);
+    transition: var(--transition);
 }
 
 .search-result-item:last-child {
@@ -864,7 +855,7 @@ h1, h2, h3, h4 {
 /* =============================================
    HISTORY SECTION
    ============================================= */
- #history {
+.history-wrapper.history-section {
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -876,16 +867,16 @@ h1, h2, h3, h4 {
     align-items: stretch;
 }
 
-[data-theme="dark"] #history {
+[data-theme="dark"] .history-wrapper.history-section {
     background:  #061937;
 }
 
-.history-content {
+.history-content { 
     flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 100px 5%;
+    padding: 100px 100px 8%; /*tanggalin yung 60*/
     position: relative;
     z-index: 10;
     color: var(--white);
@@ -893,8 +884,8 @@ h1, h2, h3, h4 {
 
 .history-subtitle {
     color: #a69f63;
-    letter-spacing: 8px;
-    font-size: 13px;
+    letter-spacing: 10px;
+    font-size: 15px;
     font-weight: 800;
     margin-bottom: 25px;
     display: block;
@@ -1214,8 +1205,8 @@ h1, h2, h3, h4 {
 
 .people-subtitle {
     color: #a69f63;
-    letter-spacing: 8px;
-    font-size: 13px;
+    letter-spacing: 10px;
+    font-size: 15px;
     font-weight: 800;
     margin-bottom: 25px;
     display: block;
@@ -1553,15 +1544,19 @@ h1, h2, h3, h4 {
         padding: 100px 15px 60px; 
     }
 
-    #history {
+    .history-wrapper.history-section {
         flex-direction: column;
     }
 
-    .history-pictures {
+    .history-pictures { /*ibahn mo*/
         height: 50vh;
         min-height: 400px;
     }
-  
+
+    .history-content {
+        padding: 60px 40px;
+    }
+
     #tailor, #people {
         padding: 64px 5%;
     }
@@ -1690,6 +1685,10 @@ h1, h2, h3, h4 {
         text-align: center; 
     }
 
+    .hero-title { 
+        font-size: 3rem; 
+    }
+
     .hero-about {
         padding: 80px 15px 50px;
     }
@@ -1701,11 +1700,11 @@ h1, h2, h3, h4 {
 
     .hero-about h1 .ph {
         font-size: clamp(45px, 12vw, 70px);
-    } 
+    }
 
     .hero-about h1 .year {
         font-size: clamp(24px, 5vw, 40px);
-    } 
+    }
 
     .tailor-photo-grid {
         display: grid;
@@ -1727,9 +1726,18 @@ h1, h2, h3, h4 {
         padding: 12px 4%; 
     }
 
+    .hero-about::before {
+        background-size: 40px 40px;
+        opacity: 0.3;
+    }
+
     .hero-subtitle {
         font-size: 10px;
         letter-spacing: 5px;
+    }
+
+    .history-content {
+        padding: 40px 15px;
     }
 
     .timeline-nav {
@@ -1740,9 +1748,13 @@ h1, h2, h3, h4 {
     .year-wrapper {
         gap: 10px;
     }
-  
+
+    .big-year {
+        font-size: 4rem;
+    }
+
     .history-subtitle, .tailor-subtitle, .people-subtitle {
-        font-size: 10px;
+        font-size: 11px;
         letter-spacing: 6px;
         margin-bottom: 15px;
     }
