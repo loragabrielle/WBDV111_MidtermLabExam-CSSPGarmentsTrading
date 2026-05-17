@@ -1,3 +1,4 @@
+/* FONT FROM DAFONT.COM - BEBAS NEUE & CREATO DISPLAY*/
 @font-face {
   font-family: 'Bebas Neue Custom';
   src: url(../Fonts/Bebas\ Neue/BebasNeue-Regular.woff2) format('woff2'),
@@ -176,20 +177,16 @@ h1, h2, h3, h4 {
     padding: 9px 0;
 }
 
-.pre-header:hover .ticker-track {
-    animation-play-state: paused;
-}
-
 .ticker-track {
     display: inline-flex;
-    gap: 56px;
-    animation: ticker 30s linear infinite;
+    gap: 60px;
+    animation: ticker 28s linear infinite;
 }
 
 .ticker-track span {
-    font-size: 0.78rem;
-    font-weight: 600;
-    letter-spacing: 0.06em;
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     flex-shrink: 0;
 }
@@ -268,10 +265,9 @@ h1, h2, h3, h4 {
 
 .logo-text span {
     display: block;
-    font-size: 0.65rem;
     font-family: 'Creato Display', sans-serif;
     font-size: 0.62rem;
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--text-muted);
@@ -500,7 +496,7 @@ h1, h2, h3, h4 {
     width: 17px; 
     height: 17px;
     background: var(--red);
-    color: white;
+    color: var(--white);
     font-size: 0.58rem;
     font-weight: 700;
     border-radius: 50%;
@@ -663,11 +659,6 @@ h1, h2, h3, h4 {
     transition: var(--transition);
 }
 
-.search-bar button:hover {
-    background: var(--yellow);
-    color: var(--navy);
-}
-
 /* LIVE RESULT - SEARCH */
 .search-results {
     position: absolute;
@@ -695,7 +686,7 @@ h1, h2, h3, h4 {
     padding: 10px 16px;
     border-bottom: 1px solid var(--border);
     cursor: pointer;
-    transition: var(--trans);
+    transition: var(--transition);
 }
 
 .search-result-item:last-child {
