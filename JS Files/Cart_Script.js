@@ -324,15 +324,6 @@ function saveCart(cart) {
   updateCartBadge();
 }
 
-function updateCartBadge() {
-  const cart = getCart();
-  const totalQty = cart.reduce((sum, item) => sum + item.quantity, 0);
-  const badge = $('cartBadge');
-  if (badge) {
-    badge.textContent = totalQty;
-  }
-}
-
 function calculateTotal(cart) {
   const selected = cart.filter(item => item.selected);
   return selected.reduce((sum, item) => sum + (item.price * item.quantity), 0);
