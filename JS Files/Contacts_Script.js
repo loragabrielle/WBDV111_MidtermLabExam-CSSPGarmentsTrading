@@ -25,6 +25,7 @@ window.addEventListener('scroll', () => {
   $('backToTop').classList.toggle('visible', window.scrollY > 300);
 }, { passive: true });
 
+
 /* ── MEGA MENU (click-based, outside-click closes) ── */
 const megaItems = document.querySelectorAll('.nav-item.has-mega'); 
 
@@ -225,17 +226,51 @@ $('cartIconBtn').addEventListener('click', () => {
 });
 
 
-/* ── CONTACTS NOTIF ────────────────────────── */
-function showNotif(message, isSuccess = false) { 
-  const notif = $('customNotif');  
-  const notifMsg = $('notifMessage');  
-  const notifIcon = $('notifIcon');
-  if(!notif || !notifMsg) return;
+/* ── CONTACTS NOTIF ── */
+function showNotif(title, message, isSuccess = false) { 
+  const container = $('toastContainer');
+  if (!container) return;
 
-  notifIcon.textContent = isSuccess ? "✅" : "⚠️";
-  notifMsg.textContent = message;
-  notif.classList.add('show');
-  setTimeout(() => notif.classList.remove('show'), 3000);
+  const existingToast = container.querySelector('.toast');
+  if (existingToast) {
+    existingToast.remove();
+  }
+
+  const toast = document.createElement('div');
+  toast.className = `toast ${isSuccess ? 'success' : 'error'}`;
+  
+  const iconClass = isSuccess ? 'fa-check' : 'fa-xmark';
+
+  toast.innerHTML = `
+    <div class="toast-icon">
+      <i class="fa-solid ${iconClass}"></i>
+    </div>
+    <div class="toast-content">
+      <div class="toast-title">${title}</div>
+      <div class="toast-message">${message}</div>
+    </div>
+    <button class="toast-close" id="closeNotifBtn">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  `;
+
+  container.appendChild(toast);
+
+  setTimeout(() => toast.classList.add('show'), 10);
+
+  const timeoutId = setTimeout(() => {
+    toast.classList.remove('show');
+    setTimeout(() => toast.remove(), 350);
+  }, 4000);
+
+  const closeBtn = toast.querySelector('#closeNotifBtn');
+  if (closeBtn) {
+    closeBtn.onclick = () => {
+      clearTimeout(timeoutId);
+      toast.classList.remove('show');
+      setTimeout(() => toast.remove(), 350);
+    };
+  }
 }
 
 function showInlineError(inputEl, errorId, msg) {
@@ -261,7 +296,6 @@ if (cBtn) {
   cBtn.addEventListener('click', (e) => {
     e.preventDefault();
 
-    // Reset errors
     document.querySelectorAll('.error-msg').forEach(el => el.style.display = 'none');
     document.querySelectorAll('.contact-form input, .contact-form textarea').forEach(el => el.classList.remove('shake'));
 
@@ -273,9 +307,10 @@ if (cBtn) {
     const email = emailEl.value.trim();
     const message = msgEl.value.trim();
     
-    // Check missing fields (Phone removed from validation)
+    // VALIDATION
     if (!name || !email || !message) {       
-      showNotif("Please fill out all required fields!"); 
+      showNotif("Form Incomplete", "Please fill out all required fields!", false); 
+      
       if(!name) showInlineError(nameEl, 'nameError', 'Name is required.');
       if(!email) showInlineError(emailEl, 'emailError', 'Email is required.');
       if(!message) showInlineError(msgEl, 'msgError', 'Message cannot be empty.');
@@ -295,8 +330,9 @@ if (cBtn) {
       return;
     }
 
-    // Success logic
-    showNotif("Message sent successfully!", true);
+    // SUCCESS:
+    showNotif("Success", "Message sent successfully!", true);
+    
     setTimeout(() => {         
       nameEl.value = "";          
       emailEl.value = "";
