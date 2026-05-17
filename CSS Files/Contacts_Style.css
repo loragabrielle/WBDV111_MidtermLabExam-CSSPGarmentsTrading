@@ -980,35 +980,115 @@ textarea {
     padding: 12px 14px !important;
 }
 
-.custom-notif {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    background: #163248;
-    color: white;
-    padding: 15px 25px;
-    border-radius: 40px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-    transform: translateY(200%);
-    transition: transform 0.5s ease;
-    z-index: 10000;
+#toastContainer {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 90%;
+  max-width: 420px;
+  pointer-events: none;
 }
 
-.custom-notif.show {
-    transform: translateY(0);
+/* Toast notification */
+#toastContainer {
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 480px;
+  width: 90%;
 }
 
-.notifIcon {
-    width: 20px;
-    height: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    font-size: 10px;
+.toast {
+  pointer-events: auto;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px 20px;
+  background: var(--surface);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-100px);
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.toast.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.toast.success {
+  border-left: 4px solid var(--green);
+}
+
+.toast.error {
+  border-left: 4px solid var(--red);
+}
+
+.toast-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 0.85rem; 
+}
+
+.toast.success .toast-icon {
+  background: var(--green);
+  color: var(--white);
+}
+
+.toast.error .toast-icon {
+  background: var(--red);
+  color: var(--white); 
+}
+
+.toast-content {
+  flex: 1;
+  text-align: left; 
+}
+
+.toast-title {
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin-bottom: 4px;
+  color: var(--text);
+}
+
+.toast-message {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.toast-close {
+  background: none;
+  border: none;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  transition: var(--transition);
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.toast-close:hover {
+  color: var(--text);
 }
 
 /* footer */
