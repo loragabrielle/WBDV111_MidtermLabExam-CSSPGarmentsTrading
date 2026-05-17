@@ -1,0 +1,14 @@
+{
+  "cities": [
+    { "name": "London", "region": "GL" },
+    { "name": "Birmingham", "region": "WM" },
+    { "name": "Manchester", "region": "GM" },
+    { "name": "Glasgow", "region": "SCT" },
+    { "name": "Liverpool", "region": "MSY" },
+    { "name": "Bristol", "region": "SW" },
+    { "name": "Edinburgh", "region": "SCT" },
+    { "name": "Leeds", "region": "WY" },
+    { "name": "Sheffield", "region": "SY" },
+    { "name": "Leicester", "region": "EM" }
+  ]
+}
