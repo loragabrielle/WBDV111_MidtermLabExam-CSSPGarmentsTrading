@@ -253,39 +253,7 @@ const observer = new IntersectionObserver((entries) => {
 $$('.reveal').forEach(el => observer.observe(el));
 
 // toast notification 
-function showToast(type, title, message) {
-  const container = $('toastContainer');
-  if (!container) return;
 
-  const toast = document.createElement('div');
-  toast.className = `toast ${type}`;
-  
-  const icon = type === 'success' ? 'fa-check' : 'fa-exclamation-triangle';
-  
-  toast.innerHTML = `
-    <div class="toast-icon">
-      <i class="fa-solid ${icon}"></i>
-    </div>
-    <div class="toast-content">
-      <div class="toast-title">${title}</div>
-      <div class="toast-message">${message}</div>
-    </div>
-    <button class="toast-close" onclick="this.parentElement.remove()">
-      <i class="fa-solid fa-xmark"></i>
-    </button>
-  `;
-
-  container.appendChild(toast);
-
-  setTimeout(() => {
-    toast.classList.add('show');
-  }, 10);
-
-  setTimeout(() => {
-    toast.classList.remove('show');
-    setTimeout(() => toast.remove(), 300);
-  }, 3000);
-}
 
 // add to cart function
 function getCart() {
@@ -649,40 +617,41 @@ function prevImage() {
 
 function confirmAddToCart() {
 
+  const container = document.getElementById("toastContainer");
+  container.innerHTML = ""; 
+
   const size = document.getElementById("modalSize").value;
   const qty = Number(document.getElementById("modalQty").value);
 
-  let hasError = false;
-
-  if (!currentProductData) return;
+  let errors = [];
 
   if (size === "") {
-    showToast(
-      "error",
-      "No Size Selected",
-      "Please select a size before adding to cart."
-    );
-    shakeModal();
-    hasError = true;
+    errors.push({
+      type: "error",
+      title: "No Size Selected",
+      message: "Please select a size before adding to cart."
+    });
   }
 
   if (qty <= 0) {
-    showToast(
-      "warning",
-      "Invalid Quantity",
-      "Quantity must be at least 1."
-    );
-    shakeModal();
-    hasError = true;
+    errors.push({
+      type: "warning",
+      title: "Invalid Quantity",
+      message: "Quantity must be at least 1."
+    });
   }
 
   if (qty > 50) {
-    showToast(
-      "warning",
-      "Bulk Order Limit",
-      "Maximum order per product is 50 pieces only. For bulk orders, please proceed to the Contact Page."
-    );
+    errors.push({
+      type: "warning",
+      title: "Bulk Order Limit",
+      message: "Maximum order per product is 50 pieces only. For bulk orders, please proceed to the Contact Page to get in touch with our team."
+    });
+  }
+
+  if (errors.length > 0) {
     shakeModal();
+    errors.forEach(err => showToast(err.type, err.title, err.message));
     return;
   }
 
@@ -702,14 +671,12 @@ function confirmAddToCart() {
     showToast(
       "warning",
       "Maximum Limit Reached",
-      `You already have ${existingQty} item(s) of this product in your cart. You can only add ${remaining} more piece(s). Adding ${qty} more would exceed the limit of 50.`
+      `You already have ${existingQty} item(s) of this product in your cart. You can only add ${remaining} more piece(s). Adding ${qty} more would exceed the limit of 50. For bulk orders, please proceed to the Contact Page to get in touch with our team.`
     );
     shakeModal();
     return;
   }
-
-  if (hasError) return;
-
+  
   const cartItem = {
     id: Date.now(),
     name: currentProductData.name,
@@ -752,19 +719,37 @@ function showToast(type, title, message) {
       <div class="toast-title">${title}</div>
       <div class="toast-message">${message}</div>
     </div>
-    <button class="toast-close" onclick="this.parentElement.remove()">
+    <button class="toast-close">
       <i class="fa-solid fa-xmark"></i>
     </button>
   `;
 
   container.appendChild(toast);
 
-  setTimeout(() => toast.classList.add("show"), 10);
-
   setTimeout(() => {
+    toast.classList.add("show");
+  }, 10);
+
+  const timeoutId = setTimeout(() => {
     toast.classList.remove("show");
-    setTimeout(() => toast.remove(), 300);
+
+    setTimeout(() => {
+      toast.remove();
+    }, 300);
+
   }, 3000);
+
+  const closeBtn = toast.querySelector(".toast-close");
+
+  closeBtn.addEventListener("click", () => {
+    clearTimeout(timeoutId);
+
+    toast.classList.remove("show");
+
+    setTimeout(() => {
+      toast.remove();
+    }, 300);
+  });
 }
 
 function showSuccessModal() {
