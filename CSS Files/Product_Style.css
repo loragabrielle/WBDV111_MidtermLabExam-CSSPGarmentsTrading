@@ -1901,7 +1901,7 @@ body > * {
   pointer-events: none;
   transform: translateY(12px);
   transition: var(--transition);
-  z-index: 500;
+  z-index: 999999 !important;
 }
 
 .back-to-top.visible {
