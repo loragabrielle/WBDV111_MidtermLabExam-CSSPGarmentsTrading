@@ -10,7 +10,7 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="./Cart_Style.css">
+        <link rel="stylesheet" href="./CSS Files/Cart_Style.css">
 
         <!-- fontawesome for icons -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
@@ -217,14 +217,14 @@
 
                     <!-- CART ITEMS -->
                     <div class="cart-items" id="cartItemsList">
-                        <!-- Cart items will be rendered here -->
+                        <!-- cart items will be rendered here -->
                     </div>
                 </div>
                 
                 <div class="cart-summary">
                     <h3>Order Summary</h3>
                     <div id="selectedItemsList" style="margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--border);">
-                        <!-- Selected items will be rendered here -->
+                        <!-- selected items will be rendered here -->
                     </div>
                     <div class="summary-row">
                         <span>Subtotal:</span>
@@ -410,7 +410,6 @@
                         <div class="form-group" id="deliveryTypeGroup" style="display:none; margin-top: 16px;">
                             <label>Delivery Type *</label>
                             <div class="shipping-options" id="shippingOptionsList">
-                                <!-- Populated by JS -->
                             </div>
                         </div>
                         <div class="error-text" id="shippingError"></div>
@@ -578,10 +577,10 @@
                                     <i class="fa-solid fa-download"></i>
                                     Download PDF
                                 </button>
-                                <button class="btn-primary" onclick="finishCheckout()">
+                                <a class="btn-primary" onclick="finishCheckout() href="./cart.html">
                                     <i class="fa-solid fa-home"></i>
-                                    Back to Home
-                                </button>
+                                    Back to Cart
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -651,6 +650,6 @@
             </div>
         </footer>
         
-        <script src="./Cart_Script.js"></script>
+        <script src="./JS Files/Cart_Script.js"></script>
     </body>
 </html>
