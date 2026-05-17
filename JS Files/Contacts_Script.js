@@ -2,16 +2,6 @@
 const $ = id => document.getElementById(id);
 const $$ = sel => document.querySelectorAll(sel);
 
-/* ── UTILS ─────────────────────────────────── */
-function showToast(msg, type = 'default', duration = 3200) {
-  const icons = { success:'fa-circle-check', error:'fa-circle-xmark', warning:'fa-triangle-exclamation', default:'fa-bell' };
-  const t = document.createElement('div');
-  t.className = `toast ${type}`;
-  t.innerHTML = `<i class="fa-solid ${icons[type] || icons.default}"></i>${msg}`;
-  $('toastContainer').appendChild(t);
-  setTimeout(() => { t.classList.add('out'); setTimeout(() => t.remove(), 350); }, duration);
-}
-
 // Ticker duplication logic
 const tickerTrack = $('tickerTrack');
 if (tickerTrack) {
