@@ -1163,7 +1163,7 @@ async function loadCountryData() {
         updateDestinationLockStyles();
         if (regionGroup) regionGroup.style.display = 'block';
         try {
-            const citySource = selectedCountryConfig ? selectedCountryConfig.citySource : '../JSON/ph_cities.json';
+            const citySource = selectedCountryConfig ? selectedCountryConfig.citySource : '../JSON Files/ph_cities.json';
             const response = await fetch(citySource);
             if (!response.ok) throw new Error('Failed to load cities');
             const rawData = await response.json();
