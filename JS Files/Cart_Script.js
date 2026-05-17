@@ -1,22 +1,23 @@
-// ============================================
-// UTILITY FUNCTIONS
-// ============================================
+/* helper shortcuts */
 const $ = (id) => document.getElementById(id);
 const $$ = (sel) => document.querySelectorAll(sel);
 
-// ticker duplication logic
+/* ticker "+=" = infinite effect  */
 const tickerTrack = $('tickerTrack');
 if (tickerTrack) {
   tickerTrack.innerHTML += tickerTrack.innerHTML;
 }
 
-// ============================================
-// THEME SYSTEM
-// ============================================
+/* shadow after 50px and back to top*/ 
+const hdr = $('siteHeader');
+window.addEventListener('scroll', () => {
+  hdr.classList.toggle('scrolled', window.scrollY > 50);
+  $('backToTop').classList.toggle('visible', window.scrollY > 300);
+}, { passive: true });
 const html = document.documentElement;
 const themeToggle = $('themeToggle');
 
-// Load saved theme from new or legacy keys
+
 const savedTheme = localStorage.getItem('themeMode') || localStorage.getItem('cssp-theme') || 'light';
 html.setAttribute('data-theme', savedTheme);
 updateThemeIcon();
@@ -39,9 +40,7 @@ function updateThemeIcon() {
   }
 }
 
-// ============================================
-// CURRENCY SYSTEM
-// ============================================
+/* currency switch */
 let currentCurrency = localStorage.getItem('selectedCurrency') || localStorage.getItem('cssp-currency') || 'PHP';
 
 const currencyRates = {
@@ -114,6 +113,7 @@ function updateCurrencyDisplay() {
   validateCurrencyShippingMatch();
 }
 
+
 let lastShippingCurrencyMismatch = null;
 
 function getCurrencyShippingMismatch() {
@@ -134,7 +134,7 @@ function getCurrencyShippingMismatch() {
       recommendedCurrency: 'PHP'
     };
   }
-
+  
   return null;
 }
 
@@ -175,20 +175,13 @@ function validateCurrencyShippingMatch({ forceToast = false } = {}) {
   );
 }
 
-// Hide cart icon on cart.html only
-const cartIconBtn = $('cartIconBtn');
-const currentPage = window.location.pathname.split('/').pop();
-if (currentPage === 'cart.html') {
-  cartIconBtn?.style.setProperty('display', 'none', 'important');
-}
-
-// Currency dropdown toggle
+/* currency dropdown toggle */
 $('currencyBtn')?.addEventListener('click', (e) => {
   e.stopPropagation();
   $('currencyDropdown').classList.toggle('open');
 });
 
-// Currency selection
+/* currency selection */ 
 $$('#currencyDropdown li').forEach(item => {
   item.addEventListener('click', () => {
     currentCurrency = item.dataset.currency;
@@ -201,7 +194,6 @@ $$('#currencyDropdown li').forEach(item => {
   });
 });
 
-// Close currency menu when clicking outside
 document.addEventListener('click', () => {
   $('currencyDropdown')?.classList.remove('open');
 });
@@ -224,8 +216,7 @@ window.addEventListener('storage', (event) => {
   }
 });
 
-/* ── SEARCH BAR ───────────────────────────────── */
-/* Product data for live filtering */
+/* search bar */ 
 const productData = [
   { name: 'Royal Blue — 100% Cotton Twill Coverall (Reflectorized)', cat:'Uniforms', price:'₱1,000', img:'Assets/Products/UNI-PR1-Front-Coverall (Blue).png'},
   { name: 'Orange — 100% Cotton Twill Coverall (Reflectorized)', cat:'Uniforms', price:'₱1,000', img:'Assets/Products/UNI-PR2-Front-Coverall (Orange).png'},
@@ -271,9 +262,7 @@ $('searchInput').addEventListener('input', () => {
   res.classList.add('show');
 });
 
-// ============================================
-// TOAST NOTIFICATION SYSTEM
-// ============================================
+/* toast notification */
 function showToast(type, title, message, actionLabel, actionCallback, customClass) {
   const container = $('toastContainer');
   if (!container) return;
@@ -325,9 +314,6 @@ function showToast(type, title, message, actionLabel, actionCallback, customClas
   }, 1000);
 }
 
-// ============================================
-// CART SYSTEM WITH SELECTION
-// ============================================
 function getCart() {
   const cart = localStorage.getItem('cssp-cart');
   return cart ? JSON.parse(cart) : [];
@@ -488,17 +474,15 @@ function renderCart() {
   emptyCart.style.display = 'none';
   cartContent.style.display = 'grid';
 
-  // Sync Select All checkbox state
+  // sync select all checkbox state
   const allSelected = cart.length > 0 && cart.every(item => item.selected);
   selectAll.checked = allSelected;
 
-  // Always show bulk actions so controls remain visible even when no items are selected
   const bulkActions = $('bulkActions');
   if (bulkActions) {
     bulkActions.style.display = 'flex';
   }
 
-  // Always render all items — no visibility filter
   itemsList.innerHTML = cart.map(item => {
     const productType = item.type && item.type !== 'undefined' && item.type !== 'null'
       ? item.type
@@ -542,12 +526,11 @@ function renderCart() {
   `;
   }).join('');
 
-  // Update summary counts
+  // update summary counts
   const selectedItems = cart.filter(item => item.selected);
   const subtotal = selectedItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
   const selectedCount = selectedItems.reduce((sum, item) => sum + item.quantity, 0);
   
-  // Render selected items list in order summary
   const summaryList = $('selectedItemsList');
   if (summaryList) {
     if (selectedItems.length === 0) {
@@ -584,7 +567,7 @@ function renderCart() {
   $('selectedCount').textContent = selectedItems.length;
   updateCartSummary();
   
-  // Update bulk action buttons state
+  // update bulk action buttons state
   const deleteBtn = $('deleteSelectedBtn');
   if (deleteBtn) deleteBtn.disabled = selectedItems.length === 0;
 }
@@ -600,7 +583,7 @@ function updateCartSummary() {
   const discountValue = voucherType === 'percentage' ? subtotal * (voucherDiscount / 100) : 0;
   const total = subtotal + shippingValue + taxValue - discountValue;
 
-  // Update main cart summary
+  // update main cart summary
   const subtotalEl = $('subtotalAmount');
   const shippingEl = $('shippingAmount');
   const taxEl = $('taxAmount');
@@ -624,10 +607,7 @@ function updateCartSummary() {
   }
 }
 
-
-// ============================================
-// CHECKOUT SYSTEM
-// ============================================
+/* checkout system */
 let currentStep = 1;
 let selectedPaymentMethod = null;
 let selectedShippingMethod = null;
@@ -637,13 +617,13 @@ let voucherType = null;
 let voucherCode = null;
 let orderData = {};
 
-// Shipping upgrade variables
+// shipping upgrade variables
 let destinationType = null; // 'national' or 'international'
 let deliveryType = null; // 'standard' or 'express'
-let shippingSelectedRegion = ''; // for shipping region selector (separate from address region)
+let shippingSelectedRegion = ''; // for shipping region selector
 let destinationTypeLocked = false;
 
-// Location data storage
+// location data storage
 let cityData = [];
 let barangayData = [];
 
@@ -740,14 +720,14 @@ function goToStep1() {
 }
 
 function goToStep2() {
-  // Validate customer info
+  // validate customer info
   const firstName = $('firstName').value.trim();
   const lastName = $('lastName').value.trim();
   const email = $('customerEmail').value.trim();
   const phoneCountry = $('phoneCountry').value;
   const phone = $('customerPhone').value.trim();
 
-  // Validate address fields
+  // validate address fields
   const country = $('country').value;
   const city = $('cityValue').value;
   const barangay = $('barangayValue').value;
@@ -755,7 +735,7 @@ function goToStep2() {
 
   let hasError = false;
 
-  // Reset errors
+  // reset errors
   $$('.error-text').forEach(el => el.classList.remove('show'));
 
   if (!firstName) {
@@ -815,21 +795,21 @@ function goToStep2() {
     return;
   }
 
-  // Store customer data
+  // store customer data
   orderData.firstName = firstName;
   orderData.lastName = lastName;
   orderData.email = email;
   orderData.phoneCountry = phoneCountry;
   orderData.phone = phone;
 
-  // Store address data
+  // store address data
   orderData.country = country;
   orderData.city = city;
   orderData.barangay = barangay;
   orderData.street = street;
   orderData.postal = $('postalCode').value.trim();
 
-  // Auto-set destination based on country
+  // auto-set destination based on country
   if (country === 'PH') {
     selectDestination('national');
     destinationTypeLocked = true;
@@ -840,18 +820,16 @@ function goToStep2() {
     updateDestinationLockStyles();
   }
 
-  // Render cart items in step 2
+  // render cart items in step 2
   renderCheckoutItems();
 
-  // Sync checkout subtotal/total
+  // sync checkout subtotal/total
   updateCheckoutSummary();
 
   showStep(2);
 }
 
-// ============================================
-// PHONE VALIDATION WITH REAL-TIME FEEDBACK
-// ============================================
+/* phone tel validation */
 function getPhoneValidationMessage(country) {
   const messages = {
     'Philippines': 'Enter 11 digits and start with 09 for Philippines.',
@@ -906,7 +884,7 @@ function updatePhoneValidationUI(phone, country, showToastOnError = false) {
   return valid;
 }
 
-// Real-time phone validation
+/* tel phone first number validation */
 $('customerPhone')?.addEventListener('input', (e) => {
   const rawValue = e.target.value;
   const country = $('phoneCountry').value;
@@ -966,7 +944,7 @@ function validateNameInput(value) {
 }
 
 $('firstName')?.addEventListener('input', (e) => {
-  // Remove invalid chars on the fly
+  // remove invalid chars
   const clean = e.target.value.replace(/[^A-Za-zÀ-ÖØ-öø-ÿ\s\-']/g, '');
   if (e.target.value !== clean) {
     e.target.value = clean;
@@ -1005,7 +983,7 @@ $('agreePolicy')?.addEventListener('change', () => {
   }
 });
 
-// Show toast if checkout button is clicked while agree is unchecked (belt-and-suspenders)
+// show toast if checkout button is clicked while agree is unchecked 
 $('placeOrderBtn')?.addEventListener('click', (e) => {
   if (!$('agreePolicy')?.checked) {
     e.preventDefault();
@@ -1066,27 +1044,20 @@ document.addEventListener('keydown', e => {
   }
 });
 
-// ============================================
-// SEARCHABLE LOCATION SYSTEM (PH JSON ALIGNED)
-// ============================================
-
-// Global state for location data
+/* searchable location bcs of json */
 let locationConfig = null;
 let selectedCountryConfig = null;
 let allPhCities = [];     // full ph_cities.json array
-let allPhBarangays = [];  // full ph_barangays.json array (lazy-loaded)
+let allPhBarangays = [];  // full ph_barangays.json array
 let selectedCityObj = null;
 let selectedBrgyObj = null;
 let selectedRegion = '';
-let regionData = [];      // for PH regions
+let regionData = [];      // for ph regions
 
-/**
- * Initialize the location system by loading country.json
- * and populating the country dropdown.
- */
+/* initializationch */
 async function initLocationSystem() {
     try {
-        const response = await fetch('../JSON/country.json');
+        const response = await fetch('../JSON Files/country.json');
         if (!response.ok) throw new Error('Failed to fetch country.json');
         
         const data = await response.json();
@@ -1110,9 +1081,7 @@ async function initLocationSystem() {
     }
 }
 
-/**
- * Handle country change
- */
+/* handle sudden country change*/
 async function loadCountryData() {
     const countryCode = $('country').value;
     const citySearch = $('citySearch');
@@ -1124,7 +1093,7 @@ async function loadCountryData() {
     const barangayValue = $('barangayValue');
     const barangayCodeValue = $('barangayCodeValue');
     
-    // Reset all fields
+    // reset all fields
     citySearch.value = '';
     cityValue.value = '';
     if (cityCodeValue) cityCodeValue.value = '';
@@ -1143,7 +1112,7 @@ async function loadCountryData() {
     selectedRegion = '';
     regionData = [];
     
-    // Reset shipping selections
+    // reset shipping selections
     destinationType = null;
     deliveryType = null;
     selectedShippingMethod = null;
@@ -1167,7 +1136,7 @@ async function loadCountryData() {
 
     selectedCountryConfig = locationConfig ? locationConfig.find(c => c.code === countryCode) : null;
     
-    // Update labels
+    // update labels
     const cityLabel = $('cityLabel');
     if (cityLabel && selectedCountryConfig && selectedCountryConfig.addressFormat && selectedCountryConfig.addressFormat.city) {
         cityLabel.textContent = selectedCountryConfig.addressFormat.city + ' *';
@@ -1180,21 +1149,21 @@ async function loadCountryData() {
         regionLabel.textContent = selectedCountryConfig.addressFormat.region + (selectedCountryConfig.code === 'PH' ? ' *' : '');
     }
 
-    // Toggle Barangay field visibility
+    // toggle barangay field visibility
     if (selectedCountryConfig && selectedCountryConfig.hasBarangay) {
         barangayGroup.style.display = 'block';
     } else {
         barangayGroup.style.display = 'none';
     }
 
-    // For PH: auto-assign national shipping and load region selector
+    // for ph: auto-assign national shipping and load region selector
     if (countryCode === 'PH') {
         destinationTypeLocked = true;
         selectDestination('national');
         updateDestinationLockStyles();
         if (regionGroup) regionGroup.style.display = 'block';
         try {
-            const citySource = selectedCountryConfig ? selectedCountryConfig.citySource : '../JSON/ph_cities.json';/*SOURCE*/
+            const citySource = selectedCountryConfig ? selectedCountryConfig.citySource : '../JSON/ph_cities.json';
             const response = await fetch(citySource);
             if (!response.ok) throw new Error('Failed to load cities');
             const rawData = await response.json();
@@ -1249,14 +1218,12 @@ async function loadCountryData() {
     updatePaymentMethodVisibility();
 }
 
-/**
- * Load cities for selected PH region
- */
+/* load cities in ph */
 function loadCitiesForRegion() {
     const regionSelect = $('regionSearch');
     selectedRegion = regionSelect ? regionSelect.value : '';
     
-    // Reset city + barangay fields
+    // reset city + barangay fields
     $('citySearch').value = '';
     $('cityValue').value = '';
     if ($('cityCodeValue')) $('cityCodeValue').value = '';
@@ -1280,7 +1247,7 @@ function loadCitiesForRegion() {
         barangayDropdown.classList.remove('active');
     }
     
-    // Filter cities by region
+    // filter cities by region
     cityData = selectedRegion ? allPhCities.filter(c => c.regDesc === selectedRegion) : [];
 
     if (!selectedRegion && cityDropdown) {
@@ -1293,9 +1260,7 @@ function loadCitiesForRegion() {
     }
 }
 
-/**
- * Search and filter cities as user types
- */
+/* filter and search as they type gantu gantu */
 $('citySearch')?.addEventListener('input', (e) => {
     const query = e.target.value.toLowerCase().trim();
     const dropdown = $('cityDropdown');
@@ -1336,9 +1301,6 @@ $('citySearch')?.addEventListener('input', (e) => {
     }
 });
 
-/**
- * Search and filter regions as user types
- */
 $('regionSearch')?.addEventListener('input', (e) => {
     const query = e.target.value.toLowerCase().trim();
     const dropdown = $('regionDropdown');
@@ -1366,9 +1328,7 @@ $('regionSearch')?.addEventListener('input', (e) => {
     }
 });
 
-/**
- * Select a city from the dropdown
- */
+/* select city from dropdown */
 async function selectCity(name, code, regDesc) {
     const citySearch = $('citySearch');
     const cityValue = $('cityValue');
@@ -1380,14 +1340,14 @@ async function selectCity(name, code, regDesc) {
     if (cityCodeValue) cityCodeValue.value = code;
     dropdown.classList.remove('active');
     
-    // Store selected city object
+    // store selected city object
     const cityRegion = selectedCountryConfig?.code === 'UK'
         ? (cityData.find(c => (c.citymunCode || c.code || '') === code)?.region || regDesc)
         : (cityData.find(c => (c.citymunCode || c.code || '') === code)?.regDesc || cityData.find(c => (c.citymunCode || c.code || '') === code)?.region || cityData.find(c => (c.citymunCode || c.code || '') === code)?.state || regDesc);
 
     selectedCityObj = cityData.find(c => (c.citymunCode || c.code || '') === code) || { citymunDesc: name, citymunCode: code, regDesc: cityRegion };
 
-    // Auto-fill postal code from city or suggested format
+    // auto-fill postal code from city or suggested format
     const postalField = $('postalCode');
     const postalValueField = $('postalValue');
     let postalSuggestion = selectedCityObj.postalCode || '';
@@ -1432,17 +1392,17 @@ async function selectCity(name, code, regDesc) {
         postalValueField.value = postalSuggestion;
     }
 
-    // Update region
+    // update region
     selectedRegion = cityRegion;
     if ($('regionValue')) $('regionValue').value = cityRegion || '';
     
-    // Re-render delivery options if destination selected
+    // re-render delivery options if destination selected
     if (destinationType) {
         renderDeliveryOptions();
         updateCartSummary();
     }
 
-    // If country has barangays (like PH), load them based on city code
+    // if country has barangays (like PH), load them based on city code
     if (selectedCountryConfig && selectedCountryConfig.hasBarangay && code) {
         // Reset barangay
         if ($('barangaySearch')) $('barangaySearch').value = '';
@@ -1453,9 +1413,7 @@ async function selectCity(name, code, regDesc) {
     }
 }
 
-/**
- * Select a region from the dropdown
- */
+/* select region from dropdown */
 function selectRegion(name) {
     const regionSearch = $('regionSearch');
     const dropdown = $('regionDropdown');
@@ -1485,14 +1443,12 @@ function updatePaymentMethodVisibility() {
     }
 }
 
-/**
- * Load barangays for a specific city (Philippines)
- */
+/* load brgy from specific/selected city */
 async function loadBarangayData(citymunCode) {
     try {
         const brgySource = selectedCountryConfig ? selectedCountryConfig.barangaySource : 'ph_barangays.json';
         
-        // If we haven't loaded all barangays yet, load them now
+        // if it haven't loaded all barangays yet, load them now rnch
         if (allPhBarangays.length === 0) {
             const response = await fetch(brgySource);
             if (!response.ok) throw new Error('Failed to load barangay data');
@@ -1500,10 +1456,10 @@ async function loadBarangayData(citymunCode) {
             allPhBarangays = Array.isArray(rawData) ? rawData : (rawData.barangays || []);
         }
         
-        // Filter barangays by citymunCode
+        // filter barangays by citymuncode
         barangayData = allPhBarangays.filter(b => b.citymunCode === citymunCode);
         
-        // Reset barangay fields and dropdown state
+        // reset brgy fields and dropdown state
         if ($('barangaySearch')) $('barangaySearch').value = '';
         if ($('barangayValue')) $('barangayValue').value = '';
         const barangayDropdown = $('barangayDropdown');
@@ -1518,9 +1474,7 @@ async function loadBarangayData(citymunCode) {
     }
 }
 
-/**
- * Search and filter barangays as user types
- */
+/* search and filter brgy as user type.... */
 $('barangaySearch')?.addEventListener('input', (e) => {
     const query = e.target.value.toLowerCase().trim().replace(/brgy/gi, 'Barangay');
     const dropdown = $('barangayDropdown');
@@ -1557,9 +1511,6 @@ $('barangaySearch')?.addEventListener('input', (e) => {
     }
 });
 
-/**
- * Select a barangay from the dropdown
- */
 function selectBarangay(name, code) {
     $('barangaySearch').value = name;
     $('barangayValue').value = name;
@@ -1575,18 +1526,14 @@ function selectBarangay(name, code) {
     }
 }
 
-/**
- * Close dropdowns when clicking outside
- */
+/* closed after clicking outside */
 document.addEventListener('click', (e) => {
     if (!e.target.closest('.searchable-input')) {
         $$('.search-dropdown').forEach(dd => dd.classList.remove('active'));
     }
 });
 
-/**
- * Validation helper: check if typed value matches an item in the list
- */
+/* check if typed value matches an item in the list */
 function validateLocationInput() {
     const country = $('country').value;
     const cityInput = $('citySearch').value.trim();
@@ -1598,7 +1545,7 @@ function validateLocationInput() {
 
     let isValid = true;
 
-    // Check if city exists in loaded data
+    // check if city exists in loaded data
     const validCity = cityData.find(c => (c.citymunDesc || c.name || '').toLowerCase() === cityInput.toLowerCase());
     if (validCity) {
         cityVal.value = validCity.citymunDesc || validCity.name;
@@ -1611,7 +1558,7 @@ function validateLocationInput() {
         isValid = false;
     }
 
-    // Check if barangay exists if required
+    // check if barangay exists if required
     if (selectedCountryConfig?.hasBarangay) {
         const validBrgy = barangayData.find(b => (b.brgyDesc || '').toLowerCase() === (brgyInput || '').toLowerCase());
         if (validBrgy) {
@@ -1629,17 +1576,13 @@ function validateLocationInput() {
     return isValid;
 }
 
-// Initialize on load
+// initialize
 document.addEventListener('DOMContentLoaded', () => {
   initLocationSystem();
   updatePaymentMethodVisibility();
 });
 
-
-// ============================================
-// SHIPPING & VOUCHER SYSTEM
-// ============================================
-
+/* shipping and voucher system */
 function updateDestinationLockStyles() {
     const national = $('destNational');
     const international = $('destInternational');
@@ -1656,26 +1599,26 @@ function selectDestination(type) {
     if (destinationTypeLocked && destinationType && type !== destinationType) return;
     destinationType = type;
     
-    // Update UI
+    // update ui
     $('destNational').classList.toggle('selected', type === 'national');
     $('destInternational').classList.toggle('selected', type === 'international');
     updateDestinationLockStyles();
     
-    // Show delivery type options
+    // show delivery type options
     $('deliveryTypeGroup').style.display = 'block';
     
-    // Reset delivery type
+    // reset delivery type
     deliveryType = null;
     selectedShippingMethod = null;
     shippingFee = 0;
     
-    // Render delivery options
+    // render delivery options
     renderDeliveryOptions();
     updateCartSummary();
     updateCheckoutSummary();
     validateCurrencyShippingMatch({ forceToast: true });
     
-    // Hide shipping error
+    // hide shipping error
     $('shippingError').classList.remove('show');
 }
 
@@ -1796,9 +1739,7 @@ function removeVoucher() {
   updateCheckoutSummary();
 }
 
-// ============================================
-// PAYMENT SYSTEM
-// ============================================
+/* payment system */
 async function selectPayment(method) {
   if ((method === 'cod' || method === 'gcash') && selectedCountryConfig?.code !== 'PH') {
     return;
@@ -1959,7 +1900,7 @@ async function processPayment() {
     }
   }
 
-  // Generate order and show confirmation
+  // generate order and show confirmation
   completeOrder();
 }
 
@@ -1967,7 +1908,7 @@ function completeOrder() {
   const orderID = generateOrderID();
   orderData.orderID = orderID;
   
-  // Calculate final totals
+  // calculate final totals
   const cart = getCart();
   const selectedItems = cart.filter(item => item.selected);
   const subtotal = calculateTotal(cart);
@@ -1991,17 +1932,17 @@ function completeOrder() {
   orderData.total = total;
   orderData.voucher = voucherCode;
   
-  // Display order details
+  // display order details
   $('orderIdDisplay').textContent = orderID;
   $('confirmationEmail').textContent = orderData.email;
   
-  // Populate receipt
+  // populate receipt
   populateReceipt();
   
   showStep(3);
   startTrackingAnimation();
   
-  // Remove selected items from cart
+  // remove selected items from cart
   let newCart = cart.filter(item => !item.selected);
   localStorage.setItem('cssp-cart', JSON.stringify(newCart));
   updateCartBadge();
@@ -2013,7 +1954,7 @@ function completeOrder() {
 function populateReceipt() {
   const receipt = $('receiptDetails');
   
-  // Items HTML - include category, size, qty, unit price, subtotal
+  // items html - include category, size, qty, unit price, subtotal
   let itemsHTML = orderData.items.map(item => `
     <div class="receipt-row" style="flex-direction:column; align-items:flex-start; gap:4px;">
       <div style="width:100%; display:flex; justify-content:space-between; font-weight:700;">
@@ -2262,11 +2203,11 @@ function startTrackingAnimation(stage = 2) {
     });
     
 
-    // Helper function to check space and add a page safely
+    // helper function to check space and add a page safely
     function checkPageOverflow(currentY, neededSpace) {
         if (currentY + neededSpace > 270) {
         doc.addPage();
-        return 20; // Reset Y to top of new page
+        return 20; // Reset y to top of new page
         }
         return currentY;
     }
@@ -2281,15 +2222,11 @@ function startTrackingAnimation(stage = 2) {
         return formatPrice(amount); // Ensure formatPrice global function exists
     }
 
-    // =========================
-    // MAIN RECEIPT RENDER
-    // =========================
+/* main receipt render */
     function renderReceipt() {
         let y = 20;
 
-        // =========================
-        // HEADER
-        // =========================
+        // header
         doc.setFont('Poppins-Black', 'normal'); // Using standard safe font
         doc.setFontSize(20);
         doc.text('CSSP Garments Trading', 105, y, { align: 'center' });
@@ -2299,17 +2236,13 @@ function startTrackingAnimation(stage = 2) {
         doc.setFont('Poppins-Black', 'normal');
         doc.text('Order Receipt', 105, y, { align: 'center' });
 
-        // =========================
-        // ORDER ID
-        // =========================
+        // order id
         y += 15;
         doc.setFontSize(14);
         doc.setFont('Poppins-Black', 'normal');
         doc.text(`Order ID: ${orderData.orderID}`, 20, y);
 
-        // =========================
-        // CUSTOMER INFO
-        // =========================
+        // customer info
         y += 12;
         doc.setFontSize(12);
         doc.text('Customer Information:', 20, y);
@@ -2322,9 +2255,7 @@ function startTrackingAnimation(stage = 2) {
         y += 6;
         doc.text(`Phone: ${orderData.phoneCountry} - ${orderData.phone}`, 20, y);
 
-        // =========================
-        // SHIPPING
-        // =========================
+        // shipment details
         y += 10;
         doc.setFont('Poppins-Black', 'normal');
         doc.text('Shipping Address:', 20, y);
@@ -2344,9 +2275,7 @@ function startTrackingAnimation(stage = 2) {
 
         doc.text(`${orderData.country} ${orderData.postal}`, 20, y);
 
-        // =========================
-        // ITEMS
-        // =========================
+        // items
         y += 12;
         doc.setFont('Poppins-Black', 'normal');
         doc.text('Order Items:', 20, y);
@@ -2367,9 +2296,7 @@ function startTrackingAnimation(stage = 2) {
         y += 6;
         });
 
-        // =========================
-        // TOTALS (with overflow check)
-        // =========================
+        // total math
         y = checkPageOverflow(y, 35); // Ensures room for all totals safely
 
         y += 4;
@@ -2391,9 +2318,7 @@ function startTrackingAnimation(stage = 2) {
         doc.text('Total:', 20, y);
         doc.text(formatPriceForPDF(orderData.total), 190, y, { align: 'right' });
 
-        // =========================
-        // PAYMENT
-        // =========================
+        // payment
         y += 12;
         doc.setFont('Poppins-Black', 'normal');
         doc.text('Payment Method:', 20, y);
@@ -2409,9 +2334,7 @@ function startTrackingAnimation(stage = 2) {
 
         doc.text(paymentLabel, 70, y);
 
-        // =========================
-        // FOOTER (Ensures it stays on the bottom of the final page)
-        // =========================
+        // footer (ty)
         doc.setFontSize(10);
         doc.setFont('Poppins-Black', 'normal');
         doc.text(
@@ -2421,9 +2344,7 @@ function startTrackingAnimation(stage = 2) {
         { align: 'center' }
         );
 
-        // =========================
-        // DOWNLOAD
-        // =========================
+        // download sana gumana 
         doc.save(`CSSP-Receipt-${orderData.orderID}.pdf`);
 
         if (typeof showToast === 'function') {
@@ -2431,9 +2352,7 @@ function startTrackingAnimation(stage = 2) {
         }
     }
 
-    // =========================
-    // WATERMARK HANDLING
-    // =========================
+    // watermark
     const watermark = new Image();
     watermark.src = './Assets/logo opacity 50% watermark.png';
 
@@ -2523,17 +2442,9 @@ function resetCheckoutForm() {
   orderData = {};
 }
 
-// ============================================
-// HEADER SCROLL EFFECT
-// ============================================
-const header = document.querySelector('.site-header');
-window.addEventListener('scroll', () => {
-  header.classList.toggle('scrolled', window.scrollY > 100);
-});
-
-// ============================================
-// INITIALIZATION
-// ============================================
+ /* back to top */
+ $('backToTop').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+      
 updateCartBadge();
 updateCurrencyDisplay();
 renderCart();
