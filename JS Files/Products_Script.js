@@ -654,7 +654,6 @@ function confirmAddToCart() {
 
   let hasError = false;
 
-  // BASIC VALIDATION FIRST (IMPORTANT)
   if (!currentProductData) return;
 
   if (size === "") {
@@ -677,7 +676,15 @@ function confirmAddToCart() {
     hasError = true;
   }
 
-  if (hasError) return;
+  if (qty > 50) {
+    showToast(
+      "warning",
+      "Bulk Order Limit",
+      "Maximum order per product is 50 pieces only. For bulk orders, please proceed to the Contact Page."
+    );
+    shakeModal();
+    return;
+  }
 
   const cart = getCart();
 
@@ -691,16 +698,6 @@ function confirmAddToCart() {
   const totalQty = existingQty + qty;
   const remaining = 50 - existingQty;
 
-  if (qty > 50) {
-    showToast(
-      "warning",
-      "Bulk Order Limit",
-      "Maximum order per product is 50 pieces only. For bulk orders, please proceed to the Contact Page."
-    );
-    shakeModal();
-    return;
-  }
-
   if (totalQty > 50) {
     showToast(
       "warning",
@@ -710,6 +707,8 @@ function confirmAddToCart() {
     shakeModal();
     return;
   }
+
+  if (hasError) return;
 
   const cartItem = {
     id: Date.now(),
