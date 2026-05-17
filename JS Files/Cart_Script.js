@@ -1057,7 +1057,7 @@ let regionData = [];      // for ph regions
 /* initializationch */
 async function initLocationSystem() {
     try {
-        const response = await fetch('../JSON/country.json');
+        const response = await fetch('../JSON Files/country.json');
         if (!response.ok) throw new Error('Failed to fetch country.json');
         
         const data = await response.json();
