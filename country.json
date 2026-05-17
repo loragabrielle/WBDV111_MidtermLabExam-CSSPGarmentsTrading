@@ -1,0 +1,38 @@
+{
+  "countries": [
+    {
+      "code": "PH",
+      "name": "Philippines",
+      "citySource": "../JSON Files/ph_cities.json",
+      "barangaySource": "../JSON Files/ph_barangays.json",
+      "hasBarangay": true,
+      "phoneDigits": 11,
+      "addressFormat": {
+        "city": "City/Municipality",
+        "subdivision": "Barangay"
+      }
+    },
+    {
+      "code": "US",
+      "name": "United States",
+      "citySource": "../JSON Files/us_cities.json",
+      "hasBarangay": false,
+      "phoneDigits": 10,
+      "addressFormat": {
+        "region": "State",
+        "city": "City"
+      }
+    },
+    {
+      "code": "UK",
+      "name": "United Kingdom",
+      "citySource": "../JSON Files/uk_cities.json",
+      "hasBarangay": false,
+      "phoneDigits": "10-11",
+      "addressFormat": {
+        "region": "Region",
+        "city": "City"
+      }
+    }
+  ]
+}
