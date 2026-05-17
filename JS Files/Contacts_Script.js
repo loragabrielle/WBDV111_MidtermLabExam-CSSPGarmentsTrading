@@ -2,6 +2,16 @@
 const $ = id => document.getElementById(id);
 const $$ = sel => document.querySelectorAll(sel);
 
+/* ── UTILS ─────────────────────────────────── */
+function showToast(msg, type = 'default', duration = 3200) {
+  const icons = { success:'fa-circle-check', error:'fa-circle-xmark', warning:'fa-triangle-exclamation', default:'fa-bell' };
+  const t = document.createElement('div');
+  t.className = `toast ${type}`;
+  t.innerHTML = `<i class="fa-solid ${icons[type] || icons.default}"></i>${msg}`;
+  $('toastContainer').appendChild(t);
+  setTimeout(() => { t.classList.add('out'); setTimeout(() => t.remove(), 350); }, duration);
+}
+
 // Ticker duplication logic
 const tickerTrack = $('tickerTrack');
 if (tickerTrack) {
@@ -99,12 +109,23 @@ $('hamburger').addEventListener('click', () => {
 /* ── SEARCH BAR ───────────────────────────────── */
 /* Product data for live filtering */
 const productData = [
-  { name:'Coveralls (Blue)',   cat:'Uniforms',  price:'₱900',   img:'Assets/Products/UNI-PR1-Front-Coverall (Blue).JPG'   },
-  { name:'Coveralls (Orange)', cat:'Uniforms',  price:'₱1,000', img:'Assets/Products/UNI-PR2-Front-Coverall (Orange).JPG' },
-  { name:'Coveralls (Beige)',  cat:'Uniforms',  price:'₱950',   img:'Assets/Products/UNI-PR3-Front-Coverall (Beige).JPG'  },
-  { name:"Chef's White Top",   cat:'Kitchen',   price:'₱800',   img:'Assets/Products/UNI-PR4-Front-Coverall (Chef\'s).JPG'},
-  { name:'Full PPE Kit',       cat:'Safety',    price:'₱3,200', img:'https://placehold.co/42x42/e63946/fff?text=PPE'       },
-  { name:'Safety Boot',        cat:'Footwear',  price:'₱1,800', img:'https://placehold.co/42x42/1a3a5c/f4d03f?text=Boot'  },
+  { name: 'Royal Blue — 100% Cotton Twill Coverall (Reflectorized)', cat:'Uniforms', price:'₱1,000', img:'Assets/Products/UNI-PR1-Front-Coverall (Blue).png'},
+  { name: 'Orange — 100% Cotton Twill Coverall (Reflectorized)', cat:'Uniforms', price:'₱1,000', img:'Assets/Products/UNI-PR2-Front-Coverall (Orange).png'},
+  { name: 'Khaki — 100% Cotton Twill Coverall (Reflectorized)', cat:'Uniforms', price:'₱1,000', img:'Assets/Products/UNI-PR3-Front-Coverall (Khaki).png'},
+  
+  { name: "Chef's Polo Long Sleeve",   cat:'Kitchen', price:'₱800', img:'Assets/Products/UNI-PR4-Front-Top1.png'},
+  { name: "Chef's Polo Long Sleeve — 100% Cotton Twill ", cat:'Kitchen', price:'₱950', img:'Assets/Products/UNI-PR5-Front-Top2.png'},
+  { name: "Kitchen Crew Polo", cat:'Kitchen', price:'₱800', img:'Assets/Products/UNI-PR6-Front-Top3.png'},
+  
+  { name: "Chef Pants", cat:'Kitchen', price:'₱500', img:'Assets/Products/UNI-PR7-Front-Pants1.png'},
+  { name:"Kitchen Crew Checkered Pants", cat:'Kitchen', price:'₱500', img:'Assets/Products/UNI-PR8-Front-Pants2.png'},
+  
+  { name:'Winter Jacket - Reflectorized', cat:'Jacket', price:'₱1,500', img:'Assets/Products/UNI-PR10-Front-Jacket2.png'},
+  { name:'Ordinary Jacket - Reflectorized', cat:'Jacket', price:'₱1,500', img:'Assets/Products/UNI-PR9-Front-Jacket1.png'},
+  
+  { name:"MG Safety (High Cut)", cat:'Safety Shoes', price:'₱1,500', img:'Assets/Products/SHO-PR1-Front-High Cut (MG Safety).png'},
+  { name:'MG Safety (Low Cut)', cat:'Safety Shoes', price:'₱1,200', img:'Assets/Products/SHO-PR3-Front-Low Cut (MG Safety).png'},
+  { name:'PPE - Shoes Rockwinner (Low Cut)', cat:'Safety Shoes', price:'₱1,200', img:'Assets/Products/SHO-PR2-Front-Low Cut (Rockwinner).png'  },
 ];
 
 $('searchToggle').addEventListener('click', () => {
@@ -147,6 +168,7 @@ $('themeToggle').addEventListener('click', () => {
   themeIcon.className = next === 'dark' ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
 });
 
+
 /* ── CURRENCY SWITCHER ────────────────────────── */
 const rates = { PHP:{symbol:'₱',rate:1}, USD:{symbol:'$',rate:.018}, EUR:{symbol:'€',rate:.016} };
 let currency = 'PHP';
@@ -169,6 +191,39 @@ $$('#currencyDropdown li').forEach(li => {
   });
 });
 
+/* ── CART (LocalStorage) ──────────────────────── */
+function getCart() { return JSON.parse(localStorage.getItem('cssp_cart') || '[]'); }
+function saveCart(c) { localStorage.setItem('cssp_cart', JSON.stringify(c)); }
+function updateCartBadge() {
+  const n = getCart().reduce((s,i) => s + i.qty, 0);
+  $('cartBadge').textContent = n;
+  $('cartBadge').style.transform = 'scale(1.5)';
+  setTimeout(() => $('cartBadge').style.transform = '', 200);
+}
+updateCartBadge();
+
+$$('.quick-add').forEach(btn => {
+  btn.addEventListener('click', e => {
+    e.stopPropagation();
+    const card = btn.closest('.product-card');
+    const name  = card.dataset.name;
+    const price = parseFloat(card.dataset.price);
+    const img   = card.dataset.img || '';
+    const size  = card.querySelector('.size-select')?.value || 'One Size';
+    const cart  = getCart();
+    const key   = name + '-' + size;
+    const found = cart.find(i => i.key === key);
+    if (found) { found.qty++; }
+    else { cart.push({ key, name, price, img, size, qty:1 }); }
+    saveCart(cart);
+    updateCartBadge();
+    showToast(`<strong>${name}</strong> added to cart!`, 'success');
+  });
+});
+
+$('cartIconBtn').addEventListener('click', () => {
+  window.location.href = 'cart.html';
+});
 
 /* ── CONTACTS NOTIF ────────────────────────── */
 function showNotif(message, isSuccess = false) { 
@@ -248,31 +303,6 @@ if (cBtn) {
       msgEl.value = ""; 
     }, 1000);    
   });
-}
-
-/* ── POLICY AGREEMENTS ────────────────────────── */
-const policyChecks  = $$('.policy-check');
-const policyBtn     = $('policySubmit');
-
-if (policyBtn) {
-  policyBtn.addEventListener('click', () => {
-    let missing = [];
-    policyChecks.forEach(box => { 
-      if (!box.checked) missing.push(box.getAttribute('data-name')); 
-    });
-
-    /* if (missing.length === 0) {
-      $('successToast')?.classList.add('show');
-      policyChecks.forEach(box => {
-        box.checked = false;
-      });
-      setTimeout(() => $('successToast')?.classList.remove('show'), 4000);
-    } else {
-      if($('warningMsg')) $('warningMsg').textContent = `Please check all.`;
-      $('warningToast')?.classList.add('show');
-      setTimeout(() => $('warningToast')?.classList.remove('show'), 4000);
-    }
-  }); */
 }
 
 /* ── BACK TO TOP ──────────────────────────────── */
