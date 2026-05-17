@@ -1,23 +1,22 @@
-/* helper shortcuts */
+    // ============================================
+// UTILITY FUNCTIONS
+// ============================================
 const $ = (id) => document.getElementById(id);
 const $$ = (sel) => document.querySelectorAll(sel);
 
-/* ticker "+=" = infinite effect  */
+// ticker duplication logic
 const tickerTrack = $('tickerTrack');
 if (tickerTrack) {
   tickerTrack.innerHTML += tickerTrack.innerHTML;
 }
 
-/* shadow after 50px and back to top*/ 
-const hdr = $('siteHeader');
-window.addEventListener('scroll', () => {
-  hdr.classList.toggle('scrolled', window.scrollY > 50);
-  $('backToTop').classList.toggle('visible', window.scrollY > 300);
-}, { passive: true });
+// ============================================
+// THEME SYSTEM
+// ============================================
 const html = document.documentElement;
 const themeToggle = $('themeToggle');
 
-
+// Load saved theme from new or legacy keys
 const savedTheme = localStorage.getItem('themeMode') || localStorage.getItem('cssp-theme') || 'light';
 html.setAttribute('data-theme', savedTheme);
 updateThemeIcon();
@@ -40,7 +39,9 @@ function updateThemeIcon() {
   }
 }
 
-/* currency switch */
+// ============================================
+// CURRENCY SYSTEM
+// ============================================
 let currentCurrency = localStorage.getItem('selectedCurrency') || localStorage.getItem('cssp-currency') || 'PHP';
 
 const currencyRates = {
@@ -113,7 +114,6 @@ function updateCurrencyDisplay() {
   validateCurrencyShippingMatch();
 }
 
-
 let lastShippingCurrencyMismatch = null;
 
 function getCurrencyShippingMismatch() {
@@ -134,7 +134,7 @@ function getCurrencyShippingMismatch() {
       recommendedCurrency: 'PHP'
     };
   }
-  
+
   return null;
 }
 
@@ -175,13 +175,20 @@ function validateCurrencyShippingMatch({ forceToast = false } = {}) {
   );
 }
 
-/* currency dropdown toggle */
+// Hide cart icon on cart.html only
+const cartIconBtn = $('cartIconBtn');
+const currentPage = window.location.pathname.split('/').pop();
+if (currentPage === 'cart.html') {
+  cartIconBtn?.style.setProperty('display', 'none', 'important');
+}
+
+// Currency dropdown toggle
 $('currencyBtn')?.addEventListener('click', (e) => {
   e.stopPropagation();
   $('currencyDropdown').classList.toggle('open');
 });
 
-/* currency selection */ 
+// Currency selection
 $$('#currencyDropdown li').forEach(item => {
   item.addEventListener('click', () => {
     currentCurrency = item.dataset.currency;
@@ -194,6 +201,7 @@ $$('#currencyDropdown li').forEach(item => {
   });
 });
 
+// Close currency menu when clicking outside
 document.addEventListener('click', () => {
   $('currencyDropdown')?.classList.remove('open');
 });
@@ -216,7 +224,8 @@ window.addEventListener('storage', (event) => {
   }
 });
 
-/* search bar */ 
+/* ── SEARCH BAR ───────────────────────────────── */
+/* Product data for live filtering */
 const productData = [
   { name: 'Royal Blue — 100% Cotton Twill Coverall (Reflectorized)', cat:'Uniforms', price:'₱1,000', img:'Assets/Products/UNI-PR1-Front-Coverall (Blue).png'},
   { name: 'Orange — 100% Cotton Twill Coverall (Reflectorized)', cat:'Uniforms', price:'₱1,000', img:'Assets/Products/UNI-PR2-Front-Coverall (Orange).png'},
@@ -262,7 +271,9 @@ $('searchInput').addEventListener('input', () => {
   res.classList.add('show');
 });
 
-/* toast notification */
+// ============================================
+// TOAST NOTIFICATION SYSTEM
+// ============================================
 function showToast(type, title, message, actionLabel, actionCallback, customClass) {
   const container = $('toastContainer');
   if (!container) return;
@@ -314,6 +325,9 @@ function showToast(type, title, message, actionLabel, actionCallback, customClas
   }, 1000);
 }
 
+// ============================================
+// CART SYSTEM WITH SELECTION
+// ============================================
 function getCart() {
   const cart = localStorage.getItem('cssp-cart');
   return cart ? JSON.parse(cart) : [];
@@ -322,6 +336,15 @@ function getCart() {
 function saveCart(cart) {
   localStorage.setItem('cssp-cart', JSON.stringify(cart));
   updateCartBadge();
+}
+
+function updateCartBadge() {
+  const cart = getCart();
+  const totalQty = cart.reduce((sum, item) => sum + item.quantity, 0);
+  const badge = $('cartBadge');
+  if (badge) {
+    badge.textContent = totalQty;
+  }
 }
 
 function calculateTotal(cart) {
@@ -465,19 +488,21 @@ function renderCart() {
   emptyCart.style.display = 'none';
   cartContent.style.display = 'grid';
 
-  // sync select all checkbox state
+  // Sync Select All checkbox state
   const allSelected = cart.length > 0 && cart.every(item => item.selected);
   selectAll.checked = allSelected;
 
+  // Always show bulk actions so controls remain visible even when no items are selected
   const bulkActions = $('bulkActions');
   if (bulkActions) {
     bulkActions.style.display = 'flex';
   }
 
+  // Always render all items — no visibility filter
   itemsList.innerHTML = cart.map(item => {
     const productType = item.type && item.type !== 'undefined' && item.type !== 'null'
       ? item.type
-      : (item.category || item.productType || 'Uniform');
+      : (item.category || item.productType || 'Product');
     return `
     <div class="cart-item">
       <div class="cart-item-checkbox">
@@ -517,11 +542,12 @@ function renderCart() {
   `;
   }).join('');
 
-  // update summary counts
+  // Update summary counts
   const selectedItems = cart.filter(item => item.selected);
   const subtotal = selectedItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
   const selectedCount = selectedItems.reduce((sum, item) => sum + item.quantity, 0);
   
+  // Render selected items list in order summary
   const summaryList = $('selectedItemsList');
   if (summaryList) {
     if (selectedItems.length === 0) {
@@ -530,7 +556,7 @@ function renderCart() {
       summaryList.innerHTML = selectedItems.map(item => {
         const productType = item.type && item.type !== 'undefined' && item.type !== 'null'
           ? item.type
-          : (item.category || item.productType || 'Shoes');
+          : (item.category || item.productType || 'Product');
         return `
         <div class="summary-item-card">
           <div class="summary-item-thumb">
@@ -558,7 +584,7 @@ function renderCart() {
   $('selectedCount').textContent = selectedItems.length;
   updateCartSummary();
   
-  // update bulk action buttons state
+  // Update bulk action buttons state
   const deleteBtn = $('deleteSelectedBtn');
   if (deleteBtn) deleteBtn.disabled = selectedItems.length === 0;
 }
@@ -574,7 +600,7 @@ function updateCartSummary() {
   const discountValue = voucherType === 'percentage' ? subtotal * (voucherDiscount / 100) : 0;
   const total = subtotal + shippingValue + taxValue - discountValue;
 
-  // update main cart summary
+  // Update main cart summary
   const subtotalEl = $('subtotalAmount');
   const shippingEl = $('shippingAmount');
   const taxEl = $('taxAmount');
@@ -598,7 +624,10 @@ function updateCartSummary() {
   }
 }
 
-/* checkout system */
+
+// ============================================
+// CHECKOUT SYSTEM
+// ============================================
 let currentStep = 1;
 let selectedPaymentMethod = null;
 let selectedShippingMethod = null;
@@ -608,13 +637,13 @@ let voucherType = null;
 let voucherCode = null;
 let orderData = {};
 
-// shipping upgrade variables
+// Shipping upgrade variables
 let destinationType = null; // 'national' or 'international'
 let deliveryType = null; // 'standard' or 'express'
-let shippingSelectedRegion = ''; // for shipping region selector
+let shippingSelectedRegion = ''; // for shipping region selector (separate from address region)
 let destinationTypeLocked = false;
 
-// location data storage
+// Location data storage
 let cityData = [];
 let barangayData = [];
 
@@ -711,14 +740,14 @@ function goToStep1() {
 }
 
 function goToStep2() {
-  // validate customer info
+  // Validate customer info
   const firstName = $('firstName').value.trim();
   const lastName = $('lastName').value.trim();
   const email = $('customerEmail').value.trim();
   const phoneCountry = $('phoneCountry').value;
   const phone = $('customerPhone').value.trim();
 
-  // validate address fields
+  // Validate address fields
   const country = $('country').value;
   const city = $('cityValue').value;
   const barangay = $('barangayValue').value;
@@ -726,7 +755,7 @@ function goToStep2() {
 
   let hasError = false;
 
-  // reset errors
+  // Reset errors
   $$('.error-text').forEach(el => el.classList.remove('show'));
 
   if (!firstName) {
@@ -786,21 +815,21 @@ function goToStep2() {
     return;
   }
 
-  // store customer data
+  // Store customer data
   orderData.firstName = firstName;
   orderData.lastName = lastName;
   orderData.email = email;
   orderData.phoneCountry = phoneCountry;
   orderData.phone = phone;
 
-  // store address data
+  // Store address data
   orderData.country = country;
   orderData.city = city;
   orderData.barangay = barangay;
   orderData.street = street;
   orderData.postal = $('postalCode').value.trim();
 
-  // auto-set destination based on country
+  // Auto-set destination based on country
   if (country === 'PH') {
     selectDestination('national');
     destinationTypeLocked = true;
@@ -811,16 +840,18 @@ function goToStep2() {
     updateDestinationLockStyles();
   }
 
-  // render cart items in step 2
+  // Render cart items in step 2
   renderCheckoutItems();
 
-  // sync checkout subtotal/total
+  // Sync checkout subtotal/total
   updateCheckoutSummary();
 
   showStep(2);
 }
 
-/* phone tel validation */
+// ============================================
+// PHONE VALIDATION WITH REAL-TIME FEEDBACK
+// ============================================
 function getPhoneValidationMessage(country) {
   const messages = {
     'Philippines': 'Enter 11 digits and start with 09 for Philippines.',
@@ -875,7 +906,7 @@ function updatePhoneValidationUI(phone, country, showToastOnError = false) {
   return valid;
 }
 
-/* tel phone first number validation */
+// Real-time phone validation
 $('customerPhone')?.addEventListener('input', (e) => {
   const rawValue = e.target.value;
   const country = $('phoneCountry').value;
@@ -935,7 +966,7 @@ function validateNameInput(value) {
 }
 
 $('firstName')?.addEventListener('input', (e) => {
-  // remove invalid chars
+  // Remove invalid chars on the fly
   const clean = e.target.value.replace(/[^A-Za-zÀ-ÖØ-öø-ÿ\s\-']/g, '');
   if (e.target.value !== clean) {
     e.target.value = clean;
@@ -974,7 +1005,7 @@ $('agreePolicy')?.addEventListener('change', () => {
   }
 });
 
-// show toast if checkout button is clicked while agree is unchecked 
+// Show toast if checkout button is clicked while agree is unchecked (belt-and-suspenders)
 $('placeOrderBtn')?.addEventListener('click', (e) => {
   if (!$('agreePolicy')?.checked) {
     e.preventDefault();
@@ -1035,20 +1066,27 @@ document.addEventListener('keydown', e => {
   }
 });
 
-/* searchable location bcs of json */
+// ============================================
+// SEARCHABLE LOCATION SYSTEM (PH JSON ALIGNED)
+// ============================================
+
+// Global state for location data
 let locationConfig = null;
 let selectedCountryConfig = null;
 let allPhCities = [];     // full ph_cities.json array
-let allPhBarangays = [];  // full ph_barangays.json array
+let allPhBarangays = [];  // full ph_barangays.json array (lazy-loaded)
 let selectedCityObj = null;
 let selectedBrgyObj = null;
 let selectedRegion = '';
-let regionData = [];      // for ph regions
+let regionData = [];      // for PH regions
 
-/* initializationch */
+/**
+ * Initialize the location system by loading country.json
+ * and populating the country dropdown.
+ */
 async function initLocationSystem() {
     try {
-        const response = await fetch('../JSON Files/country.json');
+        const response = await fetch('./JSON Files/country.json');
         if (!response.ok) throw new Error('Failed to fetch country.json');
         
         const data = await response.json();
@@ -1072,7 +1110,9 @@ async function initLocationSystem() {
     }
 }
 
-/* handle sudden country change*/
+/**
+ * Handle country change
+ */
 async function loadCountryData() {
     const countryCode = $('country').value;
     const citySearch = $('citySearch');
@@ -1084,7 +1124,7 @@ async function loadCountryData() {
     const barangayValue = $('barangayValue');
     const barangayCodeValue = $('barangayCodeValue');
     
-    // reset all fields
+    // Reset all fields
     citySearch.value = '';
     cityValue.value = '';
     if (cityCodeValue) cityCodeValue.value = '';
@@ -1103,7 +1143,7 @@ async function loadCountryData() {
     selectedRegion = '';
     regionData = [];
     
-    // reset shipping selections
+    // Reset shipping selections
     destinationType = null;
     deliveryType = null;
     selectedShippingMethod = null;
@@ -1127,7 +1167,7 @@ async function loadCountryData() {
 
     selectedCountryConfig = locationConfig ? locationConfig.find(c => c.code === countryCode) : null;
     
-    // update labels
+    // Update labels
     const cityLabel = $('cityLabel');
     if (cityLabel && selectedCountryConfig && selectedCountryConfig.addressFormat && selectedCountryConfig.addressFormat.city) {
         cityLabel.textContent = selectedCountryConfig.addressFormat.city + ' *';
@@ -1140,21 +1180,21 @@ async function loadCountryData() {
         regionLabel.textContent = selectedCountryConfig.addressFormat.region + (selectedCountryConfig.code === 'PH' ? ' *' : '');
     }
 
-    // toggle barangay field visibility
+    // Toggle Barangay field visibility
     if (selectedCountryConfig && selectedCountryConfig.hasBarangay) {
         barangayGroup.style.display = 'block';
     } else {
         barangayGroup.style.display = 'none';
     }
 
-    // for ph: auto-assign national shipping and load region selector
+    // For PH: auto-assign national shipping and load region selector
     if (countryCode === 'PH') {
         destinationTypeLocked = true;
         selectDestination('national');
         updateDestinationLockStyles();
         if (regionGroup) regionGroup.style.display = 'block';
         try {
-            const citySource = selectedCountryConfig ? selectedCountryConfig.citySource : '../JSON Files/ph_cities.json';
+            const citySource = selectedCountryConfig ? selectedCountryConfig.citySource : './JSON/ph_cities.json';/*SOURCE*/
             const response = await fetch(citySource);
             if (!response.ok) throw new Error('Failed to load cities');
             const rawData = await response.json();
@@ -1209,12 +1249,14 @@ async function loadCountryData() {
     updatePaymentMethodVisibility();
 }
 
-/* load cities in ph */
+/**
+ * Load cities for selected PH region
+ */
 function loadCitiesForRegion() {
     const regionSelect = $('regionSearch');
     selectedRegion = regionSelect ? regionSelect.value : '';
     
-    // reset city + barangay fields
+    // Reset city + barangay fields
     $('citySearch').value = '';
     $('cityValue').value = '';
     if ($('cityCodeValue')) $('cityCodeValue').value = '';
@@ -1238,7 +1280,7 @@ function loadCitiesForRegion() {
         barangayDropdown.classList.remove('active');
     }
     
-    // filter cities by region
+    // Filter cities by region
     cityData = selectedRegion ? allPhCities.filter(c => c.regDesc === selectedRegion) : [];
 
     if (!selectedRegion && cityDropdown) {
@@ -1251,7 +1293,9 @@ function loadCitiesForRegion() {
     }
 }
 
-/* filter and search as they type gantu gantu */
+/**
+ * Search and filter cities as user types
+ */
 $('citySearch')?.addEventListener('input', (e) => {
     const query = e.target.value.toLowerCase().trim();
     const dropdown = $('cityDropdown');
@@ -1292,6 +1336,9 @@ $('citySearch')?.addEventListener('input', (e) => {
     }
 });
 
+/**
+ * Search and filter regions as user types
+ */
 $('regionSearch')?.addEventListener('input', (e) => {
     const query = e.target.value.toLowerCase().trim();
     const dropdown = $('regionDropdown');
@@ -1319,7 +1366,9 @@ $('regionSearch')?.addEventListener('input', (e) => {
     }
 });
 
-/* select city from dropdown */
+/**
+ * Select a city from the dropdown
+ */
 async function selectCity(name, code, regDesc) {
     const citySearch = $('citySearch');
     const cityValue = $('cityValue');
@@ -1331,14 +1380,14 @@ async function selectCity(name, code, regDesc) {
     if (cityCodeValue) cityCodeValue.value = code;
     dropdown.classList.remove('active');
     
-    // store selected city object
+    // Store selected city object
     const cityRegion = selectedCountryConfig?.code === 'UK'
         ? (cityData.find(c => (c.citymunCode || c.code || '') === code)?.region || regDesc)
         : (cityData.find(c => (c.citymunCode || c.code || '') === code)?.regDesc || cityData.find(c => (c.citymunCode || c.code || '') === code)?.region || cityData.find(c => (c.citymunCode || c.code || '') === code)?.state || regDesc);
 
     selectedCityObj = cityData.find(c => (c.citymunCode || c.code || '') === code) || { citymunDesc: name, citymunCode: code, regDesc: cityRegion };
 
-    // auto-fill postal code from city or suggested format
+    // Auto-fill postal code from city or suggested format
     const postalField = $('postalCode');
     const postalValueField = $('postalValue');
     let postalSuggestion = selectedCityObj.postalCode || '';
@@ -1383,17 +1432,17 @@ async function selectCity(name, code, regDesc) {
         postalValueField.value = postalSuggestion;
     }
 
-    // update region
+    // Update region
     selectedRegion = cityRegion;
     if ($('regionValue')) $('regionValue').value = cityRegion || '';
     
-    // re-render delivery options if destination selected
+    // Re-render delivery options if destination selected
     if (destinationType) {
         renderDeliveryOptions();
         updateCartSummary();
     }
 
-    // if country has barangays (like PH), load them based on city code
+    // If country has barangays (like PH), load them based on city code
     if (selectedCountryConfig && selectedCountryConfig.hasBarangay && code) {
         // Reset barangay
         if ($('barangaySearch')) $('barangaySearch').value = '';
@@ -1404,7 +1453,9 @@ async function selectCity(name, code, regDesc) {
     }
 }
 
-/* select region from dropdown */
+/**
+ * Select a region from the dropdown
+ */
 function selectRegion(name) {
     const regionSearch = $('regionSearch');
     const dropdown = $('regionDropdown');
@@ -1434,12 +1485,14 @@ function updatePaymentMethodVisibility() {
     }
 }
 
-/* load brgy from specific/selected city */
+/**
+ * Load barangays for a specific city (Philippines)
+ */
 async function loadBarangayData(citymunCode) {
     try {
         const brgySource = selectedCountryConfig ? selectedCountryConfig.barangaySource : 'ph_barangays.json';
         
-        // if it haven't loaded all barangays yet, load them now rnch
+        // If we haven't loaded all barangays yet, load them now
         if (allPhBarangays.length === 0) {
             const response = await fetch(brgySource);
             if (!response.ok) throw new Error('Failed to load barangay data');
@@ -1447,10 +1500,10 @@ async function loadBarangayData(citymunCode) {
             allPhBarangays = Array.isArray(rawData) ? rawData : (rawData.barangays || []);
         }
         
-        // filter barangays by citymuncode
+        // Filter barangays by citymunCode
         barangayData = allPhBarangays.filter(b => b.citymunCode === citymunCode);
         
-        // reset brgy fields and dropdown state
+        // Reset barangay fields and dropdown state
         if ($('barangaySearch')) $('barangaySearch').value = '';
         if ($('barangayValue')) $('barangayValue').value = '';
         const barangayDropdown = $('barangayDropdown');
@@ -1465,7 +1518,9 @@ async function loadBarangayData(citymunCode) {
     }
 }
 
-/* search and filter brgy as user type.... */
+/**
+ * Search and filter barangays as user types
+ */
 $('barangaySearch')?.addEventListener('input', (e) => {
     const query = e.target.value.toLowerCase().trim().replace(/brgy/gi, 'Barangay');
     const dropdown = $('barangayDropdown');
@@ -1502,6 +1557,9 @@ $('barangaySearch')?.addEventListener('input', (e) => {
     }
 });
 
+/**
+ * Select a barangay from the dropdown
+ */
 function selectBarangay(name, code) {
     $('barangaySearch').value = name;
     $('barangayValue').value = name;
@@ -1517,14 +1575,18 @@ function selectBarangay(name, code) {
     }
 }
 
-/* closed after clicking outside */
+/**
+ * Close dropdowns when clicking outside
+ */
 document.addEventListener('click', (e) => {
     if (!e.target.closest('.searchable-input')) {
         $$('.search-dropdown').forEach(dd => dd.classList.remove('active'));
     }
 });
 
-/* check if typed value matches an item in the list */
+/**
+ * Validation helper: check if typed value matches an item in the list
+ */
 function validateLocationInput() {
     const country = $('country').value;
     const cityInput = $('citySearch').value.trim();
@@ -1536,7 +1598,7 @@ function validateLocationInput() {
 
     let isValid = true;
 
-    // check if city exists in loaded data
+    // Check if city exists in loaded data
     const validCity = cityData.find(c => (c.citymunDesc || c.name || '').toLowerCase() === cityInput.toLowerCase());
     if (validCity) {
         cityVal.value = validCity.citymunDesc || validCity.name;
@@ -1549,7 +1611,7 @@ function validateLocationInput() {
         isValid = false;
     }
 
-    // check if barangay exists if required
+    // Check if barangay exists if required
     if (selectedCountryConfig?.hasBarangay) {
         const validBrgy = barangayData.find(b => (b.brgyDesc || '').toLowerCase() === (brgyInput || '').toLowerCase());
         if (validBrgy) {
@@ -1567,13 +1629,17 @@ function validateLocationInput() {
     return isValid;
 }
 
-// initialize
+// Initialize on load
 document.addEventListener('DOMContentLoaded', () => {
   initLocationSystem();
   updatePaymentMethodVisibility();
 });
 
-/* shipping and voucher system */
+
+// ============================================
+// SHIPPING & VOUCHER SYSTEM
+// ============================================
+
 function updateDestinationLockStyles() {
     const national = $('destNational');
     const international = $('destInternational');
@@ -1590,26 +1656,26 @@ function selectDestination(type) {
     if (destinationTypeLocked && destinationType && type !== destinationType) return;
     destinationType = type;
     
-    // update ui
+    // Update UI
     $('destNational').classList.toggle('selected', type === 'national');
     $('destInternational').classList.toggle('selected', type === 'international');
     updateDestinationLockStyles();
     
-    // show delivery type options
+    // Show delivery type options
     $('deliveryTypeGroup').style.display = 'block';
     
-    // reset delivery type
+    // Reset delivery type
     deliveryType = null;
     selectedShippingMethod = null;
     shippingFee = 0;
     
-    // render delivery options
+    // Render delivery options
     renderDeliveryOptions();
     updateCartSummary();
     updateCheckoutSummary();
     validateCurrencyShippingMatch({ forceToast: true });
     
-    // hide shipping error
+    // Hide shipping error
     $('shippingError').classList.remove('show');
 }
 
@@ -1730,7 +1796,9 @@ function removeVoucher() {
   updateCheckoutSummary();
 }
 
-/* payment system */
+// ============================================
+// PAYMENT SYSTEM
+// ============================================
 async function selectPayment(method) {
   if ((method === 'cod' || method === 'gcash') && selectedCountryConfig?.code !== 'PH') {
     return;
@@ -1891,7 +1959,7 @@ async function processPayment() {
     }
   }
 
-  // generate order and show confirmation
+  // Generate order and show confirmation
   completeOrder();
 }
 
@@ -1899,7 +1967,7 @@ function completeOrder() {
   const orderID = generateOrderID();
   orderData.orderID = orderID;
   
-  // calculate final totals
+  // Calculate final totals
   const cart = getCart();
   const selectedItems = cart.filter(item => item.selected);
   const subtotal = calculateTotal(cart);
@@ -1923,17 +1991,17 @@ function completeOrder() {
   orderData.total = total;
   orderData.voucher = voucherCode;
   
-  // display order details
+  // Display order details
   $('orderIdDisplay').textContent = orderID;
   $('confirmationEmail').textContent = orderData.email;
   
-  // populate receipt
+  // Populate receipt
   populateReceipt();
   
   showStep(3);
   startTrackingAnimation();
   
-  // remove selected items from cart
+  // Remove selected items from cart
   let newCart = cart.filter(item => !item.selected);
   localStorage.setItem('cssp-cart', JSON.stringify(newCart));
   updateCartBadge();
@@ -1945,7 +2013,7 @@ function completeOrder() {
 function populateReceipt() {
   const receipt = $('receiptDetails');
   
-  // items html - include category, size, qty, unit price, subtotal
+  // Items HTML - include category, size, qty, unit price, subtotal
   let itemsHTML = orderData.items.map(item => `
     <div class="receipt-row" style="flex-direction:column; align-items:flex-start; gap:4px;">
       <div style="width:100%; display:flex; justify-content:space-between; font-weight:700;">
@@ -2184,7 +2252,11 @@ function startTrackingAnimation(stage = 2) {
   }
 }
 
-const { jsPDF } = window.jspdf;
+// ============================================
+// PDF RECEIPT GENERATION
+// ============================================
+function downloadReceipt() {
+  const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
   
   // Helper function for PDF-safe price formatting
@@ -2290,6 +2362,8 @@ const { jsPDF } = window.jspdf;
   // Save PDF
   doc.save(`CSSP-Receipt-${orderData.orderID}.pdf`);
   showToast('success', 'PDF Downloaded', 'Receipt saved successfully');
+}
+
 
 function finishCheckout() {
   closeCheckout();
@@ -2352,9 +2426,18 @@ function resetCheckoutForm() {
   orderData = {};
 }
 
- /* back to top */
- $('backToTop').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-      
+// ============================================
+// HEADER SCROLL EFFECT
+// ============================================
+const header = document.querySelector('.site-header');
+window.addEventListener('scroll', () => {
+  header.classList.toggle('scrolled', window.scrollY > 100);
+});
+
+// ============================================
+// INITIALIZATION
+// ============================================
 updateCartBadge();
 updateCurrencyDisplay();
 renderCart();
+    
