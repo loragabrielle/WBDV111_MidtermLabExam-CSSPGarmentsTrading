@@ -25,7 +25,6 @@ window.addEventListener('scroll', () => {
   $('backToTop').classList.toggle('visible', window.scrollY > 300);
 }, { passive: true });
 
-
 /* ── MEGA MENU (click-based, outside-click closes) ── */
 const megaItems = document.querySelectorAll('.nav-item.has-mega'); 
 
