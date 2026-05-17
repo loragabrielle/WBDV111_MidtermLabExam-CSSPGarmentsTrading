@@ -182,14 +182,22 @@ $$('#currencyDropdown li').forEach(li => {
 });
 
 /* ── CART (LocalStorage) ──────────────────────── */
-function getCart() { return JSON.parse(localStorage.getItem('cssp_cart') || '[]'); }
-function saveCart(c) { localStorage.setItem('cssp_cart', JSON.stringify(c)); }
-function updateCartBadge() {
-  const n = getCart().reduce((s,i) => s + i.qty, 0);
-  $('cartBadge').textContent = n;
-  $('cartBadge').style.transform = 'scale(1.5)';
-  setTimeout(() => $('cartBadge').style.transform = '', 200);
+function getCart() {
+  const cart = localStorage.getItem('cssp-cart');
+  return cart ? JSON.parse(cart) : [];
 }
+
+function updateCartBadge() {
+  const cart = getCart();
+
+  const totalQty = cart.reduce((sum, item) => {
+    return sum + (Number(item.quantity) || 0);
+  }, 0);
+
+  const badge = document.getElementById('cartBadge');
+  if (badge) badge.textContent = totalQty;
+}
+
 updateCartBadge();
 
 $$('.quick-add').forEach(btn => {
