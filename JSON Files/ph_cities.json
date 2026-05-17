@@ -16,6 +16,7 @@
 {"citymunCode":"133915","citymunDesc":"San Juan City","regDesc":"NCR","postalCode":"1500"},
 {"citymunCode":"133916","citymunDesc":"Taguig City","regDesc":"NCR","postalCode":"1630"},
 {"citymunCode":"133917","citymunDesc":"Valenzuela City","regDesc":"NCR","postalCode":"1440"},
+
 {"citymunCode":"041001","citymunDesc":"Batangas City","regDesc":"CALABARZON","postalCode":"4200"},
 {"citymunCode":"041002","citymunDesc":"Bauan","regDesc":"CALABARZON","postalCode":"4201"},
 {"citymunCode":"041003","citymunDesc":"Calaca","regDesc":"CALABARZON","postalCode":"4212"},
@@ -71,7 +72,7 @@
 {"citymunCode":"043402","citymunDesc":"Bay","regDesc":"CALABARZON","postalCode":"4033"},
 {"citymunCode":"043403","citymunDesc":"Biñan City","regDesc":"CALABARZON","postalCode":"4024"},
 {"citymunCode":"043404","citymunDesc":"Cabuyao City","regDesc":"CALABARZON","postalCode":"4025"},
-{"citymunCode":"043405","citymunDesc":"Calamba City","regDesc":"CALABARZON","postalCode":"4027"},
+{"citymunCode":"043405","citymunDesc":"Calamba City","regDesc":"CALABARZON","postalCode":"4027"}, 
 {"citymunCode":"043406","citymunDesc":"Calauan","regDesc":"CALABARZON","postalCode":"4012"},
 {"citymunCode":"043407","citymunDesc":"Cavinti","regDesc":"CALABARZON","postalCode":"4013"},
 {"citymunCode":"043408","citymunDesc":"Famy","regDesc":"CALABARZON","postalCode":"4021"},

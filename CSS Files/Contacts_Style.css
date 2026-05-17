@@ -1,3 +1,4 @@
+/* FONT FROM DAFONT.COM - BEBAS NEUE & CREATO DISPLAY*/
 @font-face {
   font-family: 'Bebas Neue Custom';
   src: url(../Fonts/Bebas\ Neue/BebasNeue-Regular.woff2) format('woff2'),
@@ -16,7 +17,6 @@
   src: url(../Fonts/Creato\ Display/CreatoDisplay-Bold.otf) format('opentype');
   font-weight: 700;
 }
-
 
 /* shortcut color ------  var(--name)*/
 :root {
@@ -176,20 +176,16 @@ h1, h2, h3, h4 {
     padding: 9px 0;
 }
 
-.pre-header:hover .ticker-track {
-    animation-play-state: paused;
-}
-
 .ticker-track {
     display: inline-flex;
-    gap: 56px;
-    animation: ticker 30s linear infinite;
+    gap: 60px;
+    animation: ticker 28s linear infinite;
 }
 
 .ticker-track span {
-    font-size: 0.78rem;
-    font-weight: 600;
-    letter-spacing: 0.06em;
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     flex-shrink: 0;
 }
@@ -268,10 +264,9 @@ h1, h2, h3, h4 {
 
 .logo-text span {
     display: block;
-    font-size: 0.65rem;
     font-family: 'Creato Display', sans-serif;
     font-size: 0.62rem;
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--text-muted);
@@ -500,7 +495,7 @@ h1, h2, h3, h4 {
     width: 17px; 
     height: 17px;
     background: var(--red);
-    color: white;
+    color: var(--white);
     font-size: 0.58rem;
     font-weight: 700;
     border-radius: 50%;
@@ -663,11 +658,6 @@ h1, h2, h3, h4 {
     transition: var(--transition);
 }
 
-.search-bar button:hover {
-    background: var(--yellow);
-    color: var(--navy);
-}
-
 /* LIVE RESULT - SEARCH */
 .search-results {
     position: absolute;
@@ -695,7 +685,7 @@ h1, h2, h3, h4 {
     padding: 10px 16px;
     border-bottom: 1px solid var(--border);
     cursor: pointer;
-    transition: var(--trans);
+    transition: var(--transition);
 }
 
 .search-result-item:last-child {
@@ -989,35 +979,101 @@ textarea {
     padding: 12px 14px !important;
 }
 
-.custom-notif {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    background: #163248;
-    color: white;
-    padding: 15px 25px;
-    border-radius: 40px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-    transform: translateY(200%);
-    transition: transform 0.5s ease;
-    z-index: 10000;
+/* Toast notification */
+#toastContainer {
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 480px;
+  width: 90%;
 }
 
-.custom-notif.show {
-    transform: translateY(0);
+.toast {
+  pointer-events: auto;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px 20px;
+  background: var(--surface);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-100px);
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
-.notifIcon {
-    width: 20px;
-    height: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    font-size: 10px;
+.toast.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.toast.success {
+  border-left: 4px solid var(--green);
+}
+
+.toast.error {
+  border-left: 4px solid var(--red);
+}
+
+.toast-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 0.85rem; 
+}
+
+.toast.success .toast-icon {
+  background: var(--green);
+  color: var(--white);
+}
+
+.toast.error .toast-icon {
+  background: var(--red);
+  color: var(--white); 
+}
+
+.toast-content {
+  flex: 1;
+  text-align: left; 
+}
+
+.toast-title {
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin-bottom: 4px;
+  color: var(--text);
+}
+
+.toast-message {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.toast-close {
+  background: none;
+  border: none;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  transition: var(--transition);
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.toast-close:hover {
+  color: var(--text);
 }
 
 /* footer */
@@ -1254,7 +1310,7 @@ textarea {
 
     .contact-form input, .contact-form textarea {
         padding: 10px 12px;
-        font-size: 16px;
+        font-size: 14px;
     }
 
     textarea {
@@ -1392,14 +1448,5 @@ textarea {
 
     .map-container {
         height: 140px;
-    }
-
-    .contact-form input, .contact-form textarea {
-        padding: 10px 12px;
-        font-size: 14px;
-    }
-
-    textarea {
-        min-height: 80px;
     }
 }
