@@ -226,7 +226,6 @@ $('cartIconBtn').addEventListener('click', () => {
 });
 
 
-
 /* ── CONTACTS NOTIF ────────────────────────── */
 function showNotif(message, isSuccess = false) { 
   const notif = $('customNotif');  
