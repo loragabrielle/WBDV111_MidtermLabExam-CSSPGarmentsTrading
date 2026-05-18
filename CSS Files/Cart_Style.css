@@ -1781,6 +1781,10 @@ body > * {
   text-align: right;
 }
 
+[data-theme="dark"] .summary-item-price {
+  color: var(--yellow);
+}
+
 .cart-summary .btn-primary,
 .cart-summary .btn-ghost {
   width: 100%;
