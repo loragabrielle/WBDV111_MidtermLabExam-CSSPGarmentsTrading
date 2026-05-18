@@ -133,18 +133,18 @@ h1, h2, h3, h4 {
 
 /* common button styles */
 .btn-primary {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 14px 28px;
-  background: var(--navy);
-  color: var(--yellow);
-  border-radius: 50px;
-  font-weight: 700;
-  font-size: 0.95rem;
-  letter-spacing: 0.05em;
-  transition: var(--transition);
-  border: 2px solid var(--navy);
+    display: inline-flex;
+    flex-direction: row;
+    gap: 8px;
+    padding: 14px 28px;
+    background: var(--navy);
+    color: var(--yellow);
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    transition: var(--transition);
+    align-items: center;
+    justify-content: center;
 }
 
 .btn-primary:hover {
@@ -166,6 +166,7 @@ h1, h2, h3, h4 {
   font-size: 0.95rem;
   border: 2px solid var(--navy);
   transition: var(--transition);
+  justify-content: center;
 }
 
 .btn-ghost:hover {
@@ -1291,6 +1292,22 @@ body > * {
 }
 
 @media (max-width: 680px) {
+  .cart-item-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 100%;
+    gap: 10px;
+
+    margin-top: 10px;
+    padding-top: 10px;
+
+    border-top: 1px solid rgba(0, 0, 0, 0.04);
+
+    flex-wrap: nowrap; /* key: forces single line */
+  }
+  
   .cart-item {
     display: grid;
     grid-template-columns: auto 1fr;
@@ -1355,7 +1372,7 @@ body > * {
     border-top: 1px solid rgba(0, 0, 0, 0.04); 
     padding-top: 10px;
 
-     .quantity-controls {
+  .quantity-controls {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -1432,11 +1449,12 @@ body > * {
   border-radius: var(--radius);
   margin-bottom: 20px;
   box-shadow: var(--shadow);
+  flex-direction: row;
 }
 
 .select-all-wrapper {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 12px;
 }
 
@@ -1536,17 +1554,18 @@ body > * {
   color: var(--yellow);
 }
 
+/*
 .cart-item-actions {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-end;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: 12px;
   justify-self: end;
   width: 100%;
   max-width: 190px;
-  padding-bottom: 4px;
+  padding-bottom: 4px;new*/
 }
 
 .quantity-controls {
@@ -1760,6 +1779,10 @@ body > * {
   color: var(--navy);
   min-width: 96px;
   text-align: right;
+}
+
+[data-theme="dark"] .summary-item-price {
+  color: var(--yellow);
 }
 
 .cart-summary .btn-primary,
