@@ -766,6 +766,31 @@
         </button>
     
         <script src="JS Files/Products_Script.js"></script>
+        
+        <script>
+            const backToTop = document.querySelector(".back-to-top");
+
+            function toggleBackToTop() {
+            const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+
+            if (scrollY > 300) {
+                backToTop.classList.add("visible");
+            } else {
+                backToTop.classList.remove("visible");
+            }
+            }
+
+            window.addEventListener("scroll", toggleBackToTop);
+
+            toggleBackToTop();
+
+            backToTop.addEventListener("click", () => {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+            });
+        </script>
 
     </body>
 </html>
