@@ -1292,6 +1292,22 @@ body > * {
 }
 
 @media (max-width: 680px) {
+  .cart-item-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 100%;
+    gap: 10px;
+
+    margin-top: 10px;
+    padding-top: 10px;
+
+    border-top: 1px solid rgba(0, 0, 0, 0.04);
+
+    flex-wrap: nowrap; /* key: forces single line */
+  }
+  
   .cart-item {
     display: grid;
     grid-template-columns: auto 1fr;
