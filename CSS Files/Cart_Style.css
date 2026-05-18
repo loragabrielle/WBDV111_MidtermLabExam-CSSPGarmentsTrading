@@ -133,18 +133,18 @@ h1, h2, h3, h4 {
 
 /* common button styles */
 .btn-primary {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 14px 28px;
-  background: var(--navy);
-  color: var(--yellow);
-  border-radius: 50px;
-  font-weight: 700;
-  font-size: 0.95rem;
-  letter-spacing: 0.05em;
-  transition: var(--transition);
-  border: 2px solid var(--navy);
+    display: inline-flex;
+    flex-direction: row;
+    gap: 8px;
+    padding: 14px 28px;
+    background: var(--navy);
+    color: var(--yellow);
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    transition: var(--transition);
+    align-items: center;
+    justify-content: center;
 }
 
 .btn-primary:hover {
@@ -166,6 +166,7 @@ h1, h2, h3, h4 {
   font-size: 0.95rem;
   border: 2px solid var(--navy);
   transition: var(--transition);
+  justify-content: center;
 }
 
 .btn-ghost:hover {
